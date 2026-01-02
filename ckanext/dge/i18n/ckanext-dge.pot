@@ -1,5 +1,5 @@
 # Translations template for ckanext-dge.
-# Copyright (C) 2022 Entidad Pública Empresarial Red.es
+# Copyright (C) 2025 Entidad Pública Empresarial Red.es
 #
 # This file is part of "dge (datos.gob.es)".
 #
@@ -16,35 +16,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-dge 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-01-21 10:47+0000\n"
+"POT-Creation-Date: 2024-08-14 10:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Generated-By: Babel 2.15.0\n"
 
-#: ckanext/dge/templates/package/resources.html:18
-#: ckanext/dge/templates/package/snippets/dge_resources.html:18
-#: ckanext/dge/templates/package/snippets/dge_resources_list.html:31
-#, python-format
-msgid ""
-" <p class=\"empty\">This dataset has no data, <a href=\"%(url)s\">why not add"
-" some?</a></p> "
-msgstr ""
-
-#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:31
+#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:46
 msgid "0 Datasets"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:51 ckanext/dge/templates/header.html:157
-#: ckanext/dge/templates/header.html:159
+#: ckanext/dge/templates/snippets/dge_facet_search_operator.html:66
+msgid "AND"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:59
+#: ckanext/dge/templates/header.html:162
+#: ckanext/dge/templates/header.html:164
 #: ckanext/dge/templates/apidata/apidata.html:37
 #: ckanext/dge/templates/apidata/apidata.html:44
 #: ckanext/dge/templates/apidata/apidata.html:47
@@ -65,12 +60,21 @@ msgstr ""
 msgid "About Aporta initiative"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:177
-msgid "Accesibility"
+#: ckanext/dge/templates/header.html:229
+msgid "About us"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:241
+msgid "Accessibility"
 msgstr ""
 
 #: ckanext/dge/templates/package/snippets/dge_resource_item.html:69
 msgid "Access"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_edp_footer.html:4
+#: ckanext/dge/templates/snippets/dge_edp_footer.html:6
+msgid "Access to European Data Portal (Spanish catalogs)"
 msgstr ""
 
 #: ckanext/dge/templates/apidata/apidata.html:57
@@ -95,16 +99,17 @@ msgstr ""
 msgid "Additional Info"
 msgstr ""
 
-#: ckanext/dge/plugin.py:156 ckanext/dge/plugin.py:179
+#: ckanext/dge/plugin.py:176 ckanext/dge/plugin.py:203
 #: ckanext/dge/templates/package/snippets/dge_owner.html:19
 msgid "Administration level"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:75 ckanext/dge/templates/header.html:190
+#: ckanext/dge/templates/footer.html:154
+#: ckanext/dge/templates/header.html:235
 msgid "Advise and support"
 msgstr ""
 
-#: ckanext/dge/helpers.py:419
+#: ckanext/dge/helpers.py:480
 msgid "Annual"
 msgstr ""
 
@@ -120,7 +125,11 @@ msgstr ""
 msgid "Aporta awards"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:40 ckanext/dge/templates/header.html:140
+#: ckanext/dge/templates/header.html:202
+msgid "Challenges"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:141
 msgid "Aporta challenge"
 msgstr ""
 
@@ -129,8 +138,8 @@ msgstr ""
 msgid "Aporta initiative"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:62 ckanext/dge/templates/header.html:177
-#: ckanext/dge/templates/header.html:243
+#: ckanext/dge/templates/footer.html:69
+#: ckanext/dge/templates/header.html:163
 msgid "Applications"
 msgstr ""
 
@@ -142,19 +151,20 @@ msgstr ""
 msgid "Base url"
 msgstr ""
 
-#: ckanext/dge/helpers.py:419
+#: ckanext/dge/helpers.py:480
 msgid "Biennial"
 msgstr ""
 
-#: ckanext/dge/helpers.py:420
+#: ckanext/dge/helpers.py:481
 msgid "Bimonthly"
 msgstr ""
 
-#: ckanext/dge/helpers.py:421
+#: ckanext/dge/helpers.py:482
 msgid "Biweekly"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:114 ckanext/dge/templates/header.html:222
+#: ckanext/dge/templates/footer.html:138
+#: ckanext/dge/templates/header.html:191
 msgid "Blog"
 msgstr ""
 
@@ -172,19 +182,19 @@ msgstr ""
 msgid "Catalog Errors/Warnings"
 msgstr ""
 
-#: ckanext/dge/plugin.py:153 ckanext/dge/plugin.py:176
+#: ckanext/dge/plugin.py:173 ckanext/dge/plugin.py:200
 msgid "Category"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:182
+#: ckanext/dge/templates/footer.html:262
 msgid "Certificado de calidad ISO-9001:2015"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:183
+#: ckanext/dge/templates/footer.html:269
 msgid "Certificado de calidad UNE-ISO/IEC 27001:2014"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:184
+#: ckanext/dge/templates/footer.html:255
 msgid "Certificado de conformidad con el Esquema Nacional de Seguridad"
 msgstr ""
 
@@ -192,7 +202,7 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:255
+#: ckanext/dge/templates/header.html:313
 msgid "Comments"
 msgstr ""
 
@@ -200,15 +210,52 @@ msgstr ""
 msgid "Configuration"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:162
+#: ckanext/dge/templates/header.html:232
+msgid "What we do"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:235
+msgid "Metrics and impact"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:238
+msgid "Presencia en RRSS EN"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:241
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:128
+msgid "FAQs"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:244
+msgid "Technology"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:247
+#: ckanext/dge/templates/footer.html:220
 msgid "Contact"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:158
+#: ckanext/dge/templates/footer.html:37
+msgid "Contacta con nosotros EN"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:48
+msgid "Información de interés EN"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:250
+msgid "Site map"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:215
 msgid "Contact and more information"
 msgstr ""
 
-#: ckanext/dge/helpers.py:424
+#: ckanext/dge/helpers.py:485
 msgid "Continuous"
 msgstr ""
 
@@ -224,11 +271,11 @@ msgstr ""
 msgid "Create Harvest Source"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:296
+#: ckanext/dge/templates/header.html:354
 msgid "Create a new user account"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:296
+#: ckanext/dge/templates/header.html:354
 msgid "Create new account"
 msgstr ""
 
@@ -240,21 +287,78 @@ msgstr ""
 msgid "Culture"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:100 ckanext/dge/templates/header.html:197
+#: ckanext/dge/templates/footer.html:94
+#: ckanext/dge/templates/header.html:205
 msgid "Culture and Leisure"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:85 ckanext/dge/templates/header.html:104
-#: ckanext/dge/templates/header.html:200
-msgid "Current News"
+#: ckanext/dge/templates/footer.html:118
+#: ckanext/dge/templates/header.html:105
+#: ckanext/dge/templates/header.html:206
+msgid "Current news"
 msgstr ""
 
-#: ckanext/dge/helpers.py:422
+
+#: ckanext/dge/templates/header.html:133
+msgid "Data"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:136
+msgid "Open data catalogue"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:139
+msgid "Data request"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:142
+msgid "Support for publishers"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:145
+msgid "Safe environments"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:151
+msgid "Data spaces"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:157
+msgid "Community"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:198
+msgid "Knowledge"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:195
+msgid "Data exercises"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:199
+msgid "Infographics"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:207
+msgid "Reports and guides"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:211
+msgid "Github datosgob"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:215
+msgid "Aporta meetings"
+msgstr ""
+
+#: ckanext/dge/helpers.py:483
 msgid "Daily"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:47 ckanext/dge/templates/header.html:99
-#: ckanext/dge/templates/header.html:148 ckanext/dge/templates/header.html:320
+#: ckanext/dge/templates/footer.html:47
+#: ckanext/dge/templates/header.html:99
+#: ckanext/dge/templates/header.html:148
+#: ckanext/dge/templates/header.html:378
 #: ckanext/dge/templates/apidata/apidata.html:28
 #: ckanext/dge/templates/apidata/apidata.html:46
 #: ckanext/dge/templates/package/read_base.html:27
@@ -265,12 +369,21 @@ msgstr ""
 #: ckanext/dge/templates/package/snippets/dge_package_breadcrumb_content.html:1
 #: ckanext/dge/templates/yasgui/sparql.html:24
 #: ckanext/dge/templates/yasgui/sparql.html:42
+#: ckanext/dge/templates/static/default_spatial_coverage.html:24
+#: ckanext/dge/templates/static/default_spatial_coverage.html:43
+#: ckanext/dge/templates/static/default_theme.html:24
+#: ckanext/dge/templates/static/default_theme.html:43
 msgid "Data Catalog"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:78 ckanext/dge/templates/header.html:193
-#: ckanext/dge/templates/header.html:249
+#: ckanext/dge/templates/footer.html:157
+#: ckanext/dge/templates/header.html:238
+#: ckanext/dge/templates/header.html:307
 msgid "Data requests"
+msgstr ""
+
+#: ckanext/dge/views/package.py:274 ckanext/dge/views/package.py:307
+msgid "Dataset not found"
 msgstr ""
 
 #: ckanext/dge/templates/package/read_base.html:36
@@ -292,6 +405,8 @@ msgstr ""
 #: ckanext/dge/templates/snippets/dge_source_item.html:50
 #: ckanext/dge/templates/source/read.html:5
 #: ckanext/dge/templates/source/snippets/dge_additional_info.html:5
+#: ckanext/dge/templates/static/default_spatial_coverage.html:44
+#: ckanext/dge/templates/static/default_theme.html:44
 msgid "Datasets"
 msgstr ""
 
@@ -305,15 +420,11 @@ msgid "Datos.gob.es. Reuse the public information . Go home"
 msgstr ""
 
 #: ckanext/dge/templates/header.html:36
-msgid "Ministry of Economy and Business"
+msgid "First Vice Presidency of the Government"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:37
-msgid "Go to Ministry of Economy and Business"
-msgstr ""
-
-#: ckanext/dge/templates/base.html:7
-msgid "Datos.gob.es. Reuses the public data"
+#: ckanext/dge/templates/base.html:8
+msgid "Open data from the Spanish government for the opening of public information and the development of advanced data-driven services. It is promoted by the Ministry for Digital Transformation and Public Service and the Public Business Entity Red.es."
 msgstr ""
 
 #: ckanext/dge/templates/source/new_source_form.html:97
@@ -349,18 +460,21 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:72 ckanext/dge/templates/header.html:187
+#: ckanext/dge/templates/footer.html:160
+#: ckanext/dge/templates/header.html:241
 msgid "Documentation"
 msgstr ""
 
 #: ckanext/dge/templates/package/snippets/dge_resource_item.html:66
+#: ckanext/dge/templates/package/snippets/resource_item.html:59
 #: ckanext/dge/templates/scheming/package/resource_read.html:62
 #: ckanext/dge/templates/snippets/dge_search_form.html:28
 msgid "Download"
 msgstr ""
 
+#: ckanext/dge/templates/package/search.html:184
 #: ckanext/dge/templates/snippets/dge_search_form.html:26
-msgid "Download the search result in CSV"
+msgid "Download search results in CSV format"
 msgstr ""
 
 #: ckanext/dge/templates/package/edit_base.html:10
@@ -370,6 +484,7 @@ msgstr ""
 msgid "Draft"
 msgstr ""
 
+#: ckanext/dge/templates/package/snippets/resource_item.html:71
 #: ckanext/dge/templates/package/edit_base.html:8
 msgid "Edit"
 msgstr ""
@@ -378,27 +493,37 @@ msgstr ""
 msgid "Edit resource"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:106 ckanext/dge/templates/header.html:201
+#: ckanext/dge/templates/footer.html:98
+#: ckanext/dge/templates/header.html:209
 msgid "Education"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:113 ckanext/dge/templates/header.html:205
+#: ckanext/dge/templates/footer.html:102
+#: ckanext/dge/templates/header.html:213
 msgid "Transport"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:123 ckanext/dge/templates/header.html:209
+#: ckanext/dge/templates/footer.html:106
+#: ckanext/dge/templates/header.html:217
 msgid "Health and Wellness"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:128 ckanext/dge/templates/header.html:218
+#: ckanext/dge/templates/footer.html:110
+#: ckanext/dge/templates/header.html:221
 msgid "Tourism"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:330
+#: ckanext/dge/templates/footer.html:114
+#: ckanext/dge/templates/header.html:225
+msgid "Justice and society"
+msgstr "Justice and society"
+
+#: ckanext/dge/templates/header.html:388
 msgid "Enter the terms you wish to search for."
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:88 ckanext/dge/templates/header.html:189
+#: ckanext/dge/templates/footer.html:86
+#: ckanext/dge/templates/header.html:197
 msgid "Environment"
 msgstr ""
 
@@ -411,55 +536,81 @@ msgstr ""
 msgid "Error/Warning Summary"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:91 ckanext/dge/templates/header.html:206
+#: ckanext/dge/templates/footer.html:124
+#: ckanext/dge/templates/header.html:251
 msgid "Events"
 msgstr ""
 
-#: ckanext/dge/helpers.py:427
+#: ckanext/dge/helpers.py:499
 msgid "Every"
 msgstr ""
 
-#: ckanext/dge/helpers.py:442
-msgid "Every {time_value} days"
+#: ckanext/dge/helpers.py:499
+msgid "seconds"
 msgstr ""
 
-#: ckanext/dge/helpers.py:434
-msgid "Every {time_value} months"
+#: ckanext/dge/helpers.py:499
+msgid "minutes"
 msgstr ""
 
-#: ckanext/dge/helpers.py:438
-msgid "Every {time_value} weeks"
+#: ckanext/dge/helpers.py:499
+msgid "hours"
 msgstr ""
 
-#: ckanext/dge/helpers.py:430
-msgid "Every {time_value} years"
+#: ckanext/dge/helpers.py:499
+msgid "days"
 msgstr ""
 
+#: ckanext/dge/helpers.py:499
+msgid "months"
+msgstr ""
+
+#: ckanext/dge/helpers.py:499
+msgid "weeks"
+msgstr ""
+
+#: ckanext/dge/helpers.py:499
+msgid "years"
+msgstr ""
+
+#: ckanext/dge/helpers.py:499
+msgid "Every {time_value} {time_unit}"
+msgstr ""
+
+#: ckanext/dge/plugin.py:168
+msgid "High-Value Dataset"
+msgstr ""
+
+#: ckanext/dge_dataservice/plugin.py:65
+msgid "High-Value Dataservice"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/resource_item.html:38
 #: ckanext/dge/templates/apidata/apidata.html:67
 msgid "Explore"
 msgstr ""
 
-#: ckanext/dge/templates/package/snippets/dge_export_links.html:5
+#: ckanext/dge/templates/package/snippets/dge_export_links.html:4
 msgid "Export metadata in CSV format"
 msgstr ""
 
-#: ckanext/dge/templates/package/snippets/dge_export_links.html:4
+#: ckanext/dge/templates/package/snippets/dge_export_links.html:3
 msgid "Export metadata in JSON format"
 msgstr ""
 
-#: ckanext/dge/templates/package/snippets/dge_export_links.html:7
+#: ckanext/dge/templates/package/snippets/dge_export_links.html:6
 msgid "Export metadata in RDF format"
 msgstr ""
 
-#: ckanext/dge/templates/package/snippets/dge_export_links.html:6
+#: ckanext/dge/templates/package/snippets/dge_export_links.html:5
 msgid "Export metadata in TURTLE format"
 msgstr ""
 
-#: ckanext/dge/templates/package/snippets/dge_export_links.html:3
+#: ckanext/dge/templates/package/snippets/dge_export_links.html:2
 msgid "Export metadata in XML format"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:165
+#: ckanext/dge/templates/footer.html:224
 msgid "FAQ"
 msgstr ""
 
@@ -471,8 +622,28 @@ msgstr ""
 msgid "Farming"
 msgstr "Agriculture"
 
-#: ckanext/dge/templates/snippets/dge_search_form.html:50
+#: ckanext/dge/templates/snippets/dge_search_form.html:114
 msgid "Filter Results"
+msgstr ""
+
+#: ckanext/dge/templates/page.html:54
+msgid "Request dataset"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_social.html:9
+msgid "Share this content"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_owner.html:19
+msgid "Entity"
+msgstr ""
+
+#: ckanext/dge/templates/package/search.html:50
+msgid "Discover the content to carry out the digital transformation of your business."
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/source/search.html:54
+msgid "Harvest description."
 msgstr ""
 
 #: ckanext/dge/templates/snippets/dge_harvest_job_details.html:68
@@ -487,72 +658,77 @@ msgstr ""
 msgid "Follow Us"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_social_list_footer.html:5
-#: ckanext/dge/templates/snippets/dge_social_list_header.html:5
-msgid "Follow us on Flikr"
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:215
+msgid "Follow us on Flickr"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_social_list_footer.html:3
-#: ckanext/dge/templates/snippets/dge_social_list_header.html:3
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:169
 msgid "Follow us on LinkedIn"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_social_list_footer.html:4
-#: ckanext/dge/templates/snippets/dge_social_list_header.html:4
-msgid "Follow us on Slideshare"
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:205
+msgid "Follow us on SlideShare"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_social_list_footer.html:2
-#: ckanext/dge/templates/snippets/dge_social_list_header.html:2
-msgid "Follow us on Twitter"
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:178
+msgid "Follow us on X"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_social_list_footer.html:6
-#: ckanext/dge/templates/snippets/dge_social_list_header.html:6
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:196
 msgid "Follow us on Youtube"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_edp_footer.html:2
-msgid "Access to European Data Portal (Spanish catalogs)"
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:187
+msgid "Follow us on Instagram"
 msgstr ""
 
-#: ckanext/dge/plugin.py:154 ckanext/dge/plugin.py:177
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:224
+msgid "Follow us on GitHub"
+msgstr ""
+
+#: ckanext/dge/plugin.py:174 ckanext/dge/plugin.py:201
 msgid "Format"
+msgstr ""
+
+#: ckanext/dge/views/package.py:206
+msgid "Formats"
 msgstr ""
 
 #: ckanext/dge/templates/scheming/display_snippets/dge_date_period.html:8
 msgid "From"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_search_form.html:27
+#: ckanext/dge/templates/snippets/dge_search_form.html:84
 msgid "Go"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:148
+#: ckanext/dge/templates/footer.html:191
 msgid "Go to Government of Spain"
-msgstr ""
-
-#: ckanext/dge/templates/footer.html:150
-msgid "Go to Ministry of Economy and Business"
 msgstr ""
 
 #: ckanext/dge/templates/footer.html:149
 msgid "Go to Ministry of Territorial Government and Public Administrations"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:151
+#: ckanext/dge/templates/footer.html:200
 msgid "Go to Red point es"
 msgstr ""
 
+#: ckanext/dge/templates/package/snippets/resource_item.html:62
 #: ckanext/dge/templates/scheming/package/resource_read.html:60
 msgid "Go to resource"
+msgstr ""
+
+#: ckanext/dge/views/package.py:204
+msgid "Groups"
 msgstr ""
 
 #: ckanext/dge/templates/package/snippets/dge_social.html:11
 msgid "Google+"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:230 ckanext/dge/templates/header.html:232
+#: ckanext/dge/templates/header.html:288
+#: ckanext/dge/templates/header.html:290
 msgid "Harvest"
 msgstr ""
 
@@ -573,6 +749,8 @@ msgstr ""
 #: ckanext/dge/templates/package/resource_read.html:17
 #: ckanext/dge/templates/package/search.html:15
 #: ckanext/dge/templates/snippets/dge_home_breadcrumb_item.html:2
+#: ckanext/dge/templates/static/default_spatial_coverage.html:15
+#: ckanext/dge/templates/static/default_theme.html:15
 #: ckanext/dge/templates/static/organism.html:15
 #: ckanext/dge/templates/static/spatial-coverage.html:21
 #: ckanext/dge/templates/static/theme.html:21
@@ -588,8 +766,9 @@ msgstr ""
 msgid "Identificación de los organismos públicos"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:55 ckanext/dge/templates/header.html:101
-#: ckanext/dge/templates/header.html:169
+#: ckanext/dge/templates/footer.html:63
+#: ckanext/dge/templates/header.html:101
+#: ckanext/dge/templates/header.html:174
 msgid "Impact"
 msgstr ""
 
@@ -597,29 +776,34 @@ msgstr ""
 msgid "Index of contents"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:81 ckanext/dge/templates/header.html:196
+#: ckanext/dge/templates/footer.html:151
+#: ckanext/dge/templates/header.html:232
 msgid "Informing about"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:240
+#: ckanext/dge/templates/header.html:186
 msgid "Initiatives"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:59 ckanext/dge/templates/header.html:174
+#: ckanext/dge/templates/footer.html:72
+#: ckanext/dge/templates/header.html:184
 msgid "Initiatives map"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:110 ckanext/dge/templates/header.html:104
-#: ckanext/dge/templates/header.html:218
+#: ckanext/dge/templates/footer.html:134
+#: ckanext/dge/templates/header.html:104
+#: ckanext/dge/templates/header.html:263
 msgid "Innovation"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:69 ckanext/dge/templates/header.html:103
-#: ckanext/dge/templates/header.html:184
+#: ckanext/dge/templates/footer.html:148
+#: ckanext/dge/templates/header.html:103
+#: ckanext/dge/templates/header.html:229
 msgid "Interact"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:94 ckanext/dge/templates/header.html:209
+#: ckanext/dge/templates/footer.html:127
+#: ckanext/dge/templates/header.html:203
 msgid "Interviews"
 msgstr ""
 
@@ -648,11 +832,11 @@ msgstr ""
 msgid "Last Modified"
 msgstr ""
 
-#: ckanext/dge/helpers.py:602
+#: ckanext/dge/helpers.py:664
 msgid "Legal Administration"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:174
+#: ckanext/dge/templates/footer.html:273
 msgid "Legal notice"
 msgstr ""
 
@@ -660,11 +844,15 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: ckanext/dge/templates/package/snippets/dge_social.html:12
+#: ckanext/dge/views/package.py:207
+msgid "Licenses"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_social.html:10
 msgid "Linkendin"
 msgstr ""
 
-#: ckanext/dge/helpers.py:599
+#: ckanext/dge/helpers.py:661
 msgid "Local Administration"
 msgstr ""
 
@@ -672,19 +860,28 @@ msgstr ""
 msgid "Local content"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:302
+#: ckanext/dge/templates/header.html:360
 msgid "Log in"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:267
+#: ckanext/dge/templates/header.html:325
 msgid "Log out"
 msgstr ""
 
 #: ckanext/dge/templates/scheming/package/resource_read.html:53
+#: ckan/templates/group/edit.html:7 ckan/templates/group/edit_base.html:3
+#: ckan/templates/group/edit_base.html:11
+#: ckan/templates/group/read_base.html:12
+#: ckan/templates/organization/edit_base.html:11
+#: ckan/templates/organization/read_base.html:12
+#: ckan/templates/package/read_base.html:15
+#: ckan/templates/package/resource_read.html:31
+#: ckan/templates/user/edit.html:8 ckan/templates/user/edit_base.html:3
+#: ckan/templates/user/read_base.html:14
 msgid "Manage"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:258
+#: ckanext/dge/templates/header.html:316
 msgid "Media"
 msgstr "Files"
 
@@ -700,15 +897,17 @@ msgstr ""
 msgid "Modified Descending"
 msgstr ""
 
-#: ckanext/dge/helpers.py:420
+#: ckanext/dge/helpers.py:481
 msgid "Monthly"
 msgstr ""
 
+#: ckanext/dge/templates/package/snippets/resource_item.html:50
 #: ckanext/dge/templates/package/snippets/dge_resource_item.html:31
 msgid "More information"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:107 ckanext/dge/templates/header.html:218
+#: ckanext/dge/templates/header.html:107
+#: ckanext/dge/templates/header.html:276
 #: ckanext/dge/templates/organization/index.html:4
 #: ckanext/dge/templates/organization/read_base.html:5
 #: ckanext/dge/templates/organization/read_base.html:8
@@ -717,11 +916,12 @@ msgstr ""
 msgid "My Account"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:223 ckanext/dge/templates/header.html:225
+#: ckanext/dge/templates/header.html:281
+#: ckanext/dge/templates/header.html:283
 msgid "My Datasets"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:264
+#: ckanext/dge/templates/header.html:322
 msgid "My Profile"
 msgstr ""
 
@@ -749,20 +949,17 @@ msgstr ""
 msgid "New resource"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:88 ckanext/dge/templates/header.html:203
+#: ckanext/dge/templates/footer.html:121
+#: ckanext/dge/templates/header.html:248
 msgid "News"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:107
+#: ckanext/dge/templates/footer.html:171
 msgid "Newsletter"
 msgstr ""
 
 #: ckanext/dge/templates/footer.html:130
 msgid "Newsletter personal data consent"
-msgstr ""
-
-#: ckanext/dge/templates/footer.html:97 ckanext/dge/templates/header.html:212
-msgid "Newsletters"
 msgstr ""
 
 #: ckanext/dge/templates/package/snippets/dge_license.html:24
@@ -774,8 +971,17 @@ msgstr ""
 msgid "No data"
 msgstr ""
 
+#: ckanext/dge/views/dgeOrganization.py:24 ckanext/dge/views/dgePackage.py:56
+#: ckanext/dge/views/dgePackage.py:70 ckanext/dge/views/dgePackage.py:83
+msgid "Not authorized to see this page"
+msgstr ""
+
 #: ckanext/dge/templates/source/job/read.html:17
 msgid "No errors for this job"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_facet_search_operator.html:59
+msgid "OR"
 msgstr ""
 
 #: ckanext/dge/templates/source/admin.html:15
@@ -809,7 +1015,7 @@ msgstr ""
 #: ckanext/dge/templates/package/snippets/dge_export_links.html:4
 #: ckanext/dge/templates/package/snippets/dge_export_links.html:5
 #: ckanext/dge/templates/package/snippets/dge_export_links.html:6
-#: ckanext/dge/templates/package/snippets/dge_export_links.html:7
+#: ckanext/dge/templates/package/snippets/dge_export_links.html:2
 #: ckanext/dge/templates/snippets/dge_catalog_downloads.html:4
 #: ckanext/dge/templates/snippets/dge_catalog_downloads.html:7
 #: ckanext/dge/templates/snippets/dge_catalog_downloads.html:10
@@ -826,15 +1032,16 @@ msgstr ""
 msgid "Opens a new window"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_search_form.html:16
+#: ckanext/dge/templates/snippets/dge_search_form.html:73
 msgid "Order by"
 msgstr ""
 
-#: ckanext/dge/plugin.py:175 ckanext/dge/templates/snippets/dge_source_item.html:53
+#: ckanext/dge/plugin.py:199 ckanext/dge/templates/snippets/dge_source_item.html:53
 #: ckanext/dge/templates/source/new_source_form.html:64
 msgid "Organization"
 msgstr ""
 
+#: ckanext/dge/views/package.py:203
 #: ckanext/dge/templates/organization/index.html:5
 #: ckanext/dge/templates/organization/index.html:8
 msgid "Organizations"
@@ -844,11 +1051,15 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: ckanext/dge/helpers.py:601
+#: ckanext/dge/helpers.py:663
 msgid "Other Institutions"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:291
+#: ckanext/dge/templates/package/snippets/resource_item.html:47
+msgid "Preview"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:349
 msgid "Password"
 msgstr ""
 
@@ -859,21 +1070,22 @@ msgstr ""
 msgid "Popular"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:324
+#: ckanext/dge/templates/header.html:382
 msgid "Portal content"
 msgstr ""
 
+#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:30
 #: ckanext/dge/templates/snippets/dge_package_item.html:32
 msgid "Private"
 msgstr ""
 
-#: ckanext/dge/helpers.py:610
-#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:30
+#: ckanext/dge/helpers.py:665
+#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:29
 #: ckanext/dge/templates/package/snippets/dge_owner.html:17
 msgid "Private Entity"
 msgstr ""
 
-#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:33
+#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:32
 #: ckanext/dge/templates/package/snippets/dge_owner.html:20
 msgid "Public"
 msgstr ""
@@ -886,15 +1098,16 @@ msgstr ""
 msgid "Published Descending"
 msgstr ""
 
-#: ckanext/dge/plugin.py:155 ckanext/dge/plugin.py:178
-#: ckanext/dge/templates/header.html:43 ckanext/dge/templates/header.html:112
-#: ckanext/dge/templates/header.html:273
+#: ckanext/dge/plugin.py:175 ckanext/dge/plugin.py:202
+#: ckanext/dge/templates/header.html:43
+#: ckanext/dge/templates/header.html:112
+#: ckanext/dge/templates/header.html:331
 #: ckanext/dge/templates/package/snippets/dge_owner.html:9
 #: ckanext/dge/templates/snippets/dge_package_item.html:78
 msgid "Publisher"
 msgstr ""
 
-#: ckanext/dge/helpers.py:420
+#: ckanext/dge/helpers.py:481
 msgid "Quarterly"
 msgstr ""
 
@@ -902,7 +1115,7 @@ msgstr ""
 msgid "RDF Data Catalog"
 msgstr ""
 
-#: ckanext/dge/helpers.py:598
+#: ckanext/dge/helpers.py:660
 msgid "Regional Administration"
 msgstr ""
 
@@ -921,15 +1134,32 @@ msgstr ""
 msgid "Remote content"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_search_form.html:45
+#: ckanext/dge/templates/snippets/dge_search_form.html:109
 msgid "Remove"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:297
+#: ckanext/dge/templates/snippets/dge_search_form.html:109
+msgid "Remove filter"
+msgstr ""
+
+#: ckanext/dge/views/package.py:384
+msgid "Resource has been deleted."
+msgstr ""
+
+#: ckanext/dge/views/package.py:316 ckanext/dge/views/package.py:392
+#: ckanext/dge/views/package.py:408
+msgid "Resource not found"
+msgstr ""
+
+#: ckanext/dge/views/package.py:353
+msgid "Resource view not found"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:355
 msgid "Request new password"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:297
+#: ckanext/dge/templates/header.html:355
 msgid "Request new password via e-mail"
 msgstr ""
 
@@ -939,8 +1169,12 @@ msgstr ""
 msgid "Resources"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:65 ckanext/dge/templates/header.html:180
-#: ckanext/dge/templates/header.html:246
+#: ckanext/dge/templates/header.html:194
+msgid "Companies"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:66
+#: ckanext/dge/templates/header.html:304
 msgid "Reuse companies"
 msgstr ""
 
@@ -948,10 +1182,13 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:44 ckanext/dge/templates/header.html:110
-#: ckanext/dge/templates/header.html:272 ckanext/dge/templates/header.html:329
-#: ckanext/dge/templates/header.html:330 ckanext/dge/templates/header.html:333
-#: ckanext/dge/templates/snippets/dge_search_form.html:8
+#: ckanext/dge/templates/header.html:44
+#: ckanext/dge/templates/header.html:110
+#: ckanext/dge/templates/header.html:330
+#: ckanext/dge/templates/header.html:387
+#: ckanext/dge/templates/header.html:388
+#: ckanext/dge/templates/header.html:391
+#: ckanext/dge/templates/snippets/dge_search_form.html:18
 msgid "Search"
 msgstr ""
 
@@ -959,7 +1196,7 @@ msgstr ""
 msgid "Search datasets..."
 msgstr ""
 
-#: ckanext/dge/templates/header.html:315
+#: ckanext/dge/templates/header.html:373
 msgid "Search form"
 msgstr ""
 
@@ -971,24 +1208,24 @@ msgstr ""
 msgid "Search organizations..."
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:76 ckanext/dge/templates/header.html:102
-#: ckanext/dge/templates/header.html:178
+#: ckanext/dge/templates/header.html:198
+#: ckanext/dge/templates/footer.html:78
 msgid "Sectors"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:152
+#: ckanext/dge/templates/footer.html:203
 msgid "See Aporta Initiative"
 msgstr ""
 
-#: ckanext/dge/helpers.py:420
+#: ckanext/dge/helpers.py:481
 msgid "Semiannual"
 msgstr ""
 
-#: ckanext/dge/helpers.py:422
+#: ckanext/dge/helpers.py:483
 msgid "Semimonthly"
 msgstr ""
 
-#: ckanext/dge/helpers.py:422
+#: ckanext/dge/helpers.py:483
 msgid "Semiweekly"
 msgstr ""
 
@@ -996,15 +1233,15 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_facet_list.html:81
+#: ckanext/dge/templates/snippets/dge_facet_list.html:101
 msgid "Show More {facet_type}"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_facet_list.html:84
+#: ckanext/dge/templates/snippets/dge_facet_list.html:104
 msgid "Show Only Popular {facet_type}"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:168
+#: ckanext/dge/templates/footer.html:228
 msgid "Sitemap"
 msgstr ""
 
@@ -1012,13 +1249,23 @@ msgstr ""
 msgid "Skip to content"
 msgstr ""
 
+#: ckanext/dge/templates/snippets/dge_source_list.html: 22
+msgid "Source name"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_source_list.html: 25
+msgid "Source organization"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_source_list.html: 23
 #: ckanext/dge/templates/source/new_source_form.html:27
-#: ckanext/dge/templates/source/search.html:58
+#: ckanext/dge/templates/snippets/dge_facet_list.html:62
 msgid "Source type"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:52 ckanext/dge/templates/header.html:162
-#: ckanext/dge/templates/header.html:164
+#: ckanext/dge/templates/footer.html:60
+#: ckanext/dge/templates/header.html:167
+#: ckanext/dge/templates/header.html:169
 #: ckanext/dge/templates/yasgui/sparql.html:33
 #: ckanext/dge/templates/yasgui/sparql.html:40
 #: ckanext/dge/templates/yasgui/sparql.html:43
@@ -1047,7 +1294,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: ckanext/dge/helpers.py:597
+#: ckanext/dge/helpers.py:659
 msgid "State Administration"
 msgstr ""
 
@@ -1055,15 +1302,24 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:115
+#: ckanext/dge/templates/footer.html:174
 msgid "Subscribe"
 msgstr ""
 
-#: ckanext/dge/plugin.py:158 ckanext/dge/plugin.py:181
+#: ckanext/dge/templates/footer.html:174
+msgid "Unsubscribe"
+msgstr ""
+
+#: ckanext/dge/plugin.py:179 ckanext/dge/plugin.py:206
+#: ckanext/dge/templates/snippets/dge_search_form.html:96
 msgid "Tag"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:171
+#: ckanext/dge/views/package.py:205
+msgid "Tags"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:233
 msgid "Technology"
 msgstr ""
 
@@ -1075,7 +1331,7 @@ msgstr ""
 msgid "There are currently no organizations for this site"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_facet_list.html:88
+#: ckanext/dge/templates/snippets/dge_facet_list.html:108
 msgid "There are no {facet_type} that match this search"
 msgstr ""
 
@@ -1092,24 +1348,32 @@ msgstr ""
 msgid "This dataset has no data"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_package_item.html:97
-msgid "This dataset has no description"
+#: ckanext/dge/templates/snippets/dge_package_item.html:110
+msgid "This {package_type} has no description"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_package_item.html:110
+msgid "dataservice"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_package_item.html:110
+msgid "dataset"
 msgstr ""
 
 #: ckanext/dge/templates/package/snippets/dge_license.html:14
 msgid "This dataset satisfies the Open Definition."
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:123 ckanext/dge/templates/footer.html:130
-#: ckanext/dge/templates/header.html:287 ckanext/dge/templates/header.html:291
+#: ckanext/dge/templates/footer.html:123
+#: ckanext/dge/templates/footer.html:130
+#: ckanext/dge/templates/header.html:345
+#: ckanext/dge/templates/header.html:349
 msgid "This field is required"
 msgstr ""
 
 #: ckanext/dge/templates/package/read_base.html:101
 #, python-format
-msgid ""
-"This is an old revision of this dataset, as edited at %(timestamp)s. It may "
-"differ significantly from the <a href=\"%(url)s\">current revision</a>."
+msgid "This is an old revision of this dataset, as edited at %(timestamp)s. It may differ significantly from the <a href=\"%(url)s\">current revision</a>."
 msgstr ""
 
 #: ckanext/dge/templates/source/new_source_form.html:11
@@ -1117,29 +1381,48 @@ msgid "This should include the http:// part of the URL"
 msgstr ""
 
 #: ckanext/dge/templates/source/new_source_form.html:93
-msgid ""
-"This will flag the source as deleted but keep all its datasets and previous "
-"jobs. Are you sure you want to delete this harvest source?"
+msgid "This will flag the source as deleted but keep all its datasets and previous jobs. Are you sure you want to delete this harvest source?"
 msgstr ""
 
 #: ckanext/dge/templates/source/admin_base.html:8
-msgid ""
-"This will re-run the harvesting for this source. Any updates at the source "
-"will overwrite the local datasets. Sources with a large number of datasets "
-"may take a significant amount of time to finish harvesting. Please confirm "
-"you would like us to start reharvesting."
+msgid "This will re-run the harvesting for this source. Any updates at the source will overwrite the local datasets. Sources with a large number of datasets may take a significant amount of time to finish harvesting. Please confirm you would like us to start reharvesting."
 msgstr ""
 
-#: ckanext/dge/helpers.py:422
+#: ckanext/dge/helpers.py:483
 msgid "Three times a month"
 msgstr ""
 
-#: ckanext/dge/helpers.py:422
+#: ckanext/dge/helpers.py:483
 msgid "Three times a week"
 msgstr ""
 
-#: ckanext/dge/helpers.py:420
+#: ckanext/dge/helpers.py:481
 msgid "Three times a year"
+msgstr ""
+
+#: ckanext/dge/views/package.py:379
+#, python-format
+msgid "Unauthorized to delete package %s"
+msgstr ""
+
+#: ckanext/dge/views/package.py:390
+#, python-format
+msgid "Unauthorized to delete resource %s"
+msgstr ""
+
+#: ckanext/dge/views/package.py:309
+#, python-format
+msgid "Unauthorized to read dataset %s"
+msgstr ""
+
+#: ckanext/dge/views/package.py:272
+#, python-format
+msgid "Unauthorized to read package %s"
+msgstr ""
+
+#: ckanext/dge/views/package.py:410
+#, python-format
+msgid "Unauthorized to read resource %s"
 msgstr ""
 
 #: ckanext/dge/templates/source/new_source_form.html:15
@@ -1166,24 +1449,21 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:252
+#: ckanext/dge/templates/header.html:310
 msgid "Unassigned data requests"
 msgstr ""
 
-#: ckanext/dge/helpers.py:600
+#: ckanext/dge/helpers.py:662
 msgid "Universities"
 msgstr ""
 
-#: ckanext/dge/helpers.py:225 ckanext/dge/helpers.py:488 ckanext/dge/helpers.py:796
+#: ckanext/dge/helpers.py:286 ckanext/dge/helpers.py:549 ckanext/dge/helpers.py:1108
 #: ckanext/dge/templates/package/snippets/dge_resource_item.html:8
 msgid "Unnamed resource"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:119
-msgid "Unsubscribe"
-msgstr ""
 
-#: ckanext/dge/plugin.py:157 ckanext/dge/plugin.py:180
+#: ckanext/dge/plugin.py:173 ckanext/dge/plugin.py:200
 #: ckanext/dge/templates/source/new_source_form.html:44
 msgid "Update frequency"
 msgstr ""
@@ -1193,21 +1473,21 @@ msgstr ""
 msgid "Used prefixes"
 msgstr ""
 
-#: ckanext/dge/plugin.py:68
+#: ckanext/dge/plugin.py:84
 #, python-format
 msgid "User %s not authorized to edit organization %s"
 msgstr ""
 
-#: ckanext/dge/plugin.py:84
+#: ckanext/dge/plugin.py:100
 #, python-format
 msgid "User %s not authorized to show harvest source %s"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:287
+#: ckanext/dge/templates/header.html:345
 msgid "Username"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:261
+#: ckanext/dge/templates/header.html:319
 msgid "Users Management"
 msgstr ""
 
@@ -1219,29 +1499,28 @@ msgstr ""
 msgid "View harvest source"
 msgstr ""
 
-#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:35
-#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:36
+#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:50
+#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:51
 msgid "View {organization_name}"
 msgstr ""
 
 #: ckanext/dge/templates/source/new_source_form.html:94
-msgid ""
-"Warning: Apart from deleting this source, this command will remove all its "
-"datasets, as well as all previous job reports. Are you sure you want to "
-"continue?"
+msgid "Warning: Apart from deleting this source, this command will remove all its datasets, as well as all previous job reports. Are you sure you want to continue?"
 msgstr ""
 
 #: ckanext/dge/templates/source/admin_base.html:17
-msgid ""
-"Warning: This will remove all datasets for this source, as well as all "
-"previous job reports. Are you sure you want to continue?"
+msgid "Warning: This will remove all datasets for this source, as well as all previous job reports. Are you sure you want to continue?"
 msgstr ""
 
-#: ckanext/dge/helpers.py:421 ckanext/dge/helpers.py:422
+#: ckanext/dge/helpers.py:482 ckanext/dge/helpers.py:483
 msgid "Weekly"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:236
+#: ckanext/dge/templates/package/snippets/dge_social.html:11
+msgid "X"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:294
 msgid "Widget"
 msgstr ""
 
@@ -1253,7 +1532,11 @@ msgstr ""
 msgid "accessible_sparql_content"
 msgstr ""
 
-#: ckanext/dge/templates/header.html:283
+#: ckanext/dge/helpers.py:1194
+msgid "display_name"
+msgstr ""
+
+#: ckanext/dge/templates/header.html:341
 #: ckanext/dge/templates/organization/read.html:49
 #: ckanext/dge/templates/source/search.html:63
 msgid "close"
@@ -1381,9 +1664,7 @@ msgid "errors/warnings"
 msgstr ""
 
 #: ckanext/dge/templates/footer.html:216
-msgid ""
-"https://www.red.es/redes/es/quienes-somos/proteccion-de-datos-de-caracter-"
-"personal"
+msgid "https://www.red.es/redes/es/quienes-somos/proteccion-de-datos-de-caracter-personal"
 msgstr ""
 
 #: ckanext/dge/templates/apidata/apidata.html:63
@@ -1398,7 +1679,7 @@ msgstr ""
 msgid "unknown"
 msgstr ""
 
-#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:29
+#: ckanext/dge/templates/organization/snippets/dge_organization_item.html:43
 msgid "{num} Dataset"
 msgid_plural "{num} Datasets"
 msgstr[0] ""
@@ -1438,14 +1719,309 @@ msgstr ""
 #: ckanext/dge/templates/snippets/dge_search_form.html:26
 msgid "Download search result in CSV"
 
+#: ckanext/dge/templates/footer.html:35
+msgid "Do you want to stay up to date with the data economy"
+msgstr ""
+
 #: ckanext/dge/templates/footer.html:199
 msgid "Subscribe to our newsletter to receive the latest news from datos.gob"
 msgstr ""
 
-#: ckanext/dge/templates/footer.html:200
+#: ckanext/dge/templates/footer.html:174
 msgid "Email subscription to the latest news of datos.gob.es."
 msgstr ""
 
 #: ckanext/dge/templates/footer.html:201
 msgid "You can cancel your subscription by <a href='%(url_baja)s' title='unsubscribe from the data.gob.es bulletin'>clicking here</a>"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:57
+#: ckanext/dge/templates/header.html:159
+msgid "NSIP access"
+msgstr ""
+
+#: ckanext/dge/templates/footer.html:197
+#: ckanext/dge/templates/header.html:36
+#: ckanext/dge/templates/header.html:37
+msgid "Ministry for Digital Transformation and Public Service"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_social.html:11
+msgid "Copy link"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/search_result_text.html:3
+msgid "{number} dataservice found for \"{query}\""
+msgid_plural "{number} dataservices found for \"{query}\""
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/dge/templates/snippets/search_result_text.html:4
+msgid "No dataservices found for \"{query}\""
+msgstr ""
+
+#: ckanext/dge/templates/snippets/search_result_text.html:5
+msgid "{number} dataservice found"
+msgid_plural "{number} dataservices found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckan/templates/snippets/search_result_text.html:6
+msgid "No dataservices found"
+msgstr ""
+
+#: ckanext/dge/templates/package/search.html:4
+msgid "Dataservices"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_section.html:22
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_section.html:10
+msgid "Information"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_section.html:67
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_section.html:63
+msgid "Quality"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_section.html:37
+msgid "Technical sheet"
+msgstr ""
+
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_section.html:27
+msgid "Served datasets"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_resources_list.html:27
+msgid "Distributions"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_information.html:76
+msgid "Coverage"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_information.html:142
+msgid "Type of dataset"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_information.html:32
+msgid "Keywords"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_quality.html:14
+msgid "Regulation"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_technical-sheet.html:15
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:96
+msgid "Identification"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_technical-sheet.html:76
+msgid "Resolution"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_technical-sheet.html:114
+msgid "References"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_technical-sheet.html:178
+msgid "Versioning"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:102
+msgid "Interoperability"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:108
+msgid "Provenance"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:114
+msgid "Reusability"
+msgstr ""
+
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_information.html:54
+msgid "Access services"
+msgstr ""
+
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_quality.html:14
+msgid "Regulation"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_dataset_information.html:201
+#: ckanext/dge/templates/package/snippets/dge_dataset_quality.html:131
+#: ckanext/dge/templates/package/snippets/dge_dataset_contact.html:34
+#: ckanext/dge/templates/package/snippets/dge_description.html:16
+#: ckanext/dge/templates/package/snippets/dge_dataset_technical-sheet.html:242
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_quality.html:58
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_contact.html:22
+#: ckanext/dge_dataservice/templates/package/snippets/dge_dataservice_information.html:100
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:248
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:356
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:443
+#: ckanext/dge/templates/package/snippets/dge_resource_item.html:546
+msgid "Read more"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_add_dataset.html:8
+msgid "Add Dataservice"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_facet_is_hvd.html:61
+msgid "Yes"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_facet_is_hvd.html:68
+msgid "No"
+msgstr ""
+
+#: ckanext/dge/templates/package/search.html:140
+#: ckanext/dge/templates/source/search.html:64
+msgid "Filter by"
+msgstr ""
+
+#: ckanext/dge/templates/package/search.html:150
+#: ckanext/dge/templates/source/search.html:74
+msgid "Delete filters"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/search_result_text.html:3
+msgid "{number} dataservice found for '{query}'"
+msgid_plural "{number} dataservices found for '{query}'"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/dge/templates/snippets/search_result_text.html:4
+msgid "No dataservice found for '{query}'"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/search_result_text.html:5
+msgid "{number} dataservice found"
+msgid_plural "{number} dataservices found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/dge/templates/snippets/search_result_text.html:6
+msgid "No dataservices found"
+msgstr ""
+
+#: ckan/templates/snippets/search_result_text.html:15
+msgid "{number} dataset found for \"{query}\""
+msgid_plural "{number} datasets found for \"{query}\""
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckan/templates/snippets/search_result_text.html:16
+msgid "No datasets found for \"{query}\""
+msgstr ""
+
+#: /ckanext/dge/assets/js/dge.js:410
+msgid "Read less"
+msgstr ""
+
+#: /ckanext/dge/assets/js/dge.js:415
+msgid "Read more"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_tags.html:35
+msgid "View less"
+msgstr ""
+
+#: ckanext/dge/templates/package/snippets/dge_tags.html:22
+msgid "View more"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_facet_list.html:62
+msgid "Frequency"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_facet_list.html:62
+msgid "Organization"
+msgstr ""
+
+msgid "dge_rdf"
+msgstr ""
+
+msgid "dge_dcat_ap_es_rdf"
+msgstr ""
+
+#: ckanext/dge/templates/package/search.html:135
+msgid "Subscribe to the data catalog"
+msgstr ""
+
+msgid "dge_rdf"
+msgstr ""
+
+msgid "dge_dcat_ap_es_rdf"
+msgstr ""
+
+#: ckanext/dge/templates/package/search.html:135
+msgid "Subscribe to the data catalog"
+msgstr ""
+
+msgid "Subscription by e-mail to the latest news from datos.gob.es."
+msgstr ""
+
+msgid "Unsubscribe from the data.gob.es bulletin"
+msgstr ""
+
+#: ckan/templates/snippets/search_result_text.html:17
+msgid "{number} dataset found"
+msgid_plural "{number} datasets found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ckanext/dge/templates/snippets/dge_catalog_downloads.html:9
+msgid "Data catalogue"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_catalog_downloads.html:18
+msgid "Check the API"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_catalog_downloads.html:27
+msgid "Access the SPARQL Point"
+msgstr ""
+
+#: ckanext/dge/templates/static/default_theme.html:41
+#: ckanext/dge/templates/static/default_theme.html:44
+#: ckanext/dge/templates/static/default_theme.html:46
+#: ckanext/dge/templates/static/theme.html:41
+msgid "Taxonomy of primary sectors"
+msgstr ""
+
+#: ckanext/dge/templates/static/organism.html:32
+#: ckanext/dge/templates/static/organism.html:35
+#: ckanext/dge/templates/static/organism.html:37
+msgid "Identification of public organizations"
+msgstr ""
+
+#: ckanext/dge/templates/static/default_spatial_coverage.html:41
+#: ckanext/dge/templates/static/default_spatial_coverage.html:44
+#: ckanext/dge/templates/static/default_spatial_coverage.html:46
+#: ckanext/dge/templates/static/spatial-coverage.html:40
+msgid "Identification of geographic coverage in Spain"
+msgstr ""
+
+#: ckanext/dge/templates/error_document_template.html:11
+#: ckanext/dge/templates/error_document_template.html:12
+msgid "Page not found"
+msgstr ""
+
+#: ckanext/dge/templates/error_document_template.html:13
+msgid "We're sorry, but the page you're looking for doesn't exist or is no longer available."
+msgstr ""
+
+#: ckanext/dge/templates/error_document_template.html:38
+msgid "Back to top"
+msgstr ""
+
+#: ckan/ckan/templates/package/snippets/additional_info.html:57
+msgid "active"
+msgstr ""
+
+#: ckanext/dge/templates/error_document_template.html:16
+#: ckanext/dge/templates/error_document_template.html:17
+msgid "Forbidden"
 msgstr ""

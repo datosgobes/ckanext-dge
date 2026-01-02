@@ -1,0 +1,327 @@
+/*
+* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* Decoration elements */
+.decoration-line {
+  height: 0.25rem;
+  width: 5rem;
+  background-color: var(--primary-500); }
+  .decoration-line__results {
+    height: 0.125rem;
+    width: 100%; }
+  .decoration-line__sm {
+    height: 0.175rem;
+    width: 2.5rem; }
+
+.decoration-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #0094f0;
+  border-radius: 50%;
+  margin-right: 0.375rem; }
+
+.decoration-img-lg {
+  width: 5.625rem;
+  height: auto; }
+  .decoration-img-lg img {
+    width: 100%; }
+
+.decoration-img-md {
+  width: 4.625rem;
+  height: auto; }
+  .decoration-img-md img {
+    width: 100%; }
+
+.decoration-img-sm {
+  width: 2.625rem;
+  height: auto; }
+  .decoration-img-sm img {
+    width: 100%; }
+
+.decoration-img-xs {
+  width: 1.625rem;
+  height: auto;
+  min-width: 1.625rem; }
+  .decoration-img-xs img {
+    width: 100%; }
+
+.decoration-img img {
+  width: 100%; }
+
+/* Separator lines */
+.separator {
+  position: relative;
+  width: 1px;
+  display: block;
+  text-align: center;
+  margin: auto 0rem;
+  height: 1.5rem; }
+  .separator--vertical {
+    border-left: 1px solid var(--border); }
+
+.dge-ckan-layout ul.custom-bullets {
+  list-style: disc;
+  padding-left: 2.5rem; }
+  .dge-ckan-layout ul.custom-bullets li {
+    color: var(primary-700);
+    line-height: 1.5rem;
+    margin-bottom: 0.625rem; }
+
+pre:not(.CodeMirror-line) {
+  background-color: var(--background-gray);
+  color: var(--primary-black);
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-family: "Fira Code", "Courier New", monospace;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  white-space: break-spaces; }
+  pre:not(.CodeMirror-line) code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit; }
+
+/* SPARQL adjustments */
+.yasr.yasr_fullscreen {
+  margin-bottom: 0px; }
+
+.dtTopHeader {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem; }
+  .dtTopHeader .dataTables_info {
+    order: 0;
+    align-self: center; }
+  .dtTopHeader .dataTables_length {
+    order: 2;
+    display: flex;
+    text-align-last: center;
+    margin-left: 0px; }
+    .dtTopHeader .dataTables_length label {
+      margin-bottom: 0px;
+      padding-bottom: 0.5rem;
+      gap: 0.5rem;
+      display: flex;
+      align-items: center; }
+      .dtTopHeader .dataTables_length label select {
+        border-radius: .438rem;
+        background-color: #fff;
+        box-shadow: var(--box-shadow-centered);
+        color: var(--primary-700);
+        font-size: .875rem;
+        padding: 0 .938rem;
+        transition: .3s;
+        border: 1px solid transparent;
+        outline: 0;
+        min-height: 2.5rem;
+        white-space: nowrap;
+        text-overflow: ellipsis; }
+  .dtTopHeader .dataTables_filter {
+    order: 1;
+    margin-left: auto;
+    display: flex;
+    text-align: left; }
+    .dtTopHeader .dataTables_filter label {
+      display: flex;
+      align-items: center; }
+      .dtTopHeader .dataTables_filter label input {
+        margin-left: .5em; }
+
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; }
+
+.table-responsive {
+  margin-bottom: 3rem; }
+
+/* accordion component */
+.accordion-container .accordion-item .accordion-header {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  background-color: var(--background-light-gray);
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  margin: 0; }
+  .accordion-container .accordion-item .accordion-header:hover, .accordion-container .accordion-item .accordion-header:focus {
+    background-color: var(--white);
+    border: 1px solid var(--primary-500); }
+  .accordion-container .accordion-item .accordion-header-title {
+    font-family: montserrat-medium;
+    font-size: 1rem;
+    color: var(--primary-700); }
+  @media (max-width: 480px) {
+    .accordion-container .accordion-item .accordion-header .accordion-header-title-and-type {
+      flex-direction: column;
+      align-items: flex-start; } }
+  @media (max-width: 480px) {
+    .accordion-container .accordion-item .accordion-header .accordion-header-title-and-type .dataset-resources li {
+      margin: 0; } }
+  .accordion-container .accordion-item .accordion-header-title--description {
+    font-family: montserrat-italic;
+    font-size: 1rem;
+    color: var(--primary-600);
+    white-space: nowrap; }
+  .accordion-container .accordion-item .accordion-header .accordion-button {
+    border: none;
+    background: transparent;
+    padding: 0;
+    flex-grow: 1;
+    text-align: left;
+    font-size: inherit;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none; }
+    .accordion-container .accordion-item .accordion-header .accordion-button .accordion-arrow {
+      margin-left: auto; }
+      .accordion-container .accordion-item .accordion-header .accordion-button .accordion-arrow img {
+        width: 1rem;
+        height: auto; }
+  .accordion-container .accordion-item .accordion-header.flex {
+    background-color: var(--white);
+    border-radius: var(--border-radius-up); }
+    .accordion-container .accordion-item .accordion-header.flex:hover, .accordion-container .accordion-item .accordion-header.flex:focus {
+      background-color: var(--background-light-gray);
+      border: 1px solid transparent; }
+    .accordion-container .accordion-item .accordion-header.flex .accordion-button .accordion-arrow img {
+      transform: rotate(-90deg); }
+
+.accordion-container .accordion-item .accordion-collapse {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  background-color: white; }
+  .accordion-container .accordion-item .accordion-collapse.flex {
+    height: auto;
+    overflow: visible;
+    background: var(--white);
+    border-radius: var(--border-radius-down);
+    background-color: white;
+    box-shadow: var(--box-shadow); }
+  .accordion-container .accordion-item .accordion-collapse .accordion-body {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    height: auto;
+    width: calc(100% - 1.75rem);
+    padding: 0.875rem 1rem; }
+
+.accordion-container .accordion-item.samples .accordion-header {
+  background-color: var(--primary-100);
+  border: 1px solid var(--primary-600); }
+
+/* Read more component */
+.read-more {
+  overflow: hidden; }
+  .read-more__bottom {
+    --gradient-color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: calc(100%);
+    padding-top: 80px;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--gradient-color) 70%, var(--gradient-color));
+    text-align: center;
+    cursor: pointer;
+    background-size: 100%;
+    justify-content: center;
+    transition: 0.3s; }
+    .read-more__bottom--gray {
+      --gradient-color: #f5f6f7; }
+    .read-more__bottom--blue {
+      --gradient-color: #fff; }
+      .read-more__bottom--blue:hover {
+        background-size: 100%;
+        --gradient-color: #f2f8ff; }
+    .read-more__bottom__description {
+      width: calc(100% - 2rem); }
+    .read-more__bottom__accordeon {
+      width: calc(100% + 2rem);
+      margin-left: -1rem;
+      margin-bottom: -1rem; }
+    .read-more__bottom button {
+      border: none;
+      background-color: transparent;
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      width: fit-content;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      min-height: 2.5rem;
+      padding: .5rem 1rem;
+      color: var(--primary-500);
+      font-family: 'montserrat-medium';
+      cursor: pointer;
+      margin-bottom: 0.375rem; }
+      .read-more__bottom button:hover, .read-more__bottom button:focus {
+        border-radius: 6px;
+        background-color: var(--primary-300);
+        color: var(--primary-700);
+        cursor: pointer; }
+      .read-more__bottom button:active {
+        border-radius: 6px;
+        background-color: var(--primary-400);
+        color: var(--primary-700);
+        cursor: pointer; }
+  .read-more.expand + .read-more__bottom {
+    position: relative;
+    background-image: none;
+    padding-top: 10px;
+    height: inherit;
+    top: 25px; }
+  .read-more--md.expand + .read-more__bottom {
+    top: 15px;
+    margin-bottom: 0rem !important; }
+
+button#toggle-tags {
+  border: none;
+  background-color: transparent;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  padding: 0.2rem 1rem;
+  color: var(--primary-500);
+  font-family: 'montserrat-medium';
+  cursor: pointer;
+  margin-bottom: 0.375rem; }
+  button#toggle-tags:hover, button#toggle-tags:focus {
+    font-family: 'montserrat-semiBold';
+    cursor: pointer; }
+  button#toggle-tags:active {
+    border-radius: 6px;
+    color: var(--primary-700);
+    cursor: pointer; }

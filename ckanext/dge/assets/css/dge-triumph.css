@@ -1,0 +1,245 @@
+/*
+* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.text--underline {
+  text-decoration: underline; }
+
+.text--capitalize {
+  text-transform: capitalize; }
+
+.text--bold {
+  font-family: 'montserrat-semiBold'; }
+
+.text--strong {
+  font-family: 'montserrat-medium'; }
+
+.text--italic {
+  font-family: 'montserrat-italic'; }
+
+.text--transform_uppercase {
+  text-transform: uppercase; }
+
+.text--color-primary {
+  color: var(--primary-500); }
+
+.text--color-primary-semi-dark {
+  color: var(--primary-600) !important; }
+
+.text--color-primary-dark {
+  color: var(--primary-700) !important; }
+
+.text--color-white {
+  color: var(--white) !important; }
+
+.text--color-gray {
+  color: var(--normal-gray); }
+  .text--color-gray-light {
+    color: var(--light-gray); }
+
+.text .word-break--word {
+  word-break: break-word; }
+
+.text-line-height-normal {
+  line-height: normal; }
+
+.italic {
+  color: var(--dark-gray);
+  text-decoration: none;
+  font-family: montserrat;
+  font-size: 0.875rem;
+  font-style: italic;
+  line-height: 1.5rem; }
+
+.pointer {
+  cursor: pointer; }
+
+.overflow-hidden {
+  overflow: hidden; }
+
+.overflow-y-auto {
+  overflow-y: auto; }
+
+.overflow-auto {
+  overflow: auto; }
+
+.float-right {
+  float: right; }
+
+.float-left {
+  float: left; }
+
+.relative {
+  position: relative; }
+
+.inline-block {
+  display: inline-block !important; }
+
+.hide {
+  display: none !important; }
+
+.show {
+  display: block !important; }
+
+.inline-grid {
+  display: inline-grid; }
+
+.block {
+  display: block; }
+
+.flex {
+  display: flex; }
+  .flex-center {
+    align-items: center; }
+  .flex-stretch {
+    align-items: stretch; }
+  .flex-end {
+    align-items: flex-end; }
+  .flex-justify-right {
+    justify-content: flex-end; }
+  .flex-justify-start {
+    justify-content: flex-start !important; }
+  .flex-justify-space-evenly {
+    justify-content: space-evenly; }
+  .flex-justify-between {
+    justify-content: space-between; }
+  .flex-justify-around {
+    justify-content: space-around; }
+  .flex-justify-center {
+    justify-content: center; }
+  .flex-baseline {
+    align-items: baseline; }
+  .flex-start {
+    align-items: flex-start; }
+  .flex-display {
+    display: flex; }
+  .flex-flow {
+    flex-flow: row wrap; }
+    .flex-flow-column {
+      flex-flow: column !important; }
+  .flex-root {
+    display: flow-root; }
+  .flex-wrap {
+    flex-wrap: wrap; }
+  .flex-nowrap {
+    flex-wrap: nowrap !important; }
+  .flex-1 {
+    flex: 1; }
+  .flex-column {
+    flex-direction: column; }
+  .flex-row {
+    flex-direction: row; }
+  .flex-row-reverse {
+    flex-direction: row-reverse; }
+  .flex-auto {
+    flex: auto; }
+  .flex-grow-1 {
+    flex-grow: 1; }
+  .flex-basis-100 {
+    flex-basis: 100%; }
+  .flex-basis-50 {
+    flex-basis: 50%; }
+  .flex-basis-30 {
+    flex-basis: 30%; }
+  .flex-basis-33 {
+    flex-basis: 33%; }
+  .flex-basis-25 {
+    flex-basis: 25%; }
+  .flex-basis-0 {
+    flex-basis: 0; }
+  .flex-gap-05 {
+    gap: 0.5rem !important; }
+  .flex-gap-1 {
+    gap: 1rem; }
+  .flex-gap-2 {
+    gap: 2rem; }
+  .flex-gap-3 {
+    gap: 3rem; }
+  .flex-gap-1-2 {
+    gap: 1rem 2rem; }
+  .flex-gap-1-4 {
+    gap: 1rem 4rem; }
+
+.middle {
+  vertical-align: middle; }
+
+.align-right {
+  text-align: right; }
+
+.align-left {
+  text-align: left; }
+
+.align-center {
+  text-align: center; }
+
+.align-self-center {
+  align-self: center; }
+
+.align-self-end {
+  align-self: end; }
+
+.w--100 {
+  width: 100%; }
+
+.w--50 {
+  width: 50%; }
+
+.w--auto {
+  width: auto !important; }
+
+.w--fit {
+  width: fit-content; }
+
+.h--100 {
+  height: 100%; }
+
+.h-auto {
+  height: auto !important; }
+
+.br-1 {
+  border-radius: 10px; }
+
+.b-dashed-t {
+  border-top: 1px dashed #A1A1A1; }
+
+.b-l {
+  height: 24px;
+  border-left: 1px solid #C7C7C7; }
+
+.responsive-md-show {
+  display: none !important; }
+
+@media screen and (max-width: 48rem) {
+  .responsive-md-flex-column {
+    flex-direction: column; }
+  .responsive-md-hide {
+    display: none !important; }
+  .responsive-md-show {
+    display: flex !important; }
+  .responsive-md-w-100 {
+    width: 100% !important; }
+  .responsive-md-w-auto {
+    width: auto !important; }
+  .responsive-md-h-auto {
+    height: auto !important; }
+  .responsive-md-wrap {
+    flex-wrap: wrap !important; }
+  .responsive-md-mt-10 {
+    margin-top: 2.5rem !important; }
+  .responsive-md-align-self-center {
+    align-self: center !important; } }
