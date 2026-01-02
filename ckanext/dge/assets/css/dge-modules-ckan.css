@@ -1,0 +1,1841 @@
+/*
+* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+@charset "UTF-8";
+/* $$ DGE MODULES CKAN
+@charset "UTF-8";
+@charset 'iso-8859-15';
+######### SISTEM ########### */
+/* ######### HEADER ########### */
+.dge-user-menu {
+  display: none;
+  color: #111;
+  background-color: #d7c2dc;
+  text-align: center; }
+  .dge-user-menu.active {
+    overflow: auto;
+    height: auto; }
+  .dge-user-menu .content {
+    padding: 1em; }
+  .dge-user-menu .block__content ul {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .dge-user-menu .block__content li {
+    display: inline-block;
+    margin: 0;
+    color: #555;
+    text-transform: uppercase; }
+  .dge-user-menu .block__content a {
+    display: inline-block;
+    padding: 0 1em;
+    color: #555;
+    text-decoration: none; }
+    .dge-user-menu .block__content a:hover,
+    .dge-user-menu .block__content a .menu a:focus {
+      color: #000;
+      transition: 0.3s; }
+
+.dge-entidades .block__content a {
+  margin-left: 2px !important; }
+
+.dge-entidades .block__content .hoover_efect {
+  display: inline-block;
+  padding: 0 0.5em;
+  color: #555;
+  text-decoration: none;
+  height: 70px !important; }
+  .dge-entidades .block__content .hoover_efect:hover,
+  .dge-entidades .block__content .hoover_efect .menu a:focus {
+    color: #000;
+    transition: 0.1s !important; }
+  .dge-entidades .block__content .hoover_efect img {
+    height: 60px !important; }
+
+.block-certifications ul.certifications {
+  list-style: none; }
+
+@media all and (min-width: 60em) {
+  /* +960 */
+  .dge-user-menu {
+    display: none; }
+  .dge-user-menu.is-visible {
+    display: block; } }
+
+footer.site-footer {
+  padding: 0;
+  margin-top: 65px; }
+  footer.site-footer > .content {
+    padding: 0; }
+
+.site-messages .messages {
+  padding: 1em;
+  color: #fff;
+  background-color: #555;
+  border: 0 none;
+  text-align: middle; }
+
+.site-messages .status {
+  padding: 1em;
+  color: #fff;
+  background-color: #42842f; }
+
+.site-messages .error {
+  color: #fff;
+  background-color: #b20000; }
+
+.dge-breadcrumb {
+  clear: both;
+  padding: 5px 25px 15px 20px; }
+  .dge-breadcrumb h2 {
+    margin: 0; }
+  .dge-breadcrumb ul {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  .dge-breadcrumb li {
+    display: inline-block;
+    margin: 0;
+    color: var(--primary-black); }
+  .dge-breadcrumb a {
+    display: inline-block;
+    color: var(--primary-black);
+    text-decoration: none; }
+    .dge-breadcrumb a:hover, .dge-breadcrumb a:focus {
+      color: var(--primary-black);
+      text-decoration: none; }
+    .dge-breadcrumb a:after {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      height: 12px;
+      margin: 0 8px;
+      border-right: 1px solid #333; }
+  .dge-breadcrumb .active a {
+    color: var(--primary-500); }
+    .dge-breadcrumb .active a:after {
+      display: none !important; }
+  @media all and (min-width: 48em) {
+    .dge-breadcrumb {
+      padding: 5px 25px 15px 25px; } }
+  @media all and (min-width: 60em) {
+    .dge-breadcrumb {
+      display: block;
+      padding: 25px; } }
+.filters .pane-content {
+  padding: 0; }
+
+.filters ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.filters .last {
+  border-bottom: 0 none; }
+
+.filters .is-active {
+  padding: 10px 10px 10px 35px; }
+
+.filters .nav-item a {
+  position: relative;
+  display: block;
+  padding: 10px 10px 10px 25px;
+  color: #333;
+  background-color: #fff;
+  text-decoration: none;
+  transition: 0.3s; }
+  .filters .nav-item a:hover, .filters .nav-item a:focus {
+    color: var(--primary-500);
+    background-color: #d2dee5;
+    transition: 0.3s; }
+
+.filters .nav-item.active a {
+  color: #fff;
+  background-color: var(--primary-500);
+  transition: 0.3s;
+  padding-right: 25px; }
+  .filters .nav-item.active a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -8px;
+    height: 87.5%;
+    padding: 3px 17px;
+    color: #fff;
+    background-color: var(--primary-500);
+    text-indent: -999px;
+    transform: skewX(-20deg);
+    transition: 0.3s; }
+  .filters .nav-item.active a:before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    top: 11px;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    background: url(/images/ico-cross-close.png) no-repeat center center;
+    border-radius: 50%;
+    transition: 0.3s; }
+
+.filters .module-content.search-form {
+  border: 0px; }
+  .filters .module-content.search-form h2 {
+    font-family: montserrat-medium !important;
+    font-size: .875rem;
+    color: var(--primary-600); }
+  .filters .module-content.search-form div {
+    position: relative; }
+    .filters .module-content.search-form div button {
+      position: absolute;
+      right: -2px;
+      top: 0px;
+      border: 0px;
+      cursor: pointer;
+      border-top-right-radius: var(--border-radius);
+      border-bottom-right-radius: var(--border-radius);
+      width: 40px;
+      height: 100%;
+      background-color: var(--primary-500);
+      background: url(/images/search_white.svg);
+      background-size: auto;
+      background-repeat: no-repeat;
+      background-position: center; }
+      .filters .module-content.search-form div button i {
+        display: none; }
+
+.filter_sort_numb_inactive:before {
+  background: none !important; }
+
+.filter_sort_numb_active:before {
+  background: none !important; }
+
+.img-filter-in-anchor li.nav-item {
+  background-image: unset; }
+
+.filters .active a:hover,
+.filters .active a:focus {
+  color: #FFF;
+  background-color: var(--primary-500);
+  transition: .3s; }
+
+.filters .active a:hover:after,
+.filters .active a:focus:after {
+  right: -12px;
+  background-color: var(--primary-500);
+  transition: .3s; }
+
+.filters .active a:hover:before,
+.filters .active a:focus:before {
+  background-color: #E05206;
+  transition: .3s; }
+
+.filters .active a span {
+  overflow: visible;
+  white-space: normal; }
+
+.filters .facetapi-active {
+  position: absolute;
+  top: 0;
+  right: -7px;
+  height: 75%;
+  padding: 3px 15px;
+  color: #FFF;
+  background-color: var(--primary-500);
+  text-indent: -999px;
+  -webkit-transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  transform: skewX(-20deg); }
+
+.filters .empty {
+  margin: 0;
+  padding: 10px 25px;
+  color: #333;
+  background-color: #FFF; }
+
+.filters .module-footer {
+  margin: 0;
+  border-bottom: 1px solid #CFCAD0; }
+
+.filters .module .read-more {
+  display: block;
+  padding: 10px 10px 10px 25px;
+  color: var(--primary-500);
+  text-decoration: none;
+  border-top: 1px solid var(--primary-500);
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  transition: .3s; }
+
+.filters .module .read-more:hover,
+.filters .module .read-more:focus {
+  color: var(--primary-500);
+  background-color: #d2dee5;
+  transition: .3s; }
+
+@media all and (min-width: 48em) {
+  /* +768 */ }
+
+@media all and (min-width: 60em) {
+  /* +768 */
+  .filters .nav-item a {
+    padding: 10px 26px 10px 25px; }
+  .filters .module .read-more {
+    display: block;
+    padding: 10px 10px 10px 25px; } }
+
+@media all and (min-width: 48em) {
+  /* +768 */
+  .search-input {
+    margin: 0 0 45px;
+    text-align: left; }
+  .search-input .search {
+    width: 20.5em; }
+  .search-input button {
+    margin: 0 0 0 10px; } }
+
+@media all and (min-width: 64em) {
+  /* +1024 */
+  .search-input .search {
+    width: 30em; } }
+
+@media all and (min-width: 80em) {
+  /* +1280 */
+  .search-input .search {
+    width: 37em; } }
+
+@media all and (min-width: 100em) {
+  /* +1600 */
+  .search-input .search {
+    width: 41em; } }
+
+/* main */
+.module-content, .pagination {
+  padding: 0; }
+
+/*main filtered pill*/
+.filtered.pill {
+  display: inline-block;
+  margin: 1px 0;
+  padding: 3px 14px;
+  color: #fff;
+  background-color: var(--primary-500);
+  border-radius: 16px;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: all 0.3s ease 0s; }
+
+.filtered.pill:focus,
+.filtered.pill:hover {
+  background-color: #e05206;
+  transition: all 0.3s ease 0s; }
+
+.filtered.pill a {
+  color: #FFF;
+  text-decoration: none; }
+
+.filtered.pill + .facet {
+  margin-left: 5px; }
+
+/* Dataset filters */
+.control-order-by {
+  margin: 10px 10px 0; }
+
+.search-form .dge-field-order-by {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: #555;
+  background: #fff url(/images/ico-arrow-down-gr.png) no-repeat 97.5% 50%; }
+
+.search-form .control-order-by label {
+  display: inline-block;
+  font-size: 1em;
+  font-family: 'montserrat', Helvetica, Arial, sans-serif; }
+
+.search-form .control-order-by select {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 25px 4px 4px;
+  padding-right: 25px;
+  width: auto;
+  background-color: transparent;
+  border: 1px solid transparent;
+  background: transparent;
+  outline: none;
+  -ms-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; }
+
+.search-form .control-order-by select::-ms-expand {
+  display: none; }
+
+.search-form .control-order-by select:focus {
+  border: 1px solid #777;
+  outline: 0; }
+
+.search-form .filter-list {
+  margin: 0 10px; }
+
+.js .show-filters.btn {
+  margin: 10px 10px 0;
+  padding: 14px 18px 12px;
+  text-transform: uppercase;
+  width: 10em; }
+
+.search-form + .extra {
+  margin: 10px; }
+
+@media all and (min-width: 37.5em) {
+  /* +480 */ }
+
+@media all and (min-width: 48em) {
+  /* +768 */
+  .control-order-by {
+    float: right;
+    margin: 0 0 0 20px; }
+  .search-form + .extra {
+    margin: 30px; } }
+
+@media all and (min-width: 64em) {
+  /* +1024 */
+  .control-order-by {
+    font-size: 1em; } }
+
+.tags {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 1rem; }
+  .tags .badge-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-flow: wrap; }
+    .tags .badge-group .badge {
+      display: flex;
+      background-color: var(--primary-300);
+      padding: 0.5rem;
+      width: fit-content;
+      border-radius: 10px;
+      color: var(--primary-700);
+      font-family: 'montserrat-medium';
+      font-size: 0.875rem;
+      text-decoration: none; }
+      .tags .badge-group .badge.active {
+        background-color: var(--primary-300); }
+      .tags .badge-group .badge.inactive {
+        background-color: var(--background-light-gray); }
+      .tags .badge-group .badge__close {
+        margin-left: 1rem;
+        display: flex;
+        cursor: pointer; }
+        .tags .badge-group .badge__close img {
+          width: 0.8rem; }
+  .tags .badge-clear-all {
+    position: absolute;
+    top: 4px;
+    right: 0; }
+
+.feed-icons {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1rem; }
+  .feed-icons .feed-button {
+    display: block;
+    text-decoration: none !important;
+    width: fit-content; }
+    .feed-icons .feed-button span {
+      text-decoration: none !important;
+      display: flex;
+      gap: .5rem;
+      align-items: center; }
+      .feed-icons .feed-button span img {
+        width: 1.375rem;
+        height: 1.375rem; }
+  .feed-icons #download-placeholder {
+    display: block;
+    text-decoration: none !important;
+    width: fit-content; }
+    .feed-icons #download-placeholder a {
+      text-decoration: none !important;
+      display: flex;
+      gap: 0.5rem; }
+
+/* Dataset list */
+.dataset-list {
+  margin: 0; }
+  .dataset-list .dataset-item {
+    clear: both;
+    list-style: none;
+    margin: 0 0 2em;
+    padding: 0; }
+
+.dge-list--dataset .dge-list--elm {
+  position: relative; }
+
+.dge-list--dataset .dge-list__title {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--primary-700);
+  font-family: montserrat-semiBold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; }
+
+.data--type__icon {
+  display: flex;
+  width: 1.75rem;
+  min-width: 1.75rem;
+  height: 1.75rem; }
+  .data--type__icon img {
+    width: 100%;
+    height: 100%; }
+  .data--type__icon--md {
+    width: 1.5rem;
+    min-width: 1.5rem;
+    height: 1.5rem; }
+    .data--type__icon--md.data--type-hvd {
+      width: 2rem;
+      min-width: 2rem;
+      height: 2rem; }
+  .data--type__icon--lg {
+    width: 1.875rem;
+    min-width: 1.875rem;
+    height: 1.875rem;
+    background-color: var(--primary-300);
+    padding: 0.75rem;
+    border-radius: 50%; }
+    .data--type__icon--lg.data--type-hvd {
+      width: 2.3rem;
+      min-width: 2.3rem;
+      height: 2.3rem;
+      padding: 0.5rem;
+      background-color: var(--third-50); }
+
+.dataset-private {
+  display: flex;
+  width: 1.2rem;
+  min-width: 1.2rem;
+  height: 1.2rem; }
+  .dataset-private img {
+    width: 100%;
+    height: 100%; }
+  .dataset-private--md {
+    width: 1.175rem;
+    min-width: 1.175rem;
+    height: 1.175rem; }
+  .dataset-private--lg {
+    width: 1.75rem;
+    min-width: 1.75rem;
+    height: 1.75rem; }
+
+.publisher-title {
+  color: var(--primary-600);
+  font-size: 0.875rem;
+  font-family: montserrat-italic; }
+  .publisher-title a {
+    color: var(--primary-500);
+    text-decoration: none;
+    transition: 0.3s; }
+    .publisher-title a:hover, .publisher-title a:focus {
+      color: var(--primary-700);
+      transition: 0.3s; }
+
+.dge-list__publisher,
+.dge-list__desc {
+  margin: 0 0 10px; }
+  .dge-list__publisher p,
+  .dge-list__desc p {
+    margin: 0 0 10px; }
+
+.dataset-list.dge-list.dge-list--dataset .dataset-item {
+  position: relative;
+  margin: 2rem 0 0 0;
+  padding: 1rem 1.5rem;
+  border-radius: .625rem;
+  background-color: var(--background-light-gray);
+  box-shadow: var(--box-shadow); }
+  .dataset-list.dge-list.dge-list--dataset .dataset-item .dataset-content .dataset-heading a {
+    text-decoration: none;
+    font-family: 'montserrat-semiBold' !important;
+    font-size: 1.3rem;
+    color: var(--primary-500); }
+
+/* Dataset detail CKAN */
+.dge-dataset-detail .module-content > h1 {
+  padding-right: 24rem; }
+
+.dge-dataset-detail .module-content h1,
+.dge-dataset-detail .module-content h2.section-title {
+  position: relative;
+  padding-bottom: .6rem;
+  font-family: montserrat-medium;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--primary-700); }
+  .dge-dataset-detail .module-content h1::after,
+  .dge-dataset-detail .module-content h2.section-title::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -5px;
+    height: 5px;
+    width: 80px;
+    background-color: var(--primary-500); }
+
+.dge-dataset-detail .module-content .page-header {
+  z-index: 7;
+  position: relative;
+  max-width: 24rem;
+  width: auto;
+  float: right; }
+
+.dge-dataset-detail .module-content .edition-package-block .page-header {
+  display: flex;
+  margin-bottom: 1rem;
+  float: unset;
+  width: 100%;
+  max-width: unset; }
+  .dge-dataset-detail .module-content .edition-package-block .page-header .content_action {
+    justify-content: start;
+    width: 100%;
+    max-width: unset; }
+  .dge-dataset-detail .module-content .edition-package-block .page-header li {
+    width: fit-content;
+    list-style: none; }
+    .dge-dataset-detail .module-content .edition-package-block .page-header li a {
+      margin-left: 1rem;
+      color: var(--primary-500);
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+      border-radius: 0.375rem;
+      padding: 0.625rem .938rem;
+      transition: 0.3s;
+      border: 1px solid var(--primary-500);
+      text-decoration: none;
+      width: fit-content;
+      min-width: 12.5rem;
+      max-width: unset;
+      display: flex;
+      flex-direction: row;
+      justify-content: center; }
+      .dge-dataset-detail .module-content .edition-package-block .page-header li a i {
+        display: none; }
+      .dge-dataset-detail .module-content .edition-package-block .page-header li a:hover, .dge-dataset-detail .module-content .edition-package-block .page-header li a:active, .dge-dataset-detail .module-content .edition-package-block .page-header li a:focus {
+        color: var(--white);
+        background-color: var(--primary-500);
+        transition: .2s color, .2s background-color; }
+
+.dge-dataset-detail .module-content .edition-package-block + .page_primary_action {
+  display: flex;
+  justify-content: flex-end; }
+
+.dge-dataset-detail .module-content .edition-package-block + .page_primary_action + .resource-list.ui-sortable {
+  margin: 0; }
+  .dge-dataset-detail .module-content .edition-package-block + .page_primary_action + .resource-list.ui-sortable li.resource-item {
+    position: relative;
+    margin: 2rem 0 0 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: .625rem;
+    background-color: var(--background-light-gray);
+    box-shadow: var(--box-shadow); }
+    .dge-dataset-detail .module-content .edition-package-block + .page_primary_action + .resource-list.ui-sortable li.resource-item:hover {
+      background-color: var(--white);
+      border: 1px solid var(--primary-700);
+      box-shadow: none;
+      transition: .3s; }
+    .dge-dataset-detail .module-content .edition-package-block + .page_primary_action + .resource-list.ui-sortable li.resource-item a {
+      display: block;
+      height: 100%;
+      padding: 1.5rem 1rem;
+      font-size: 1.25rem;
+      text-decoration: none;
+      color: var(--primary-700);
+      font-family: montserrat-semiBold; }
+      .dge-dataset-detail .module-content .edition-package-block + .page_primary_action + .resource-list.ui-sortable li.resource-item a .format-label {
+        display: none; }
+    .dge-dataset-detail .module-content .edition-package-block + .page_primary_action + .resource-list.ui-sortable li.resource-item .description {
+      min-height: unset;
+      height: auto;
+      padding: 0;
+      margin: 0;
+      box-shadow: unset; }
+      .dge-dataset-detail .module-content .edition-package-block + .page_primary_action + .resource-list.ui-sortable li.resource-item .description::before {
+        content: unset;
+        display: none; }
+
+.dge-dataset-detail .module-content .description {
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  border-radius: .625rem;
+  background-color: var(--background-light-gray);
+  box-shadow: var(--box-shadow); }
+
+.dge-dataset-detail .module-content .resources {
+  padding: 0 !important; }
+
+.dge-dataset-detail .module-content .description,
+.dge-dataset-detail .module-content .resources {
+  position: relative;
+  margin: 2rem 0 0 0; }
+  .dge-dataset-detail .module-content .description .section-title,
+  .dge-dataset-detail .module-content .resources .section-title {
+    margin: 0;
+    font-family: montserrat-medium;
+    font-size: 1.125rem; }
+    .dge-dataset-detail .module-content .description .section-title::after,
+    .dge-dataset-detail .module-content .resources .section-title::after {
+      content: unset; }
+  .dge-dataset-detail .module-content .description code,
+  .dge-dataset-detail .module-content .resources code {
+    font-family: montserrat;
+    font-size: 1rem;
+    color: var(--primary-700);
+    white-space: pre-wrap;
+    word-wrap: break-word; }
+  .dge-dataset-detail .module-content .description .resource-list,
+  .dge-dataset-detail .module-content .resources .resource-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; }
+    .dge-dataset-detail .module-content .description .resource-list .resource-item .format,
+    .dge-dataset-detail .module-content .resources .resource-list .resource-item .format {
+      font-size: .75rem;
+      color: var(--white);
+      margin: 0;
+      padding: .5rem 1rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: var(--border-radius); }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .format.text-csv,
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format.text-csv {
+        color: var(--white);
+        background: var(--csv); }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .format.application-vnd, .dge-dataset-detail .module-content .description .resource-list .resource-item .format[data-format*=sheet], .dge-dataset-detail .module-content .description .resource-list .resource-item .format[data-format*=excel],
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format.application-vnd,
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format[data-format*=sheet],
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format[data-format*=excel] {
+        color: var(--white);
+        background: var(--xls); }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .format[data-format*=rdf],
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format[data-format*=rdf] {
+        min-width: max-content;
+        color: var(--white);
+        background: var(--rdf); }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .format[data-format*=pc-axis], .dge-dataset-detail .module-content .description .resource-list .resource-item .format[data-format*=zip],
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format[data-format*=pc-axis],
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format[data-format*=zip] {
+        min-width: max-content;
+        color: var(--white);
+        background: var(--zip); }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .format[data-format*=json],
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format[data-format*=json] {
+        color: var(--white);
+        background: var(--json); }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .format[data-format*=html],
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .format[data-format*=html] {
+        color: var(--white);
+        background: var(--html); }
+    .dge-dataset-detail .module-content .description .resource-list .resource-item .btn-group .btn-primary,
+    .dge-dataset-detail .module-content .resources .resource-list .resource-item .btn-group .btn-primary {
+      position: relative;
+      padding: 0;
+      min-width: unset;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 0px;
+      font-size: 0px;
+      background-color: transparent; }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .btn-group .btn-primary::before,
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .btn-group .btn-primary::before {
+        content: '';
+        width: 1.5rem;
+        height: 1.5rem;
+        background: url(/images/download-icon.svg) no-repeat;
+        background-size: 1.5rem; }
+      .dge-dataset-detail .module-content .description .resource-list .resource-item .btn-group .btn-primary i,
+      .dge-dataset-detail .module-content .resources .resource-list .resource-item .btn-group .btn-primary i {
+        display: none; }
+    .dge-dataset-detail .module-content .description .resource-list .resource-item .btn-group .icon-stack,
+    .dge-dataset-detail .module-content .resources .resource-list .resource-item .btn-group .icon-stack {
+      display: none; }
+
+.dge-dataset-detail .module-content .publisher,
+.dge-dataset-detail .module-content .license {
+  display: inline-flex;
+  align-items: center;
+  flex-flow: wrap;
+  width: calc(100% - 16rem); }
+  .dge-dataset-detail .module-content .publisher .dataset-metadata,
+  .dge-dataset-detail .module-content .license .dataset-metadata {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    padding-left: 2rem;
+    margin-right: 2rem;
+    height: auto;
+    gap: 0.5rem; }
+
+.dge-dataset-detail .module-content .publisher .dataset-metadata:first-child strong,
+.dge-dataset-detail .module-content .publisher .dataset-metadata:first-child a {
+  text-decoration: none; }
+
+.dge-dataset-detail .module-content .license {
+  margin-top: 2rem; }
+
+.page-header:has(.content_action .btn.btn-default .fa.fa-arrow-left) {
+  float: unset;
+  width: 100%;
+  max-width: 100%; }
+
+.content_action:has(.btn.btn-default .fa.fa-arrow-left) {
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1rem; }
+
+.dge-dataset-detail .module-content .page-header .content_action a.btn.btn-default {
+  margin-bottom: 0 !important;
+  margin-left: 0; }
+
+#resource-edit .multi-new-value-resource_relation + .form-actions {
+  justify-content: flex-end; }
+  #resource-edit .multi-new-value-resource_relation + .form-actions .btn.btn-danger {
+    background-color: var(--secondary-500); }
+
+.edition-package-block + #dataset-edit .form-actions {
+  justify-content: flex-end; }
+  .edition-package-block + #dataset-edit .form-actions .btn.btn-danger {
+    background-color: var(--secondary-500); }
+
+@media (max-width: 1200px) {
+  .dge-dataset-detail .module-content .edition-package-block .page-header {
+    flex-direction: column; }
+  .dge-dataset-detail .module-content .edition-package-block .page-header li a {
+    margin: 1rem 0 0 0; }
+  .dge-dataset-detail .module-content .edition-package-block + .page_primary_action {
+    justify-content: start; } }
+
+@media (max-width: 768px) {
+  .dge-dataset-detail .module-content .page-header .content_action a.btn.btn-default {
+    width: 100%; }
+  .dge-dataset-detail .module-content .edition-package-block .page-header li {
+    width: 100%; }
+  .dge-dataset-detail .module-content .edition-package-block .page-header li a {
+    width: auto; }
+  .dge-dataset-detail .module-content .publisher .dataset-metadata {
+    margin-right: 0; }
+  .dge-dataset-detail .module-content .license {
+    margin-top: 0; }
+  .dge-dataset-detail .module-content .publisher,
+  .dge-dataset-detail .module-content .license {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start; }
+  .dge-dataset-detail .module-content .license .dataset-metadata {
+    margin-bottom: 1rem !important; }
+  .tags {
+    padding-right: 0 !important; }
+    .tags .badge-clear-all {
+      position: static;
+      width: 100%; }
+      .tags .badge-clear-all .field__item {
+        justify-content: start; }
+  .search-form .dge-search-dropdown-wrapper {
+    float: unset;
+    width: calc(100% - 1.3rem);
+    margin: 0 0 1rem 1.3rem; }
+  .dge-dataset-detail .module-content .resources .resource-list li:nth-child(odd),
+  .dge-dataset-detail .module-content .resources .resource-list li:nth-child(even) {
+    width: fit-content; }
+  .module-content:has(.edition-package-block + .page_primary_action .fa-plus) {
+    display: flex;
+    flex-direction: column; }
+  .module-content:has(.edition-package-block + .page_primary_action .fa-plus) .edition-package-block {
+    order: 1; }
+  .module-content:has(.edition-package-block + .page_primary_action .fa-plus) .page_primary_action {
+    order: 0;
+    margin-bottom: 0 !important; }
+  .module-content:has(.edition-package-block + .page_primary_action .fa-plus) .resource-list.ui-sortable {
+    order: 2; }
+  .content_action:has(.btn.btn-default .fa.fa-arrow-left) {
+    flex-direction: initial; }
+  .page-header:has(.content_action .btn.btn-default .fa.fa-arrow-left) .content_action a {
+    width: 100%; }
+  .edition-package-block + #dataset-edit .form-actions {
+    flex-direction: column;
+    justify-content: unset; }
+    .edition-package-block + #dataset-edit .form-actions .btn.btn-danger {
+      width: calc(100% - 2rem); }
+  #resource-edit .multi-new-value-resource_relation + .form-actions .btn.btn-danger {
+    width: calc(100% - 2rem); } }
+
+.btn-primary[disabled] {
+  background-color: var(--primary-700) !important; }
+
+/* formatos dataset en listado */
+.dataset-item .resources {
+  margin-left: 0; }
+  .dataset-item .resources li {
+    display: flex;
+    list-style: none;
+    font-size: 0.833em;
+    min-width: max-content; }
+    .dataset-item .resources li a:not(:has(span)) {
+      background-color: transparent; }
+      .dataset-item .resources li a:not(:has(span)) img.download-icon {
+        background-color: var(--background-semi-light-gray);
+        padding: 0.5rem;
+        border-radius: var(--border-radius); }
+      .dataset-item .resources li a:not(:has(span)):hover img.download-icon, .dataset-item .resources li a:not(:has(span)):focus img.download-icon {
+        transition: 0.3s;
+        background-color: var(--background-dark-gray); }
+  .dataset-item .resources .label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--white);
+    margin: 0;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    background-color: var(--third-500);
+    max-width: 9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align-last: center;
+    /* XHTML and HTML */
+    /* PDF and API */
+    /* CSV */
+    /* XLS, XLSX, and JPG */
+    /* XML and XML-App */
+    /* JSON and RSS */
+    /* Plain */
+    /* ODS */
+    /* WFS */
+    /* DWG */
+    /* KMZ and KML */
+    /* Calendar */
+    /* Geojason */
+    /* RDF-XML */
+    /* ZIP, PC-Axis, and WMS */
+    /* SHP */ }
+    .dataset-item .resources .label .download-icon {
+      filter: var(--filter-transform-to-white);
+      width: 0.875rem;
+      flex-shrink: 0;
+      padding-right: 0.5rem; }
+    .dataset-item .resources .label .text-truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1; }
+    .dataset-item .resources .label.xhtml {
+      background: var(--xhtml);
+      color: var(--white); }
+    .dataset-item .resources .label.html {
+      background: var(--xhtml);
+      color: var(--white); }
+    .dataset-item .resources .label.atom {
+      background: var(--atom);
+      color: var(--white); }
+    .dataset-item .resources .label.pdf {
+      background: var(--pdf);
+      color: var(--white); }
+    .dataset-item .resources .label.api {
+      background: var(--api);
+      color: var(--white); }
+    .dataset-item .resources .label.csv {
+      background: var(--csv);
+      color: var(--white); }
+    .dataset-item .resources .label.xls {
+      background: var(--xls);
+      color: var(--white); }
+    .dataset-item .resources .label.xlsx {
+      background: var(--xls);
+      color: var(--white); }
+    .dataset-item .resources .label.jpg {
+      background: var(--xls);
+      color: var(--white); }
+    .dataset-item .resources .label.xml {
+      background: var(--xml);
+      color: var(--white); }
+    .dataset-item .resources .label.xml-app {
+      background: var(--xml);
+      color: var(--white); }
+    .dataset-item .resources .label.json {
+      background: var(--json);
+      color: var(--white); }
+    .dataset-item .resources .label.rss {
+      background: var(--rss);
+      color: var(--white); }
+    .dataset-item .resources .label.plain {
+      background: var(--plain);
+      color: var(--white); }
+    .dataset-item .resources .label.ods {
+      background: var(--ods);
+      color: var(--white); }
+    .dataset-item .resources .label.wfs {
+      background: var(--wfs);
+      color: var(--white); }
+    .dataset-item .resources .label.dwg {
+      background: var(--dwg);
+      color: var(--white); }
+    .dataset-item .resources .label.kmz {
+      background: var(--kmz);
+      color: var(--white); }
+    .dataset-item .resources .label.kml {
+      background: var(--kml);
+      color: var(--white); }
+    .dataset-item .resources .label.calendar {
+      background: var(--calendar);
+      color: var(--white); }
+    .dataset-item .resources .label.geojson {
+      background: var(--geojson);
+      color: var(--white); }
+    .dataset-item .resources .label.rdf-xml {
+      background: var(--rdf-xml);
+      color: var(--white); }
+    .dataset-item .resources .label.rdf-turtle {
+      background: var(--rdf-turtle);
+      color: var(--white); }
+    .dataset-item .resources .label.rdf-n3 {
+      background: var(--rdf-n3);
+      color: var(--white); }
+    .dataset-item .resources .label.json-ld {
+      background: var(--json-ld);
+      color: var(--white); }
+    .dataset-item .resources .label.sparql {
+      background: var(--sparql);
+      color: var(--white); }
+    .dataset-item .resources .label.zip {
+      background: var(--zip);
+      color: var(--white); }
+    .dataset-item .resources .label.pc-axis {
+      background: var(--pc-axis);
+      color: var(--white); }
+    .dataset-item .resources .label.wms {
+      background: var(--wms);
+      color: var(--white); }
+    .dataset-item .resources .label.shp {
+      background: var(--shp);
+      color: var(--white); }
+
+.archiver-icon-stack {
+  position: relative;
+  display: flex;
+  min-width: 1.5rem;
+  max-width: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem; }
+  .archiver-icon-stack img {
+    width: 100%;
+    height: 100%; }
+
+.external-access {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  min-width: 1.5rem;
+  max-width: 1.5rem;
+  height: 1.5rem;
+  filter: contrast(0);
+  width: 1.5rem;
+  transition: 0.3s; }
+  .external-access:hover, .external-access:focus, .external-access:active {
+    filter: none; }
+  .external-access img {
+    width: 100%;
+    height: 100%; }
+
+.export-dataset {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap; }
+  .export-dataset a {
+    display: flex;
+    width: 2.5rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    filter: unset;
+    transition: .2s filter; }
+    .export-dataset a img {
+      width: 100%; }
+    .export-dataset a:hover {
+      filter: brightness(0.8);
+      text-decoration: none; }
+
+/* icons categories */
+.filters .sector-publico a, .filters .sociedad-bienestar a, .filters .demografia a, .filters .salud a, .filters .educacion a,
+.filters .turismo a, .filters .medio-rural-pesca a, .filters .ciencia-tecnologia a, .filters .comercio a, .filters .deporte a,
+.filters .cultura-ocio a, .filters .economia a, .filters .empleo a, .filters .energia a, .filters .hacienda a, .filters .industria a,
+.filters .legislacion-justicia a, .filters .medio-ambiente a, .filters .transporte a, .filters .seguridad a, .filters .vivienda a,
+.filters .medio-rural-pesca a, .filters .urbanismo-infraestructuras a,
+.filters .active.sector-publico a {
+  background-repeat: no-repeat;
+  background-size: 30px auto;
+  background-position: 15px 7px;
+  padding-left: 60px; }
+
+.categories .dataset-categories {
+  display: flex;
+  gap: .5rem 0rem;
+  flex-flow: wrap; }
+  .categories .dataset-categories li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: .2rem; }
+    .categories .dataset-categories li .label {
+      margin-bottom: 0;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: montserrat;
+      color: var(--primary-500);
+      background-color: unset; }
+      .categories .dataset-categories li .label::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 9px;
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: transparent;
+        border-radius: 50%; }
+      .categories .dataset-categories li .label.ciencia-tecnologia::before {
+        background-color: var(--ciencia-y-tecnologia); }
+      .categories .dataset-categories li .label.sociedad-bienestar::before {
+        background-color: var(--sociedad-y-bienestar); }
+      .categories .dataset-categories li .label.hacienda::before {
+        background-color: var(--hacienda); }
+      .categories .dataset-categories li .label.educacion::before {
+        background-color: var(--educacion); }
+      .categories .dataset-categories li .label.sector-publico::before {
+        background-color: var(--sector-publico); }
+      .categories .dataset-categories li .label.comercio::before {
+        background-color: var(--comercio); }
+      .categories .dataset-categories li .label.medio-ambiente::before {
+        background-color: var(--medio-ambiente); }
+      .categories .dataset-categories li .label.medio-rural-pesca::before {
+        background-color: var(--medio-rural); }
+      .categories .dataset-categories li .label.energia::before {
+        background-color: var(--energia); }
+      .categories .dataset-categories li .label.seguridad::before {
+        background-color: var(--seguridad); }
+      .categories .dataset-categories li .label.justicia-y-sociedad::before {
+        background-color: var(--justicia); }
+      .categories .dataset-categories li .label.legislacion-justicia::before {
+        background-color: var(--legislacion-y-justicia); }
+      .categories .dataset-categories li .label.urbanismo-infraestructuras::before {
+        background-color: var(--urbanismo-e-infraestructuras); }
+      .categories .dataset-categories li .label.ocio-y-cultura {
+        background-color: var(--cultura-y-ocio); }
+      .categories .dataset-categories li .label.vivienda::before {
+        background-color: var(--vivienda); }
+      .categories .dataset-categories li .label.economia::before {
+        background-color: var(--economia); }
+      .categories .dataset-categories li .label.transporte::before {
+        background-color: var(--transporte); }
+      .categories .dataset-categories li .label.deporte::before {
+        background-color: var(--deporte); }
+      .categories .dataset-categories li .label.demografia::before {
+        background-color: var(--demografia); }
+      .categories .dataset-categories li .label.empleo::before {
+        background-color: var(--empleo); }
+      .categories .dataset-categories li .label.salud::before {
+        background-color: var(--salud); }
+      .categories .dataset-categories li .label.turismo::before {
+        background-color: var(--turismo); }
+      .categories .dataset-categories li .label.cultura-ocio::before {
+        background-color: var(--cultura-y-ocio); }
+      .categories .dataset-categories li .label.industria::before {
+        background-color: var(--industria); }
+
+.filters .WMS a {
+  background-repeat: no-repeat;
+  background-size: 30px auto;
+  background-position: 115px;
+  padding-left: 25px; }
+
+.filters .WFS a {
+  background-repeat: no-repeat;
+  background-size: 30px auto;
+  background-position: 110px;
+  padding-left: 25px; }
+
+.filters .WMS-XML a {
+  background-repeat: no-repeat;
+  background-size: 30px auto;
+  background-position: 145px;
+  padding-left: 25px !important; }
+
+.filters .API a {
+  background-repeat: no-repeat;
+  background-size: 30px auto;
+  background-position: 105px;
+  padding-left: 25px !important; }
+
+.filters .active.WMS a {
+  background-repeat: no-repeat;
+  background-size: 30px auto;
+  background-position: 115px;
+  padding-left: 25px !important; }
+
+.WMS a {
+  background-image: url(/images/ico-category/ico-cat-formato.png) !important; }
+
+.active.WMS a {
+  background-image: url(/images/ico-category/ico-cat-formato-hover-alt.png) !important; }
+
+.WFS a {
+  background-image: url(/images/ico-category/ico-cat-formato.png); }
+
+.active.WFS a {
+  background-image: url(/images/ico-category/ico-cat-formato-hover-alt.png); }
+
+.WMS-XML a {
+  background-image: url(/images/ico-category/ico-cat-formato.png); }
+
+.active.WMS-XML a {
+  background-image: url(/images/ico-category/ico-cat-formato-hover-alt.png); }
+
+.API a {
+  background-image: url(/images/ico-category/ico-cat-formato.png); }
+
+.active.API a {
+  background-image: url(/images/ico-category/ico-cat-formato-hover-alt.png); }
+
+.WMS {
+  background-image: url(/images/ico-category/ico-cat-formato.png);
+  background-repeat: no-repeat;
+  background-size: 25%; }
+
+.WMS:hover,
+.WMS:focus {
+  background-image: url(/images/ico-category/ico-cat-formato-hover.png);
+  background-repeat: no-repeat;
+  background-size: 25%; }
+
+.WFS {
+  background-image: url(/images/ico-category/ico-cat-formato.png);
+  background-repeat: no-repeat;
+  background-size: 25%; }
+
+.WFS:hover,
+.WFS:focus {
+  background-image: url(/images/ico-category/ico-cat-formato-hover.png);
+  background-repeat: no-repeat;
+  background-size: 25%; }
+
+.WMS-XML {
+  background-image: url(/images/ico-category/ico-cat-formato.png);
+  background-repeat: no-repeat;
+  background-size: 25%; }
+
+.WMS-XML:hover,
+.WMS-XML:focus {
+  background-image: url(/images/ico-category/ico-cat-formato-hover.png);
+  background-repeat: no-repeat;
+  background-size: 25%; }
+
+.API {
+  background-image: url(/images/ico-category/ico-cat-formato.png);
+  background-repeat: no-repeat;
+  background-size: 15%; }
+
+.API:hover,
+.API:focus {
+  background-image: url(/images/ico-category/ico-cat-formato-hover.png);
+  background-repeat: no-repeat;
+  background-size: 15%; }
+
+/* form source new (crear fuente federador */
+#source-new .control-label[for="field-title"] {
+  float: left; }
+
+#source-new .control-label[for="field-title"] + .controls {
+  display: block;
+  width: 100%; }
+
+#source-new #field-title {
+  display: inline-block;
+  width: 70.5%;
+  margin-left: 4px; }
+
+#source-new .slug-preview {
+  margin-top: 25px;
+  display: flex; }
+
+/* Paginador - ckan */
+.pagination {
+  display: flex;
+  justify-content: right;
+  gap: 0.5rem;
+  margin: 2rem 0 0 0;
+  flex-wrap: wrap; }
+  .pagination li {
+    height: 1.25rem;
+    position: relative;
+    display: inline-flex;
+    background-color: transparent;
+    min-width: 1.25rem;
+    color: white;
+    border-radius: 1.875rem;
+    padding: 0.5em; }
+    .pagination li a {
+      text-decoration: none;
+      font-size: 1.125rem;
+      width: 100%;
+      display: flex;
+      justify-content: center; }
+    .pagination li button {
+      cursor: pointer;
+      font-size: 1.125rem;
+      border: 0px;
+      background: unset; }
+    .pagination li:hover {
+      background-color: var(--primary-300);
+      transition: 0.3s; }
+      .pagination li:hover a {
+        color: var(--primary-700); }
+    .pagination li.active {
+      background-color: var(--primary-500); }
+      .pagination li.active a {
+        font-family: montserrat-medium;
+        color: var(--white); }
+      .pagination li.active button {
+        color: var(--white); }
+    .pagination li.disabled {
+      background-color: transparent;
+      color: var(--primary-600);
+      cursor: initial; }
+    .pagination li:first-child:not(.active) a {
+      height: 20px;
+      width: 20px;
+      font-size: 0px;
+      transform: translateY(-20%) rotate(90deg);
+      background: url(/images/blue-arrow.svg) no-repeat 97.5% 50%; }
+    .pagination li:last-child:not(.active) a {
+      height: 20px;
+      width: 20px;
+      font-size: 0px;
+      transform: translateY(20%) rotate(-90deg);
+      background: url(/images/blue-arrow.svg) no-repeat 97.5% 50%; }
+    .pagination li:last-child:not(.active).active a {
+      font-size: 1.125rem !important;
+      transform: translateY(20%) rotate(0deg) !important;
+      background: transparent !important; }
+
+/* sparql - module */
+.yasr {
+  margin-bottom: 2em; }
+
+.yasr_results {
+  margin-bottom: 2em; }
+
+.yasr_results:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; }
+
+.yasqe .yasqe_buttons .yasqe_queryButton .svgImg {
+  width: 26px;
+  height: 26px; }
+
+/* CKan API - module */
+.swagger-intro {
+  margin: 0 0 15px; }
+
+.swagger-section .swagger-ui-wrap ul#resources {
+  margin: 0 0 1.5em 0; }
+
+.swagger-section .swagger-ui-wrap,
+.swagger-section .swagger-ui-wrap ul#resources li.resource {
+  max-width: 100% !important; }
+
+/* Federador */
+.module-content > .page_primary_action {
+  margin: 0 0 7px; }
+
+.prose .dropdown-menu > li > a {
+  text-decoration: none; }
+
+/* Cuadro de mando - Dashboard */
+.dge-dashboard-intro {
+  margin: 0px 25px 25px; }
+
+.module-content .dge-dashboard {
+  margin: 25px 25px 15px; }
+
+/* comments - comentarios */
+.dgecomments {
+  margin: 0 0 6em; }
+
+.dge-comments-add-link {
+  margin-top: .5em;
+  text-align: center; }
+
+.comments-add-link {
+  margin: 10px 0 0;
+  padding: 9px 36px 8px 15px;
+  color: #FFF;
+  background: #E05206 url(/images/ico-arrow-buttton.png) no-repeat 94% 50%;
+  border: 0 none;
+  border-radius: 18px;
+  font-size: .833em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .3s; }
+
+.comments-add-link:hover,
+.comments-add-link:focus {
+  color: #FFF;
+  background-color: var(--primary-500);
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  outline: none;
+  transition: .3s; }
+
+.comments-add-link:active {
+  color: #FFF;
+  background-color: var(--primary-500);
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.75);
+  transition: .3s; }
+
+.dgecomments .title {
+  color: #333;
+  font-size: 1.556em;
+  font-family: 'montserrat', Helvetica, Arial, sans-serif; }
+
+.dgecomments .messages {
+  margin: 1em 0;
+  padding: 1em;
+  color: #FFF;
+  background-color: #555;
+  border: 0 none;
+  text-align: middle; }
+
+.dgecomments .messages.status {
+  padding: 1em;
+  color: #FFF;
+  background-color: #42842F; }
+
+.dgecomments .messages.error {
+  color: #FFF;
+  background-color: #B20000; }
+
+.comment {
+  padding: 6px 20px;
+  border: 2px solid #eee;
+  border-width: 2px 0; }
+
+.comment .new {
+  float: left;
+  margin: 0 10px 0 0;
+  padding: 2px 5px;
+  color: #FFF;
+  background-color: #E05206;
+  border-radius: 5px;
+  font-size: .833em; }
+
+.comment .submitted {
+  position: relative;
+  padding: 0 0 5px;
+  border-bottom: 1px solid #ccc; }
+
+.comment .submitted:before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 7px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--primary-500);
+  background-image: url(/images/bullet-comment.png);
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+.comment .submitted span {
+  display: inline-block;
+  margin-right: 10px; }
+
+.comment .submitted span[datatype] {
+  font-size: 0.889em; }
+
+.comment .content {
+  padding: 10px 3px;
+  font-size: 0.889em; }
+
+.comment .content p {
+  margin: 0 0 1em; }
+
+.comment .links {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.comment .links.inline li {
+  display: inline-block;
+  margin: 0 6px; }
+
+.comment .comment-delete
+.comment .comment-edit,
+.comment .comment-reply {
+  display: inline-block; }
+
+.comment .links a {
+  display: block;
+  margin: 0;
+  padding: 9px 36px 8px 15px;
+  color: #FFF;
+  background: var(--primary-500) url(/images/ico-arrow-buttton.png) no-repeat 89% 50%;
+  border: 0 none;
+  border-radius: 18px;
+  font-size: .833em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .3s; }
+
+.comment .links a:hover,
+.comment .links a:focus {
+  color: #FFF;
+  background-color: #E05206;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+  outline: none;
+  transition: .3s; }
+
+.comment .links a:active {
+  color: #FFF;
+  background-color: #E05206;
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.75);
+  transition: .3s; }
+
+.comment .comment-delete a {
+  color: #FFF;
+  background-color: #B00;
+  background-image: url(/images/ico-cross-close.png);
+  background-position: 85% 50%; }
+
+.comment .comment-edit a {
+  background-image: url(/images/ico-arrow-dw-access-alt.png);
+  background-position: 82% 50%; }
+
+.indented {
+  margin-left: 33px; }
+
+.indented .comment {
+  position: relative;
+  background-color: #eee;
+  border: 0 none; }
+
+.indented .comment:before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 19px;
+  display: block;
+  width: 22px;
+  height: 50px;
+  background: url(/images/ico-comment-reply.png) no-repeat 0 0; }
+
+.indented .comment {
+  margin-top: 10px; }
+
+.indented > a:first-child + .comment {
+  margin-top: 0; }
+
+.indented .indented > a:first-child + .comment {
+  margin-top: 10px; }
+
+.dgecomments .pager {
+  text-align: center;
+  list-style: none;
+  margin: 2em 0;
+  padding: 0; }
+
+.dgecomments .pager > li {
+  display: inline-block;
+  margin: 0 0 2px;
+  padding: 0; }
+
+.dgecomments .pager a {
+  display: block;
+  padding: .25em .5em;
+  text-decoration: none;
+  color: #333;
+  border: 1px solid #C64A1A;
+  border-radius: 0; }
+
+.dgecomments .pager a:hover,
+.dgecomments .pager a:focus {
+  color: #C64A1A;
+  background-color: rgba(198, 74, 26, 0.1); }
+
+.dgecomments .pager .pager-current {
+  padding: .25em .5em;
+  color: #FFF;
+  background-color: #C64A1A;
+  border: 1px solid #C64A1A; }
+
+.dgecomments .pager .pager-ellipsis {
+  padding: .25em .5em;
+  border: 1px solid #FFF; }
+
+.dgecomments .pager .pager-current {
+  color: #333;
+  border: 0 none;
+  background: none; }
+
+.dgecomments .pager a {
+  color: var(--primary-500);
+  border: 0 none; }
+
+.dgecomments .pager li {
+  vertical-align: bottom; }
+
+.dgecomments .pager-first,
+.dgecomments .pager-previous,
+.dgecomments .pager-next,
+.dgecomments .pager-last {
+  position: relative;
+  overflow: hidden;
+  text-indent: -999em;
+  width: 1.5em; }
+
+.dgecomments .pager-first a:before {
+  content: "«";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  display: block;
+  font-size: 2em;
+  line-height: .75;
+  text-indent: 0; }
+
+.dgecomments .pager-previous a:before {
+  content: "‹";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  display: block;
+  font-size: 2em;
+  line-height: .75;
+  text-indent: 0; }
+
+.dgecomments .pager-next a:before {
+  content: "›";
+  position: absolute;
+  top: 0;
+  right: 25%;
+  display: block;
+  font-size: 2em;
+  line-height: .75;
+  text-indent: 0; }
+
+.dgecomments .pager-last a:before {
+  content: "»";
+  position: absolute;
+  top: 0;
+  right: 15%;
+  display: block;
+  font-size: 2em;
+  line-height: .75;
+  text-indent: 0; }
+
+@media all and (min-width: 24em) {
+  .dge-comments-add-link {
+    float: right;
+    margin-top: .5em;
+    text-align: right; } }
+
+@media all and (min-width: 48em) {
+  /* +768 */
+  .dgecomments {
+    margin: 0 25px 65px; }
+  .comment {
+    padding: 10px 30px; }
+  .comment .submitted:before {
+    content: "";
+    left: -20px;
+    top: 7px; }
+  .indented {
+    margin-left: 83px; }
+  .indented .comment:before {
+    content: "";
+    left: -60px;
+    top: 21px;
+    width: 40px;
+    height: 50px; } }
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .comments-add-link {
+    background-image: url(/images/ico-arrow-buttton@2x.png);
+    background-size: 22px 26px; }
+  .comment .comment-reply a {
+    background-image: url(/images/ico-arrow-buttton@2x.png);
+    background-size: 22px 26px; } }
+
+.tiny-administration-level {
+  padding: 1px 5px;
+  font-size: 12px;
+  min-width: 0px !important;
+  margin-left: 0px !important; }
+
+.rate-widget {
+  display: inline-block;
+  width: 100%;
+  margin: 30px 0 0 0;
+  text-align: center;
+  top: 10px; }
+
+@media (min-width: 32em) {
+  .rate-widget {
+    display: inline-block;
+    width: 100%;
+    margin: 12px;
+    top: 10px; } }
+
+@media (min-width: 36em) {
+  .rate-widget {
+    display: inline-block;
+    width: auto;
+    margin: 12px;
+    text-align: none; } }
+
+.rate-info {
+  color: #ffffff;
+  display: inline-block;
+  margin-left: 15px;
+  padding: 0px;
+  position: relative;
+  border-radius: 5px 5px 5px 5px;
+  width: 50px;
+  background-color: #c2c2c2;
+  text-align: center; }
+
+.rate-info span {
+  font-size: 12px; }
+
+.rate-info:before {
+  content: "";
+  position: absolute;
+  top: 21%;
+  left: -4px;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid;
+  border-right-color: #c2c2c2; }
+
+.rate-thumbs-up {
+  background: url(/images/thumb_up.png) 100% 100% no-repeat;
+  height: 28px;
+  width: 28px;
+  text-indent: -9999px;
+  display: inline-block; }
+
+.rate-thumbs-up-voted {
+  background: url(/images/thumb_up_purple.png) 100% 100% no-repeat;
+  height: 28px;
+  width: 28px;
+  text-indent: -9999px;
+  display: inline-block; }
+
+.rate-thumbs-up-voted + .rate-info {
+  background-color: var(--primary-500); }
+
+.rate-thumbs-up-voted + .rate-info:before {
+  border-right-color: var(--primary-500); }
+
+.add-link-wrapper {
+  position: relative;
+  float: right; }
+
+.rate-button {
+  position: relative; }
+
+.rate-button-is-loading {
+  cursor: default;
+  pointer-events: none; }
+
+.rate-loading {
+  background: url(/images/loading_vote.gif);
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: default;
+  pointer-events: none;
+  background-color: #fff;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.rate-button-is-loading .rate-loading {
+  visibility: visible; }
+
+.comment .links a.disabled, .comment .links a:hover.disabled, .comment .links a:focus.disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  background-color: var(--primary-500) 66; }
+
+@media (max-width: 780px) {
+  .dge-dataset-detail .module-content h1 {
+    padding-right: 0;
+    word-break: break-word; }
+  .dge-dataset-detail .module-content .page-header {
+    padding-top: 1rem;
+    width: 100%;
+    max-width: unset;
+    float: unset; }
+    .dge-dataset-detail .module-content .page-header + h1 {
+      margin-top: 1rem; }
+  .page-header .content_action {
+    justify-content: flex-end; }
+  .social .dialog-container {
+    width: calc(100% - 2.5rem); }
+  .social.is-visible .nav-simple {
+    grid-template-columns: repeat(1, 1fr); }
+  .social .nav-simple .close-share::before {
+    top: 20px; }
+  .social .nav-simple {
+    width: calc(100%); }
+  .dge-dataset-detail .module-content .edition-package-block .page-header .content_action {
+    margin: 0;
+    justify-content: start;
+    width: 100%; }
+    .dge-dataset-detail .module-content .edition-package-block .page-header .content_action a.btn.btn-default {
+      width: 100%; }
+  .dge-dataset-detail .module-content .edition-package-block + .page_primary_action a {
+    width: 100%; } }

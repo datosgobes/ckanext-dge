@@ -1,0 +1,360 @@
+/*
+* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// TRIUMPHS
+
+//text-decoration
+.text {
+    &--underline {
+        text-decoration: underline;
+    }
+    &--capitalize {
+        text-transform: capitalize;
+    }
+    &--bold {
+        font-family: 'montserrat-semiBold';
+    }
+    &--strong {
+        font-family: 'montserrat-medium';
+    }
+    &--italic {
+        font-family: 'montserrat-italic';
+    }
+    &--transform_uppercase {
+        text-transform: uppercase;
+    }
+    &--color {
+        &-primary {
+            color: var(--primary-500);
+        }
+        &-primary-semi-dark {
+            color: var(--primary-600)!important;
+        }
+        &-primary-dark {
+            color: var(--primary-700)!important;
+        }
+        &-white {
+            color: var(--white) !important;
+        }
+        &-gray {
+            color: var(--normal-gray);
+            &-light {
+                color: var(--light-gray);
+            }
+        }
+    }
+    .word-break {
+        &--word{
+            word-break: break-word;
+        }
+    }
+    &-line-height{
+        &-normal{
+            line-height: normal;
+        }
+    }
+}
+.italic {
+    color: var(--dark-gray);
+    text-decoration: none;
+    font-family: montserrat;
+    font-size: 0.875rem;
+    font-style: italic;
+    line-height: 1.5rem;
+}
+//pointer
+.pointer {
+    cursor: pointer;
+}
+
+//overflow
+.overflow {
+    &-hidden {
+        overflow: hidden;
+    }
+    &-y-auto {
+        overflow-y: auto;
+    }
+    &-auto {
+        overflow: auto;
+    }
+}
+
+//positioning elements
+.float {
+    &-right {
+        float: right;
+    }
+    &-left {
+        float: left;
+    }
+}
+
+.relative {
+    position: relative;
+}
+
+.inline-block {
+    display: inline-block !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.inline-grid {
+    display: inline-grid;
+}
+.block {
+    display: block;
+}
+
+.flex {
+    display: flex;
+    &-center {
+        align-items: center;
+    }
+    &-stretch {
+        align-items: stretch;
+    }
+    &-end {
+        align-items: flex-end;
+    }
+    &-justify {
+        &-right {
+            justify-content: flex-end;
+        }
+        &-start {
+            justify-content: flex-start !important;
+        }
+        &-space-evenly {
+            justify-content: space-evenly;
+        }
+        &-between {
+            justify-content: space-between;
+        }
+        &-around {
+            justify-content: space-around;
+        }
+        &-center {
+            justify-content: center;
+        }
+    }
+    &-baseline {
+        align-items: baseline;
+    }
+    &-start {
+        align-items: flex-start;
+    }
+    &-display {
+        display: flex;
+    }
+    &-flow {
+        flex-flow: row wrap;
+        &-column{
+            flex-flow: column !important;
+        }
+    }
+    &-root {
+        display: flow-root;
+    }
+    &-wrap {
+        flex-wrap: wrap;
+    }
+    &-nowrap {
+        flex-wrap: nowrap !important;
+    }
+    &-1 {
+        flex: 1;
+    }
+    &-column {
+        flex-direction: column;
+    }
+    &-row {
+        flex-direction: row;
+    }
+    &-row-reverse {
+        flex-direction: row-reverse;
+    }
+    &-auto{
+        flex: auto;
+    }
+    &-grow{
+        &-1{
+            flex-grow: 1;
+        }
+    }
+    &-basis {
+        &-100 {
+            flex-basis: 100%;
+        }
+        &-50 {
+            flex-basis: 50%;
+        }
+        &-30 {
+            flex-basis: 30%;
+        }
+        &-33 {
+            flex-basis: 33%;
+        }
+        &-25 {
+            flex-basis: 25%;
+        }
+        &-0 {
+            flex-basis: 0;
+        }
+    }
+    &-gap{
+        &-05{
+            gap: 0.5rem !important;
+        }
+        &-1{
+            gap: 1rem;
+        }
+        &-2{
+            gap: 2rem;
+        }
+        &-3{
+            gap: 3rem;
+        }
+        &-1-2{
+            gap: 1rem 2rem;
+        }
+        &-1-4{
+            gap: 1rem 4rem;
+        }
+    }
+}
+
+.middle {
+    vertical-align: middle;
+}
+
+.align {
+    &-right {
+        text-align: right;
+    }
+    &-left {
+        text-align: left;
+    }
+    &-center {
+        text-align: center;
+    }
+    &-self {
+        &-center {
+            align-self: center;
+        }
+        &-end {
+            align-self: end;
+        }
+    }
+}
+
+//Width
+.w {
+    &--100 {
+        width: 100%;
+    }
+    &--50 {
+        width: 50%;
+    }
+    &--auto {
+        width: auto !important;
+    }
+    &--fit {
+        width: fit-content;
+    }
+}
+
+//Height
+.h {
+    &--100 {
+        height: 100%;
+    }
+    &-auto {
+        height: auto !important;
+    }
+}
+
+//Border
+.b {
+    &r-1 {
+        border-radius: 10px;
+    }
+    &-dashed {
+        &-t {
+            border-top: 1px dashed #A1A1A1;
+        }
+    }
+    &-l{
+        height: 24px;
+        border-left: 1px solid #C7C7C7;
+    }
+}
+.responsive-md-show{
+    display: none !important;
+}
+// Small devices (landscape phones, less than 768px)
+@media screen and (max-width: 48rem) {
+    .responsive-md{
+        &-flex{
+            &-column {
+                flex-direction: column;
+            }
+        }
+        &-hide{
+            display: none !important;
+        }
+        &-show{
+            display: flex !important;
+        }
+        &-w{
+            &-100{
+                width: 100% !important;
+            }
+            &-auto{
+                width: auto !important;
+            }
+        }
+        &-h{
+            &-auto{
+                height: auto !important;
+            }
+        }
+        &-wrap{
+            flex-wrap: wrap !important;
+        }
+        &-m{
+            &t{
+                &-10{
+                    margin-top: 2.5rem !important;
+                }
+            }
+        }
+        &-align-self {
+            &-center {
+                align-self: center !important;
+            }
+        }
+    }
+}

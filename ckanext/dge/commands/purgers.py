@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Entidad Pública Empresarial Red.es
+# Copyright (C) 2025 Entidad Pública Empresarial Red.es
 #
 # This file is part of "dge (datos.gob.es)".
 #
@@ -9,7 +9,7 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -19,7 +19,7 @@ import logging
 import os
 import shlex
 import subprocess
-from urlparse import urlparse
+from urllib.parse import urlparse, quote_plus
 
 import psycopg2
 
@@ -32,8 +32,9 @@ NL = os.linesep
 class Purger:
     def __init__(self, config):
         self.config = config
-        url = urlparse(config.get('app:main', 'sqlalchemy.url'))
-        self.conn_string = ("host={} port=5432 user={} "
+        url_escaped = quote_plus(config.get('app:main', 'sqlalchemy.url'))
+        url = urlparse(url_escaped)
+        self.conn_string = ("host={} port=xxxx user={} "
                             "password={} dbname={}").format(url.hostname, url.username,
                                                             url.password, url.path[1:])
 
@@ -45,14 +46,14 @@ class DataSetPurger(Purger):
         list_ds_cmd = config.get('app:main', 'ckanext-dge.list_dataset_command')
         try:
             out = subprocess.check_output(list_ds_cmd, shell=True)
-            self.data = out.split(NL) if out else None
+            self.data = out.decode('utf-8').split('\n') if out else None
         except subprocess.CalledProcessError:
             self.data = None
         self.report = report
 
     def __get_datasets_to_purge(self):
         if self.data:
-            return [line.split(' ', 2)[:2] for line in self.data if '(deleted)' in line]
+            return [line.split(' ', 2)[:2] for line in self.data if any(tag in line for tag in ('(deleted)', '(draft)'))]
         return []
 
     def purge(self):
@@ -67,6 +68,7 @@ class DataSetPurger(Purger):
         purge_cmd = self.purge_cmd_template.format(dataset_id)
         purge_ok, msg = self.__run_purge_command(purge_cmd)
         if not purge_ok:
+            logger.info(f'Purge failed with message: {msg}. Trying deleting archival reference...')
             try:
                 connection = psycopg2.__connect(self.conn_string)
                 cursor = connection.cursor()
@@ -77,6 +79,8 @@ class DataSetPurger(Purger):
                 cursor.close()
                 connection.close()
                 purge_ok, msg = self.__run_purge_command(purge_cmd)
+                if not purge_ok:
+                    logger.info(f'Purge failed for the 2nd time with message: {msg}.')
             except psycopg2.Error as err:
                 msg = err.pgerror
 

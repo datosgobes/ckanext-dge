@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Entidad Pública Empresarial Red.es
+# Copyright (C) 2025 Entidad Pública Empresarial Red.es
 #
 # This file is part of "dge (datos.gob.es)".
 #
@@ -9,7 +9,7 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
@@ -23,11 +23,15 @@ NL2 = NL * 2
 
 
 class DataSetPurgeReport:
-    # noinspection PyTypeChecker
-    template = ('Datasets en estado deleted {}' + NL2 +
-                'Datasets purgado(s) : {} ' + NL + '{}' + NL2 +
-                'Datasets no purgado(s) : {} ' + NL + '{}' + NL2 +
-                'Lista Errores:' + NL2 + '{}')
+    template = ('<p class="ml10">Datasets en estado deleted: {}</p>' +
+                '<p class="ml10">Datasets purgados: {}</p>' +
+                '<p class="ml10 mb10">Datasets no purgados: {}</p>' +
+                '{}' +
+                '<p class="ml10 mb10">****************</p>' +
+                '<p>Listado de errores:</p>' + 
+                '{}' +
+                '<p>&nbsp;</p>' +
+                '<p class="mb10">Un saludo.</p>')
 
     def __init__(self, datasets_count):
         self.datasets_count = datasets_count
@@ -45,15 +49,15 @@ class DataSetPurgeReport:
         not_purged, error_list = '', ''
         for dataset_id, dataset_name, error in self.not_purged_datasets:
             not_purged += ('Id: {}, Nombre: {}' + NL).format(dataset_id, dataset_name)
-            error_list += error + NL
-        purged = NL.join(
-            'Id: {}, Nombre: {}'.format(dataset_id, dataset_name)
+            error_list += '<p>' + error + '</p>'
+        purged = ''.join(
+            '<p class="ml10">Id: {}</p>'.format(dataset_id)
             for dataset_id, dataset_name in self.purged_datasets)
 
         return self.template.format(self.datasets_count,
                                     len(self.purged_datasets),
-                                    purged, len(self.not_purged_datasets),
-                                    not_purged, error_list)
+                                    len(self.not_purged_datasets),
+                                    purged, error_list)
 
 
 class DistributionsPurgeReport:
@@ -80,7 +84,8 @@ class Report:
         self.federations_report = None
 
     def get_report(self, default_report):
-        self.datos_ = 'Ha concluido la operación de purgado. A continuación algunos datos: '
+        self.datos_ = ('<p class="mb10">Estimado/a.</p>' +
+                        '<p>Ha finalizado el proceso de purgado de datasets:</p>')
         full_report = self.datos_
         reports = (('DataSets', self.dataset_report), ('Distribuciones', self.distributions_report),
                    ('Federaciones', self.federations_report))
@@ -88,8 +93,7 @@ class Report:
         for name, report in reports:
             if report is not None:
                 give_report = True
-                # noinspection PyTypeChecker
-                full_report += (NL2 + '{}:' + NL + ' {}').format(name, report.get_report())
+                full_report += ('{}').format(report.get_report())
 
         if give_report:
             return full_report

@@ -1,0 +1,466 @@
+dge-main-css:
+  output: ckanext-dge/%(version)s-dge-main-css.css
+  contents:
+    - css/styles.css
+    - css/dge-header.css
+    - css/dge-base-normalize.css
+    - css/dge-base-fonts-ckan.css
+    - css/dge-base-ckan.css
+    - css/dge-base.css
+    - css/dge-base-ie.css
+    - css/dge-layout.css
+    - css/dge-modules-sidr.css
+    - css/dge-modules-ckan.css
+    - css/dge-modules.css
+    - css/dge-status.css
+    - css/dge-formats.css
+    - swagger/css/typography.css
+    - swagger/css/screen.css
+    - swagger/css/print.css
+    - css/swagger/dge_swagger.css
+    - css/dge-triumph.css
+    - css/dge-footer.css
+    - css/dge-buttons.css
+    - css/dge-form-elements.css
+
+dge-header:
+  output: ckanext-dge/%(version)s-dge-header.css
+  contents:
+    - css/dge-header.css
+  extra:
+    preload:
+      - base/main
+
+styles-css:
+  output: ckanext-dge/%(version)s-styles.css
+  contents:
+    - css/styles.css
+  extra:
+    preload:
+      - base/main
+
+dge-base-normalize-css:
+  output: ckanext-dge/%(version)s-dge-base-normalize.css
+  contents:
+    - css/dge-base-normalize.css
+  extra:
+    preload:
+      - base/main
+
+dge-formats-css:
+  output: ckanext-dge/%(version)s-dge-formats.css
+  contents:
+    - css/dge-formats.css
+  extra:
+    preload:
+      - base/main
+
+dge-base-fonts-ckan-css:
+  output: ckanext-dge/%(version)s-dge-base-fonts-ckan.css
+  contents:
+    - css/dge-base-fonts-ckan.css
+  extra:
+    preload:
+      - base/main
+
+dge-base-ckan-css:
+  output: ckanext-dge/%(version)s-dge-base-ckan.css
+  contents:
+    - css/dge-base-ckan.css
+  extra:
+    preload:
+      - base/main
+
+dge-base-css:
+  output: ckanext-dge/%(version)s-dge-base.css
+  contents:
+    - css/dge-base.css
+  extra:
+    preload:
+      - base/main
+
+dge-base-ie-css:
+  output: ckanext-dge/%(version)s-dge-base-ie.css
+  contents:
+    - css/dge-base-ie.css
+  extra:
+    preload:
+      - base/main
+
+dge-layout-css:
+  output: ckanext-dge/%(version)s-dge-layout.css
+  contents:
+    - css/dge-layout.css
+  extra:
+    preload:
+      - base/main
+
+dge-modules-css:
+  output: ckanext-dge/%(version)s-dge-modules.css
+  contents:
+    - css/dge-modules.css
+  extra:
+    preload:
+      - base/main
+
+dge-modules-ckan-css:
+  output: ckanext-dge/%(version)s-dge-modules-ckan.css
+  contents:
+    - css/dge-modules-ckan.css
+  extra:
+    preload:
+      - base/main
+
+dge-status-css:
+  output: ckanext-dge/%(version)s-dge-status.css
+  contents:
+    - css/dge-status.css
+  extra:
+    preload:
+      - base/main
+
+dge-modules-sidr-css:
+  output: ckanext-dge/%(version)s-dge-modules-sidr.css
+  contents:
+    - css/dge-modules-sidr.css
+  extra:
+    preload:
+      - base/main
+
+dge-swagger-css:
+  output: ckanext-dge/%(version)s-dge_swagger.css
+  contents:
+    - css/swagger/dge_swagger.css
+  extra:
+    preload:
+      - base/main
+
+dge-modules-bxslider-css:
+  output: ckanext-dge/%(version)s-dge-modules-bxslider.css
+  contents:
+    - css/dge-modules-bxslider.css
+  extra:  
+    preload:
+      - base/main  
+
+dge-sparql-css:
+  output: ckanext-dge/%(version)s-dge-sparql.css
+  contents:
+    - css/dge-sparql.css
+  extra:
+    preload:
+      - base/main
+
+dge-triumph-css:
+  output: ckanext-dge/%(version)s-dge-triumph.css
+  contents:
+    - css/dge-triumph.css
+  extra:
+    preload:
+      - base/main
+
+dge-footer-css:
+  output: ckanext-dge/%(version)s-dge-footer.css
+  contents:
+    - css/dge-footer.css
+  extra:
+    preload:
+      - base/main
+
+dge-buttons-css:
+  output: ckanext-dge/%(version)s-dge-buttons.css
+  contents:
+    - css/dge-buttons.css
+  extra:
+    preload:
+      - base/main
+
+dge-form-elements-css:
+  output: ckanext-dge/%(version)s-dge-form-elements.css
+  contents:
+    - css/dge-form-elements.css
+  extra:
+    preload:
+      - base/main
+
+dge-jquery-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-jquery.js
+  contents:
+    - js/swagger/lang/translator.js
+    - js/swagger/lib/jquery-1.8.0-min.js
+    - js/swagger/lib/jquery.slideto-min.js
+    - js/swagger/lib/jquery.wiggle-min.js
+    - js/swagger/lib/jquery.ba-bbq-min.js
+    - js/swagger/lib/handlebars-2.0.0.js
+    - js/swagger/lib/underscore-min.js
+    - js/swagger/lib/backbone-min.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-ui-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-swagger-ui.js
+  contents:
+    - js/swagger/swagger-ui.js
+  extra:
+    preload:
+      - vendor/jquery
+      - base/main
+
+dge-jquery2-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-jquery2.js
+  contents:
+    - js/swagger/lib/highlight.7.3.pack.js
+    - js/swagger/lib/jsoneditor-min.js
+    - js/swagger/lib/marked.js
+    - js/swagger/lib/swagger-oauth.js
+    - js/swagger/dge_swagger.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-ca-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-ca.js
+  contents:
+    - js/swagger/lang/ca.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-en-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-en.js
+  contents:
+    - js/swagger/lang/en.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-es-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-es.js
+  contents:
+    - js/swagger/lang/es.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-eu-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-eu.js
+  contents:
+    - js/swagger/lang/eu.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-fr-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-fr.js
+  contents:
+    - js/swagger/lang/fr.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-gl-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-gl.js
+  contents:
+    - js/swagger/lang/gl.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-it-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-it.js
+  contents:
+    - js/swagger/lang/it.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-ja-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-ja.js
+  contents:
+    - js/swagger/lang/ja.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-pl-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-pl.js
+  contents:
+    - js/swagger/lang/pl.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-pt-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-pt.js
+  contents:
+    - js/swagger/lang/pt.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-ru-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-ru.js
+  contents:
+    - js/swagger/lang/ru.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-tr-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-tr.js
+  contents:
+    - js/swagger/lang/tr.js
+  extra:  
+    preload:
+      - base/main
+
+dge-swagger-lang-zh-cn-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-swagger-lang-zh-cn.js
+  contents:
+    - js/swagger/lang/zh-cn.js
+  extra:  
+    preload:
+      - base/main
+
+dge-yasgui-glue-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-yasgui-glue.js
+  contents:
+    - js/yasgui/dge_glue.js
+  extra:
+    preload:
+      - base/main
+
+dge_main-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-main.js
+  contents:
+    - js/dge_main.js
+  extra:
+    preload:
+      - base/main
+
+dge-comments-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-comments.js
+  contents:
+    - js/dge-comments.js
+  extra:
+    preload:
+      - base/main
+
+dge-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge.js
+  contents:
+    - js/dge.js
+  extra:
+    preload:
+      - base/main
+
+dge-jquery-bxslider-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-jquery-bxslider.js
+  contents:
+    - js/jquery.bxslider.min.js
+  extra:
+    preload:
+      - base/main
+
+dge-jquery-mobile-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-jquery-mobile.js
+  contents:
+    - js/jquery.mobile.js
+  extra:
+    preload:
+      - base/main
+
+dge-jquery-sidr-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-jquery-sidr.js
+  contents:
+    - js/jquery.sidr.js
+  extra:
+    preload:
+      - base/main
+
+dge-jquery-sidr-min-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-jquery-sidr-min.js
+  contents:
+    - js/jquery.sidr.min.js
+  extra:
+    preload:
+      - base/main
+
+dge-rate-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-rate.js
+  contents:
+    - js/rate.js
+  extra:
+    preload:
+      - base/main
+
+dge-superfish-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-superfish.js
+  contents:
+    - js/superfish_onclick.js
+  extra:
+    preload:
+      - base/main
+
+sorttable-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-sorttable.js
+  contents:
+    - js/sorttable.js
+  extra:
+    preload:
+      - base/main
+
+dge-slug-preview-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-slug-preview.js
+  contents:
+    - js/dge-slug-preview.js
+  extra:
+    preload:
+      - base/main
+
+dge-jquery-dge-slug-preview-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-jquery.dge-slug-preview.js
+  contents:
+    - js/jquery.dge-slug-preview.js
+  extra:
+    preload:
+      - base/main
+
+dge-clear-message-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-clear-message.js
+  contents:
+    - js/dge-clear-message.js
+  extra:
+    preload:
+      - base/main

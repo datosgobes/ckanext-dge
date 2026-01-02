@@ -1,4 +1,4 @@
-# Copyright (C) 2022 Entidad Pública Empresarial Red.es
+# Copyright (C) 2025 Entidad Pública Empresarial Red.es
 #
 # This file is part of "dge (datos.gob.es)".
 #
@@ -9,13 +9,13 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 from purgers import DataSetPurger, DistributionsPurger, FederationsPurger
 from report import Report
@@ -23,7 +23,7 @@ from sender import EmailSender
 
 if __name__ == '__main__':
     production_config = ConfigParser()
-    production_config.read('/etc/ckan/default/production.ini')
+    production_config.read('/etc/ckan/default/ckan.ini')
 
     email_sender = EmailSender(production_config)
     report = Report()
@@ -40,6 +40,6 @@ if __name__ == '__main__':
     federations_purger = FederationsPurger(production_config)
     federations_purger.purge()
 
-    default_report_text = 'Se ha ejecutado el purgado, no existen elementos a purgar.'
+    default_report_text = '<p class="mb10">Se ha ejecutado el purgado, no existen elementos a purgar.</p>'
     full_report = report.get_report(default_report_text)
     email_sender.send(full_report)
