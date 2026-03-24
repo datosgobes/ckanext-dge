@@ -1,0 +1,26 @@
+{% set form_id = form_id if form_id else false %}
+<div>
+  <form {% if form_id %}id="{{ form_id }}" {% endif %}class="module-content search-form" method="get" data-module="select-switch">
+    <h2>{{ _("Search") }}</h2>
+    <div >
+      <button class="btn-searcher" type="submit" aria-labelledby="{{ _('Buscar') }}">
+      </button>
+      <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}"
+        id="field-main-search" type="text" class="form-control" name="q" value="{{ query }}" autocomplete="off"
+        placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
+
+        {% set request_params = h.dge_get_request_params_for_text_search(request.params, facet_titles) %}
+        {% for key, values in request_params.items() %}
+          {% for value in values %}
+            {% if key != 'q' %}
+              <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% if sorting_selected %}
+          <input type="hidden" name="sort" value="{{ sorting_selected }}">
+        {% endif %}
+        <input type="hidden" name="facet_search" value="">
+    </div>
+  </form>
+</div>

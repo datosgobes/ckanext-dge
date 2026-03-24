@@ -1,0 +1,256 @@
+{# 
+Renders a list of resources with icons and view links.
+
+resources - A list of resources to render
+pkg - A package object that the resources belong to
+dataset_type - Dataset type
+schema - Schema
+
+Example:
+
+  {% snippet "package/snippets/resources_list.html", pkg=pkg, 
+    resources=pkg.resources, dataset_type=dataset_type, schema=schema %}
+
+#}
+<section id="dataset-resources" class="resources" style="display: block;">
+  {% set sorted_pkg_resources = h.dge_sort_alphabetically_resources(pkg.resources, False) %}
+  {% set sorted_pkg_samples = h.dge_sort_alphabetically_resources(pkg.resources, True) %}
+  {% if pkg.served_by_dataservice %}
+    {% set sorted_pkg_dataservices = h.dge_get_served_by_dataservice(pkg.served_by_dataservice) %}
+    {% set count_pkg_dataservices = h.dge_count_served_by_dataservice(sorted_pkg_dataservices) %}
+  {% endif %}
+  {% set dict_format_fields = h.dge_dataset_display_fields(['format'], schema.resource_fields) %}
+
+  <div id="custom-tabs-container" class="tabs-container">
+    <ul class="tabs">
+      <li class ="active">
+        <a href="">{{ _('Distributions') }}<span class="ml-1 text--italic">({{h.dge_count_resources([sorted_pkg_resources, sorted_pkg_samples])}})</span></a>
+      </li>
+      {% if pkg.served_by_dataservice and sorted_pkg_dataservices %}
+        <li>
+          <a href="">{{ _('Dataservices') }}<span class="ml-1 text--italic">({{count_pkg_dataservices}})</span></a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  {% block resource_list %}
+    {% if resources %}
+      {% block resource_list_inner %}
+        <div id="resource-list" class="accordion-container resource-list">
+          {% for resource in sorted_pkg_resources %}
+            {% snippet 'package/snippets/dge_resource_item.html', pkg=pkg, 
+              res=resource.resource, language=resource.lang, value=resource.value,
+              url_is_edit=false, schema=schema, is_sample=false, is_dcatapes=h.dge_is_dcatapes(pkg),
+              dict_format_fields=dict_format_fields, loop_index=loop.index %}
+          {% endfor %}
+          {% for resource in sorted_pkg_samples %}
+            {% snippet 'package/snippets/dge_resource_item.html', pkg=pkg, 
+              res=resource.resource, language=resource.lang, value=resource.value,
+              url_is_edit=false, schema=schema, is_sample=true, is_dcatapes=h.dge_is_dcatapes(pkg),
+              dict_format_fields=dict_format_fields, loop_index=loop.index %}
+          {% endfor %}
+        </div>
+
+        {% if pkg.served_by_dataservice and sorted_pkg_dataservices %}
+          <div id="dataservices-list" class="accordion-container resource-list">
+            {% for dataservice in sorted_pkg_dataservices %}
+              <div class="container-style dataservice-item">
+                <div class="flex-display flex-center flex-gap-05">
+                  <div class="flex-display flex-center decoration-img-xs">
+                    <img src="{{ h.url_for_static('/images/SVG/data-service.svg') }}" aria-hidden="true" alt="">
+                  </div>
+                  <div>
+                    <a href="{{dataservice.uri}}">{{dataservice.title}}</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endblock %}
+    {% else %}
+      {% if h.check_access('resource_create', {'package_id': pkg['id']}) %}
+          {% trans url=h.url_for('package.new_resource', id=pkg.name) %}
+            <p class="empty">This dataset has no data, <a href="{{ url }}">why not add some?</a></p>
+          {% endtrans %}
+      {% else %}
+          <p class="empty">{{ _('This dataset has no data') }}</p>
+      {% endif %}
+    {% endif %}
+  {% endblock %}
+</section>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    function toggleVisibility(elements, activeIndex) {
+      elements.forEach((element, index) => {
+        element && (element.style.display = index === activeIndex ? "flex" : "none");
+      });
+    }
+
+    function setActiveClass(elements, activeIndex) {
+      elements.forEach((element, index) => {
+        element.classList.toggle("active", index === activeIndex);
+        element.classList.toggle("inactive", index !== activeIndex);
+      });
+    }
+
+    const tabs = document.querySelectorAll("#custom-tabs-container .tabs li");
+    const sections = [
+      document.getElementById("resource-list"),
+      document.getElementById("dataservices-list")
+    ];
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", (e) => {
+        e.preventDefault();
+        setActiveClass(tabs, index);
+        toggleVisibility(sections, index);
+      });
+    });
+
+    toggleVisibility(sections, 0);
+    setActiveClass(tabs, 0);
+
+    document.querySelectorAll(".resource-item").forEach((resourceItem) => {
+      const badgeTabs = resourceItem.querySelectorAll(".badge-group .badge");
+      const identificationSection = resourceItem.querySelector(".resource-item__identification");
+      const interoperabilitySection = resourceItem.querySelector(".resource-item__interoperability");
+      const provenanceSection = resourceItem.querySelector(".resource-item__provenance");
+      const reusabilitySection = resourceItem.querySelector(".resource-item__reusability");
+
+      const resourceSections = [identificationSection, interoperabilitySection, provenanceSection, reusabilitySection].filter(Boolean);
+
+      initializeBadges(badgeTabs, resourceSections);
+
+      badgeTabs.forEach((badge, index) => {
+        badge.addEventListener("click", (e) => {
+          e.preventDefault();
+          setActiveClass(badgeTabs, index);
+          toggleVisibility(resourceSections, index);
+        });
+      });
+    });
+
+    function initializeBadges(badgeTabs, resourceSections) {
+      badgeTabs.forEach((badge, index) => {
+        badge.classList.toggle("active", index === 0);
+        badge.classList.toggle("inactive", index !== 0);
+      });
+      toggleVisibility(resourceSections, 0);
+    }
+
+    document.querySelectorAll(".accordion-header").forEach((header) => {
+      header.addEventListener("click", () => {
+        const content = header.nextElementSibling; 
+        const isExpanded = content.style.height === "auto"; 
+
+        document.querySelectorAll(".accordion-collapse").forEach((accordion) => {
+          accordion.classList.remove("flex");
+          accordion.style.height = "";
+        });
+
+        if (!isExpanded) {
+          content.classList.add("flex");
+          content.style.height = "auto"; 
+        }
+      });
+    });
+
+
+    const itemsPerPage = 6;
+    const containers = document.querySelectorAll(".resource-list");
+
+    containers.forEach((container) => {
+
+      const items = Array.from(container.querySelectorAll(".accordion-item, .dataservice-item"));
+  
+      const totalPages = Math.ceil(items.length / itemsPerPage);
+      let currentPage = 1;
+
+      function showPage(page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        items.forEach((item, index) => {
+          item.style.display = index >= start && index < end ? "block" : "none";
+        });
+      }
+
+      function createPagination() {
+        if (totalPages <= 1) return;
+        const paginationWrapper = document.createElement("div");
+        paginationWrapper.className = "pagination-wrapper";
+
+        const paginationList = document.createElement("ul");
+        paginationList.className = "pagination";
+
+        const prevItem = document.createElement("li");
+        const prevLink = document.createElement("a");
+        prevLink.href = "#";
+        prevLink.textContent = "«";
+        prevLink.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+            updateActiveButton();
+          }
+        });
+        prevItem.appendChild(prevLink);
+        paginationList.appendChild(prevItem);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const listItem = document.createElement("li");
+          if (i === currentPage) listItem.classList.add("active");
+
+          const link = document.createElement("a");
+          link.href = "#";
+          link.textContent = i;
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            currentPage = i;
+            showPage(currentPage);
+            updateActiveButton();
+          });
+
+          listItem.appendChild(link);
+          paginationList.appendChild(listItem);
+        }
+
+        const nextItem = document.createElement("li");
+        const nextLink = document.createElement("a");
+        nextLink.href = "#";
+        nextLink.textContent = "»";
+        nextLink.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+            updateActiveButton();
+          }
+        });
+        nextItem.appendChild(nextLink);
+        paginationList.appendChild(nextItem);
+
+        paginationWrapper.appendChild(paginationList);
+        container.appendChild(paginationWrapper);
+        updateActiveButton();
+      }
+
+      function updateActiveButton() {
+        const links = container.querySelectorAll(".pagination li");
+        links.forEach((link) => link.classList.remove("active"));
+        links[currentPage].classList.add("active");
+      }
+
+      showPage(currentPage);
+      createPagination();
+    });
+
+});
+
+
+</script>

@@ -1,0 +1,44 @@
+{% ckan_extends %}
+
+{% block breadcrumb_content %}
+  {% snippet 'package/snippets/dge_package_breadcrumb_content.html', pkg=pkg %}
+{% endblock %}
+{% block page_title_content %}
+  {% if pkg %}
+  {{ _('Edit') }} {{ pkg.title or pkg.name }}
+  {% if pkg.state.startswith('draft') %}
+          [{{ _('Draft') }}]
+        {% endif %}
+        {% if pkg.state == 'deleted' %}
+          [{{ _('Deleted') }}]
+        {% endif %}
+       {% else %}
+{{ _('Create Dataset') }} 
+{% endif %}
+{% endblock %}
+
+{% block page_header %}
+<div class="edition-package-block">
+{{ super() }}
+</div>
+{% endblock %}
+
+{% block content_action %}
+    {% set prefix_endpoint = 'package.dataset_' if pkg.type == 'dataset' else pkg.type ~ '.' %}
+    {% link_for _('View dataset'), named_route=prefix_endpoint ~ 'read', id=pkg.name, class_='btn btn-default', icon='eye' %}
+{% endblock %}
+
+{% block content_primary_nav %}
+    {% set prefix_endpoint = 'package.dataset_' if pkg.type == 'dataset' else pkg.type ~ '.' %}
+    {% if c.controller == 'package' %}
+      {% if c.action == 'dataset_resources' %}
+        {{ h.build_nav_icon(prefix_endpoint ~ 'edit', _('Edit metadata'), id=pkg.name, icon='pencil-square-o') }}
+      {% endif %}
+      {% if c.action == 'dataset_edit' %}
+        {{ h.build_nav_icon(prefix_endpoint ~ 'resources', _('Resources'), id=pkg.name, icon='bars') }}
+      {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block catalog_downloads %}{% endblock %}
+{% block secondary_content %}{% endblock %}

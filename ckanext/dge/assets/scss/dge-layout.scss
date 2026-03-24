@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
 *
 * This file is part of "dge (datos.gob.es)".
 *
@@ -116,6 +116,11 @@ DGE Detail: 1col 100%
 }
 .section-desc {
     width: calc(100% - 36.5rem);
+	margin-top: 3rem;
+}
+
+.section-admin-desc {
+    width: calc(100% - 25rem);
 	margin-top: 3rem;
 }
 
@@ -790,6 +795,10 @@ span.alert.alert-info:has(code) {display: block;}
 
 @media all and (max-width: 64em){
 	.section-desc {
+		width: calc(100%);
+	}
+
+	.section-admin-desc{
 		width: calc(100%);
 	}
 	.site-wrapper {

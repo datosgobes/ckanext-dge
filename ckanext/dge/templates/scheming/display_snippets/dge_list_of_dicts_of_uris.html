@@ -1,0 +1,24 @@
+<tr>
+   <th class="large text--color-primary-dark">
+      {{ h.scheming_language_text(field.label) }}
+   </th>
+   <td>
+   {% set subfields = h.dge_field_display_subfields(field.field_name, schema.dataset_fields) %}
+   {% set list_of_dicts = data[field.field_name] %}
+   {% for dict in list_of_dicts %}
+   
+      {% for subfield in subfields %}
+         <div scope="row" class="large mb-2 text--color-primary-dark">
+            {{ h.scheming_language_text(subfields[subfield].label) }}
+         </div>
+         <div class="large text-line-height-normal">
+            <ul>
+               {%- for item in dict[subfield] -%}
+               <li><a href="{{ item }}" target="_blank">{{ item }}</a></li>
+               {%- endfor -%}
+            </ul>
+         </div>
+      {% endfor %}
+   {% endfor %}
+   </td>
+</tr>

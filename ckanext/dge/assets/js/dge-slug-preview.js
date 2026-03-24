@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
 *
 * This file is part of "dge (datos.gob.es)".
 *
@@ -73,7 +73,7 @@ this.ckan.module('dge-slug-preview-slug', function (jQuery) {
           i18n: {
             'URL': this._('URL'),
             'Edit': this._('Edit'),
-            'Description': this._('Internal URL associated with the federation source')
+            'Description': this._(options.helpertext)
           }
         });
 

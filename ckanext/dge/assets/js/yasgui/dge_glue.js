@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
 *
 * This file is part of "dge (datos.gob.es)".
 *
@@ -56,11 +56,15 @@ ckan.module('dge_glue', function ($, _) {
       yasqe.setValue(sparqlQuery)
 
       sparqlQuery = "PREFIX dct: <http://purl.org/dc/terms/>\n"+
-        "select distinct ?nombre ?dataset where\n"+
-        "{\n"+
-        " ?dataset dct:title ?nombre\n"+
+        "PREFIX dcat: <http://www.w3.org/ns/dcat#>\n"+
+        "\n"+
+        "SELECT DISTINCT ?nombre ?dataset WHERE {\n"+
+        " ?dataset a dcat:Dataset ;\n"+
+        "\tdct:title ?nombre .\n"+
+        " FILTER(lang(?nombre) = \"es\")\n"+
         "}\n"+
-        "LIMIT 100\n";
+        "ORDER BY ?nombre\n"+
+        "LIMIT 100";
 
       yasqe.query();
 

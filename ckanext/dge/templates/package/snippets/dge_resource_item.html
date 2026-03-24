@@ -1,0 +1,566 @@
+{% if res.format %}
+  {%- set resource_format_label = h.scheming_choices_label(dict_format_fields['format'].choices, res.format) -%}
+{% endif %}
+<div class="accordion-item{{' samples' if is_sample else ''}}">
+  <div class="accordion-header" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop_index }}" aria-expanded="false" aria-controls="collapse-{{ loop_index }}">
+    <button class="accordion-button">
+
+      <div class="flex flex-column flex-gap-05">
+
+        <div class="accordion-header-title-and-type flex flex-row flex-center flex-gap-05">
+            {% if language %}
+              <span lang="{{language}}" xml:lang="{{language}}" class="accordion-header-title">
+            {% else %}
+              <span class="accordion-header-title">
+            {% endif %}
+            {% if is_sample %}
+              <span class="text--color-primary text--italic">(Sample)</span>
+            {% endif %}
+            {{ value if value else _("Unnamed resource") }}</span>
+          <div class="dataset-item">
+            <ul class="dataset-resources resources unstyled mt-0">
+              <li class="mb-0">
+                {% if res.format and resource_format_label %}
+                  <span class="label {{ resource_format_label.lower() }}" data-format="{{ resource_format_label.lower() }}">
+                    <span class="text-truncate">{{ resource_format_label }}</span>
+                  </span>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+          <span class="accordion-header-title--description mr-2">
+            {% if res.byte_size %}
+              ({{ h.dge_get_display_byte_size(res.byte_size)}})
+            {% endif %}
+          </span>
+        </div>
+      </div>
+
+      <div class="flex-display flex-gap-05 flex-center ml-auto">
+        <div class="external-access">
+          {% if res.download_url %}
+            <a href="{{ res.download_url[0] }}" target="_blank" class="btn-primary-resource resource-download" title="{{_('Download')}}">
+              <img class="download-icon" src="{{ h.url_for_static('/images/download-url-icon.svg') }}" aria-hidden="true" alt="{{_('Download')}}">
+            </a>
+          {% endif %}
+        </div>
+        <div class="external-access">
+          {% set is_downloable = false %}
+          {% if res.access_url %}
+            {% if not is_dcatapes %}
+              {% set is_downloable = h.dge_is_downloadable_resource(res.access_url[0], resource_format_label) if res.format and resource_format_label else false %}
+            {% endif %}
+            {% if is_downloable %}
+              <a href="{{ res.access_url[0] }}" target="_blank" class="btn-primary-resource resource-download" title="{{_('Download')}}">
+                <img class="external-icon" src="{{ h.url_for_static('/images/download-url-icon.svg') }}" aria-hidden="true" alt="{{_('Download')}}">
+              </a>
+            {% else %}
+              <a href="{{ res.access_url[0] }}" target="_blank" class="btn-primary-resource resource-external-link" title="{{_('Access')}}">
+                <img class="external-icon" src="{{ h.url_for_static('/images/external-link-icon.svg') }}" aria-hidden="true" alt="{{_('Access')}}">
+              </a>
+            {% endif %}
+          {% endif %}
+        </div>
+        {% block resource_item_explore %}
+        {% endblock %}
+  
+        <span class="accordion-arrow">
+          <img src="{{ h.url_for_static('/images/blue-arrow.svg') }}" aria-hidden="true" alt="">
+        </span>
+      </div>
+
+    </button>
+  </div>
+  <div id="collapse-{{ loop_index }}" class="accordion-collapse collapse" data-bs-parent=".accordion-container">
+    <div class="accordion-body">
+
+
+      {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+      {% set url_action = 'resource_edit' if url_is_edit and can_edit else 'resource_read' %}
+      {% set url = h.url_for('package.{0}'.format(url_action), id=pkg.name, resource_id=res.id) %}
+      {% asset 'dge/dge-formats-css' %}
+      {% if format_class == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %}
+        {% set format_class = 'xlsx' %}
+      {% endif %}
+
+
+      <div class="resource-item relative" data-id="{{ res.id }}" id="{{res.id}}">
+        {% if not url_is_edit %}
+          {% set res_inc_dict = h.dge_get_include_fields('resource') %}
+          {% set res_dict_fields = h.dge_dataset_display_fields(res_inc_dict.values(), schema.resource_fields) %}
+          {% set dict_fields = h.dge_dataset_display_fields(['format'], schema.resource_fields) %}
+          <div id="resource-item-tab" class="mt-0 mb-1 pr-1 tags flex">
+            <div class="badge-group">
+              {% set has_resource_identification_info = h.dge_has_resource_identification_info(res, res_dict_fields, is_dcatapes) %}
+              {% if has_resource_identification_info %}
+                <a class="badge" href="" data-type="identification">
+                  <span>{{ _('Identification') }}</span>
+                </a>
+              {% endif %}
+              {% set has_resource_interoperability_info = h.dge_has_resource_interoperability_info(res, res_dict_fields, is_dcatapes) %}
+              {% if has_resource_interoperability_info %}
+                <a class="badge" href="" data-type="interoperability">
+                  <span>{{ _('Interoperability') }}</span>
+                </a>
+              {% endif %}
+              {% set has_resource_provenance_info = h.dge_has_resource_provenance_info(res, res_dict_fields) %}
+              {% if has_resource_provenance_info %}
+                <a class="badge" href="" data-type="provenance">
+                  <span>{{ _('Provenance') }}</span>
+                </a>
+              {% endif %}
+              {% set has_resource_reusability_info = h.dge_has_resource_reusability_info(res, res_dict_fields, is_dcatapes) %}
+              {% if has_resource_reusability_info %}
+                <a class="badge" href="" data-type="reusability">
+                  <span>{{ _('Reusability') }}</span>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+
+          {% block resource_item_more_info %}
+            
+            {% if has_resource_identification_info %}
+              <div class="resource-item__section resource-item__identification">
+                <div class="read-more read-more--md">
+                  {% block resource_identification_info %}
+                    <div class="table-container">
+                      <table class="custom-table">
+                        <tbody>
+                        {% if res.resource_description and res_dict_fields[res_inc_dict.resource_description] %}
+                          {% set language, value = h.dge_dataset_field_value(res.resource_description) %}
+                          {% if value %}
+                            <tr>
+                              <th class="large text--color-primary-dark">
+                                {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_description].label) }}
+                              </th>
+                              <td class="container-markdown">
+                                {% if (language and value) %}
+                                <p><span lang='{{language}}' xml:lang='{{language}}'>{{ h.render_markdown(value) }}</span></p>
+                                {% elif value %}
+                                <p>{{ h.render_markdown(value) }}</p>
+                                {% endif %}
+                              </td>
+                            </tr>
+                          {% endif %}
+                        {% endif %}
+
+                        {% if not is_dcatapes and res.resource_identifier and res_dict_fields[res_inc_dict.resource_identifier] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_identifier].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li><a href="{{ res.resource_identifier }}" target="_blank">{{ res.resource_identifier }}</a></li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.access_url and res_dict_fields[res_inc_dict.access_url] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.access_url].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% for access_url_item in res.access_url %}
+                                <li><a class="{{ 'resource-download' if is_downloable else 'resource-external-link' }}" href="{{ access_url_item }}" target="_blank">{{ access_url_item }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.download_url and res_dict_fields[res_inc_dict.download_url] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.download_url].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% for download_url_item in res.download_url %}
+                                <li><a target="_blank" class="resource-download" href="{{ download_url_item }}">{{ download_url_item }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_language and res_dict_fields[res_inc_dict.resource_language] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_language].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% snippet 'scheming/display_snippets/multiple_choice_language.html',
+                                field=res_dict_fields[res_inc_dict.resource_language], data=res,
+                                is_dcatapes=is_dcatapes %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_modified_date and res_dict_fields[res_inc_dict.resource_modified_date] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_modified_date].label) }}
+                            </th>
+                            <td>
+                              <ul>
+                                <li>{{ res.resource_modified_date }}</li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_issued_date and res_dict_fields[res_inc_dict.resource_issued_date] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_issued_date].label) }}
+                            </th>
+                            <td>
+                              <ul>
+                                <li>{{ res.resource_issued_date }}</li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.checksum and res_dict_fields[res_inc_dict.checksum] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.checksum].label) }}
+                            </th>
+                            <td>
+                              {% snippet 'scheming/display_snippets/dge_checksum.html',
+                              data=res, field=res_dict_fields[res_inc_dict.checksum] %}
+                            </td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                  {% endblock %}
+                </div>
+                <div class="read-more__bottom read-more__bottom--blue read-more__bottom__accordeon">
+                  <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if has_resource_interoperability_info %}
+              <div class="resource-item__section resource-item__interoperability">
+                <div class="read-more read-more--md">
+                {% block resource_interoperability_info %}
+                  <div class="table-container">
+                    <table class="custom-table">
+                      <tbody>
+                        {% if (res.resource_format or res.format) and res_dict_fields[res_inc_dict.resource_format] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_format].label) }}
+                            </th>
+                            <td>
+                              {% if res.resource_format %}
+                                  {% snippet 'scheming/display_snippets/dge_uri_to_str_format.html',
+                                  format_value=res.resource_format %}
+                              {% elif res.format %}
+                                <ul class="mt-0">
+                                  <li>{{ h.scheming_choices_label(res_dict_fields[res_inc_dict.format].choices, res[res_dict_fields[res_inc_dict.format].field_name]) }}
+                                  </li>
+                                </ul>
+                              {% endif %}
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if is_dcatapes and res.media_type and res_dict_fields[res_inc_dict.media_type] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.media_type].label) }}
+                            </th>
+                            <td>
+                              {% snippet 'scheming/display_snippets/dge_uri_to_str_format.html',
+                              format_value=res.media_type %}
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.access_service and res_dict_fields[res_inc_dict.access_service] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.access_service].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% for service in res.access_service %}
+                                  {% set display_service = h.dge_display_dataservice_data(service) %}
+                                  <li><a href="{{ display_service['uri'] }}">{{ display_service['title'] }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.package_format and res_dict_fields[res_inc_dict.package_format] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.package_format].label) }}
+                            </th>
+                            <td>
+                              {% snippet 'scheming/display_snippets/dge_uri_to_str_format.html',
+                              format_value=res.package_format %}
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.compress_format and res_dict_fields[res_inc_dict.compress_format] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.compress_format].label) }}
+                            </th>
+                            <td>
+                              {% snippet 'scheming/display_snippets/dge_uri_to_str_format.html',
+                              format_value=res.compress_format %}
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.byte_size and res_dict_fields[res_inc_dict.byte_size] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.byte_size].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li>{{ h.dge_get_display_byte_size(res.byte_size) }}
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                  {% endblock %}
+                </div>
+                <div class="read-more__bottom read-more__bottom--blue read-more__bottom__accordeon">
+                  <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if has_resource_provenance_info %}
+              <div class="resource-item__section resource-item__provenance">
+                <div class="read-more read-more--md">
+                  {% block resource_provenance_info %}
+                    <div class="table-container">
+                      <table class="custom-table">
+                        <tbody>
+                        {% if res.resource_hvd_applicable_legislation and res_dict_fields[res_inc_dict.resource_hvd_applicable_legislation] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_hvd_applicable_legislation].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% for hvd_legislation in res.resource_hvd_applicable_legislation %}
+                                <li><a href="{{ hvd_legislation }}" target="_blank">{{ hvd_legislation }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_spatial_resolution_in_meters and res_dict_fields[res_inc_dict.resource_spatial_resolution_in_meters] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_spatial_resolution_in_meters].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li>{{ res.resource_spatial_resolution_in_meters }}</li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_temporal_resolution and res_dict_fields[res_inc_dict.resource_temporal_resolution] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_temporal_resolution].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li>{{ res.resource_temporal_resolution }}</li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.has_policy and res_dict_fields[res_inc_dict.has_policy] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.has_policy].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li><a href="{{ res.has_policy }}" target="_blank">{{ res.has_policy }}</a>
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_conforms_to and res_dict_fields[res_inc_dict.resource_conforms_to] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_conforms_to].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% for conforms in res.resource_conforms_to %}
+                                <li><a href="{{ conforms }}" target="_blank">{{ conforms }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                  {% endblock %}
+                </div>
+                <div class="read-more__bottom read-more__bottom--blue read-more__bottom__accordeon">
+                  <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+                </div>
+              </div>
+            {% endif %}
+            
+            {% if has_resource_reusability_info %}
+              <div class="resource-item__section resource-item__reusability">
+                <div class="read-more read-more--md">
+                  {% block resource_reusability_info %}
+                    <div class="table-container">
+                      <table class="custom-table">
+                        <tbody>
+                        {% if res.resource_page and res_dict_fields[res_inc_dict.resource_page] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_page].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% for page in res.resource_page %}
+                                <li><a href="{{ page }}" target="_blank">{{ page }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_rights and res_dict_fields[res_inc_dict.resource_rights] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_rights].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li><a href="{{ res.resource_rights }}" target="_blank">{{ res.resource_rights }}</a>
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if not is_dcatapes and res.resource_relation and res_dict_fields[res_inc_dict.resource_relation] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_relation].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                {% for relation in res.resource_relation %}
+                                <li><a href="{{ relation }}" target="_blank">{{ relation }}</a></li>
+                                {% endfor %}
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.resource_status and res_dict_fields[res_inc_dict.resource_status] %}
+                          {% set resource_status_label, xml_lang = h.dge_get_vocabularies_uri_label(res.resource_status) %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_status].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li>
+                                  {%- if xml_lang -%}
+                                    <span lang='{{xml_lang}}' xml:lang='{{xml_lang}}'>
+                                  {%- endif -%}
+                                    <a href="{{ res.resource_status }}" target="_blank">{{ resource_status_label }}</a>
+                                  {%- if xml_lang -%}
+                                    </span>
+                                  {%- endif -%}
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if is_dcatapes and res.resource_license and res_dict_fields[res_inc_dict.resource_license] %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.resource_license].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li><a href="{{ res.resource_license }}" target="_blank">{{ res.resource_license }}</a></li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+
+                        {% if res.availability and res_dict_fields[res_inc_dict.availability] %}
+                          {% set availability_label, xml_lang = h.dge_get_vocabularies_uri_label(res.availability) %}
+                          <tr>
+                            <th class="large text--color-primary-dark">
+                              {{ h.scheming_language_text(res_dict_fields[res_inc_dict.availability].label) }}
+                            </th>
+                            <td>
+                              <ul class="mt-0">
+                                <li>
+                                  {%- if xml_lang -%}
+                                    <span lang='{{xml_lang}}' xml:lang='{{xml_lang}}'>
+                                  {%- endif -%}
+                                    <a href="{{ res.availability }}" target="_blank">{{ availability_label }}</a>
+                                  {%- if xml_lang -%}
+                                    </span>
+                                  {%- endif -%}
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        {% endif %}
+                      </tbody>
+                    </table>
+                  </div>
+                  {% endblock %}
+                </div>
+                <div class="read-more__bottom read-more__bottom--blue read-more__bottom__accordeon">
+                  <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+                </div>
+              </div>
+            {% endif %}
+            
+          {% endblock %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

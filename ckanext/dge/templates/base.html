@@ -1,0 +1,109 @@
+{% ckan_extends %}
+
+    {%- block meta -%}
+      {{ super() }}
+      <!-- meta charset="utf-8" /-->
+      <script async="async" type="text/javascript" src="https://datos--gob--es.insuit.net/i4tservice/insuit-app.js"></script>
+      {% block meta_generator %}{% endblock%}
+      {% set meta_subtitle = '' %}
+      {%- if self.subtitle()|trim %}
+        {% set meta_subtitle = self.subtitle() + ' ' + g.template_title_delimiter + ' ' %}
+      {% endif -%}
+      <meta property="og:site_name" content="Catálogo de datos - Datos.gob.es">
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="https://datos.gob.es/es/catalogo">
+      <meta property="og:image" content="https://datos.gob.es/sites/default/files/2025-11/logo_mini.png">
+      <meta property="article:author" content="datos.gob.es">
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:image" content="https://datos.gob.es/sites/default/files/2025-11/logo_mini.png">
+      <meta name="Generator" content="CKAN">
+      <meta name="MobileOptimized" content="width">
+      <meta name="HandheldFriendly" content="true">
+      {% if not (c.controller == 'package' and (c.action == 'dataset_read' or c.action == 'resource_read')) %}
+        <meta name="twitter:title" content="{{ meta_subtitle + g.site_title }}">
+        <meta name="twitter:description" content="Catálogo nacional de datos abiertos del Gobierno de España">
+        <meta property="og:title" content="{{ meta_subtitle + g.site_title }}">
+        <meta property="og:description" content="Catálogo nacional de datos abiertos del Gobierno de España">
+        <meta name="description" content="Catálogo nacional de datos abiertos del Gobierno de España" />
+      {% endif %}
+    {%- endblock -%}
+
+    {% block links -%}
+      {{ super() }}
+      {% block seo %}
+        {% block seo_links %}
+          {% set default_lang = h.dge_default_locale() %}
+          {% set scheme = request.environ['wsgi.url_scheme'] %}
+          {% set request_path = request.full_path %}
+          {% if request.environ.PATH_INFO + '?' == request.full_path %}
+            {% set request_path = request.environ.PATH_INFO %}
+          {% endif %}
+          {% set default_lang = h.dge_default_locale() %}
+          {% set scheme = request.environ['wsgi.url_scheme'] %}
+          {% set request_path = request.full_path %}
+          {% if request.environ.PATH_INFO + '?' == request.full_path %}
+            {% set request_path = request.environ.PATH_INFO %}
+          {% endif %}
+          {% set canonical_href = scheme + "://" + request.environ.HTTP_HOST + "/" + default_lang + request_path %}
+          <link rel="canonical" href="{{ canonical_href }}" />
+          {% for locale in h.get_available_locales() %}
+            {% if default_lang == locale.short_name %}
+          <link href="{{ canonical_href }}" rel="alternate" hreflang="x-default" />
+            {% else %}
+          <link href="{{ scheme }}://{{ request.environ.HTTP_HOST }}{% url_for request.environ.PATH_INFO, locale=locale.short_name %}" rel="alternate" hreflang="{{ locale.short_name }}" />
+            {% endif %}
+          {% endfor %}
+
+        {% endblock%}
+        {% block seo_base_structured_data %}
+          <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "{{ g.site_title }}",
+            "url": "{{ h.url_for('package.search', qualified=True) }}",
+            "logo": "{{ h.url_for_static_or_external(g.site_logo, qualified=True) }}"
+          }
+          </script>
+        {% endblock%}
+        {% block seo_structured_data %}{% endblock -%}
+      {% endblock%}
+    {% endblock -%}
+
+    {%- block styles %}
+      {% asset 'dge/dge-base-normalize-css' %}
+      {% asset 'dge/dge-base-fonts-ckan-css' %}
+      {% asset 'dge/dge-base-ckan-css' %}
+      {% asset 'dge/dge-base-css' %}
+      {% asset 'dge/dge-base-ie-css' %}
+      {% asset 'dge/dge-layout-css' %}
+      {% asset 'dge/dge-modules-sidr-css' %}
+      {% asset 'dge/dge-modules-ckan-css' %}
+      {% asset 'dge/dge-modules-css' %}
+      {% asset 'dge/dge-status-css' %}
+      {% asset 'dge/dge-header' %}
+      {% asset 'dge/styles-css' %}
+      {% asset 'dge/dge-triumph-css' %}
+      {% asset 'dge/dge-buttons-css' %}
+      {% asset 'dge/dge-form-elements-css' %}
+    {% endblock -%}
+
+    {%- block scripts %}
+     {{ super() }}
+     {% asset 'dge/dge-jquery-mobile-js' %}
+     {% asset 'dge/dge-jquery-sidr-js' %}
+     {% asset 'dge/dge-js' %}
+     {% asset 'dge/dge-comments-js' %}
+     {% asset 'dge/dge-rate-js' %}
+     {% asset 'dge/sorttable-js' %}
+     {% asset 'dge/dge-jquery-dge-slug-preview-js' %}
+     {% asset 'dge/dge-slug-preview-js' %}
+     {% asset 'dge/dge-clear-message-js' %}
+    {% endblock -%}
+
+    {% block bodytag %}
+     {{ super() }}
+     {% if c.userobj %}
+     class = 'logged-in'
+     {% endif %}
+    {% endblock %}

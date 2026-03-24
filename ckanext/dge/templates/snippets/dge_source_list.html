@@ -1,0 +1,37 @@
+{#
+Displays a list of harvest sources.
+
+sources        - A list of harvest sources to display.
+list_class     - The class name for the list item.
+item_class     - The class name to use on each item.
+hide_resources - If true hides the resources (default: false).
+banner         - If true displays a popular banner (default: false).
+truncate       - The length to trucate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+
+Example:
+
+  {% snippet 'snippets/sources_list.html', sources=c.sources %}
+
+#}
+{% if sources %}
+  <div class="dge-list dge-list--harvest">
+    <table class="{{ list_class or 'views-table views-view-table' }} sortable">
+      <thead>
+        <tr>
+          <th class="dge-list--harvest--name">{{ _('Source name') }}</th>
+          <th class="dge-list--harvest--frequency">{{ _('Frequency') }}</th>
+          <th class="dge-list--harvest--federation">{{ _('Source type') }}</th>
+          <th class="dge-list--harvest--description">{{ _('Description') }}</th>
+          <th class="dge-list--harvest--organization">{{ _('Source organization') }}</th>
+          <th class="dge-list--harvest--actions sorttable_nosort">{{ _('Actions') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for source in sources %}
+          {% snippet 'snippets/dge_source_item.html', source=source, item_class=item_class, hide_resources=hide_resources, banner=banner, truncate=truncate, truncate_title=truncate_title, within_organization=within_organization %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}

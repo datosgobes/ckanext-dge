@@ -1,0 +1,30 @@
+{% set language, multilingual_tags = h.dge_dataset_tag_field_value(tags) %}
+{% asset 'dge/dge_main-js' %}
+{% if multilingual_tags %}
+<section class="tags">
+  {% if language %}
+    <div lang='{{language}}' xml:lang='{{language}}'>
+  {% endif %}
+      <ul class="tag-list">
+        {% for tag in multilingual_tags[:3] %}
+          <li>
+            <a class="tag" href="{{ h.dge_tag_link(tag, language) }}">{{ h.truncate(tag, 22) }}</a>
+          </li>
+        {% endfor %}
+        {% if multilingual_tags|length > 3 %}
+          <li id="more-tags" style="display: none;">
+            {% for tag in multilingual_tags[3:] %}
+              <a class="tag" href="{{ h.dge_tag_link(tag, language) }}">{{ h.truncate(tag, 22) }}</a>
+            {% endfor %}
+          </li>
+        {% endif %}
+      </ul>
+      {% if multilingual_tags|length > 3 %}
+        <button id="toggle-tags" data-module="toggle-tags" data-module-view_more="{{ _('View more') }}" data-module-view_less="{{_('View less') }}">{{ _('View more') }}</button>
+      {% endif %}
+  {% if language %}
+    </div>
+  {% endif %}
+</section>
+
+{% endif %}

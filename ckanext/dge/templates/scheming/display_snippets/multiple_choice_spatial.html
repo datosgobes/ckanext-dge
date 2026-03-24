@@ -1,0 +1,60 @@
+{%- set values = [] -%}
+{%- set labels = [] -%}
+
+{%- if is_dcatapes -%}
+  <div class="large text-line-height-normal inline">
+    <ul>
+      {%- for spatial in data[field.field_name] -%}
+        {%- if spatial.uri -%}
+          {%- if h.dge_is_datosgobes_spatial_uri(spatial.uri) -%}
+            {% set spatial_label = h.dge_get_nti_field_uri_label('spatial', spatial.uri) %}
+            {%- if spatial_label -%}
+              <li><a href="{{ spatial.uri }}">{{ h.scheming_language_text(spatial_label) }}</a></li>
+            {%- endif -%}
+          {%- else -%}
+            {% set spatial_label, xml_lang = h.dge_get_vocabularies_uri_label(spatial.uri) %}
+            <li>
+              {%- if xml_lang -%}
+                <span lang='{{xml_lang}}' xml:lang='{{xml_lang}}'>
+              {%- endif -%}
+              <a href="{{ spatial.uri }}" target="_blank">{{ spatial_label }}</a>
+              {%- if xml_lang -%}
+                </span>
+              {%- endif -%}
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if spatial.geometry -%}
+          <li>{{ spatial.geometry }}</li>
+        {%- endif -%}
+        {%- if spatial.bbox -%}
+          <li>{{ spatial.bbox }}</li>
+        {%- endif -%}
+        {%- if spatial.centroid -%}
+          <li>{{ spatial.centroid }}</li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- else -%}
+  {%- for spatial in data[field.field_name] -%}
+    {%- do values.append(spatial.uri) -%}
+  {%- endfor -%}
+  {%- for choice in h.dge_get_nti_field_choices('spatial') -%}
+      {%- if choice.value in values -%}
+        {%- do labels.append(h.scheming_language_text(choice.label)) -%}
+      {%- endif -%}
+  {%- endfor -%}
+
+  {%- if labels|length == 1 -%}
+    {{ labels[0] }}
+  {%- else -%}
+      <div class="large text-line-height-normal">
+        <ul>
+        {%- for label in labels -%}
+          <li>{{ label }}</li>
+        {%- endfor -%}
+        </ul>
+      </div>
+  {%- endif -%}
+{%- endif -%}

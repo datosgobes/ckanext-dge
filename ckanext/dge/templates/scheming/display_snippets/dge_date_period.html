@@ -1,0 +1,29 @@
+{%- set values = data[field.field_name] -%}
+{% if values %}
+   <ul>
+      {%- for element in values | sort -%}
+         {% set dates = values.get(element) %}
+         <li>
+            {% if dates.from %}
+               {{ _('From') + (' ' + dates.from if is_dcatapes else '') }}
+               {% if not is_dcatapes %}
+                  {% snippet 'package/snippets/dge_local_friendly_datetime.html', datetime_obj=dates.from %}
+               {% endif %}
+               {% if dates.to %}
+                  {{ _('to') + (' ' + dates.to if is_dcatapes else '') }}
+                  {% if not is_dcatapes %}
+                     {% snippet 'package/snippets/dge_local_friendly_datetime.html', datetime_obj=dates.to %}
+                  {% endif %}
+               {% endif %}
+            {% else %}
+               {% if dates.to %}
+                  {{ _('To') + (' ' + dates.to if is_dcatapes else '') }}
+                  {% if not is_dcatapes %}
+                     {% snippet 'package/snippets/dge_local_friendly_datetime.html', datetime_obj=dates.to %}
+                  {% endif %}
+               {% endif %}
+            {% endif %}
+         </li>
+      {%- endfor -%}
+   </ul>
+{% endif %}

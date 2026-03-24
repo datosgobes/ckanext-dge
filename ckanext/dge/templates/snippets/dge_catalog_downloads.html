@@ -1,0 +1,41 @@
+<ul class="catalog">
+
+  {% set current_lang = request.environ.CKAN_LANG %}
+  
+  {% if  request.path.startswith('/apidata') or request.path.startswith('/accessible-apidata') or request.path.startswith('/sparql') or request.path.startswith('/accessible-sparql') %}
+  <li class="catalog-datasets catalog__internal-access">
+    <a href="/{{ current_lang }}/catalogo" class="{% if request.path.startswith('/catalogo') %}active{% endif %}" title="{{_('Data Catalog')}}">
+      <img src="{{ h.url_for_static('/images/SVG/data-catalogue.svg') }}" alt="{{ _('Data Catalog icono') }}">
+      <span>{{ _('Data catalogue') }}</span>
+    </a>
+  </li>
+  {% endif %}
+
+  {% if  request.path.startswith('/catalogo') or request.path.startswith('/sparql') or request.path.startswith('/accessible-sparql')  %}
+  <li class="catalog-api catalog__internal-access">
+    <a href="/{{ current_lang }}/apidata" title="{{_('API')}}">
+      <img src="{{ h.url_for_static('/images/SVG/api.svg') }}" alt="{{ _('API icono') }}">
+      <span>{{ _('API') }}</span>
+    </a>
+  </li>
+  {% endif %}
+
+  {% if request.path.startswith('/catalogo') or request.path.startswith('/apidata') or request.path.startswith('/accessible-apidata') %}
+  <li class="catalog-sparql catalog__internal-access">
+    <a href="/{{ current_lang }}/sparql" title="{{_('Sparql Point')}}">
+      <img src="{{ h.url_for_static('/images/SVG/sparql.svg') }}" alt="{{ _('SPARQL icono') }}">
+      <span>{{ _('Sparql Point') }}</span>
+    </a>
+  </li>
+  {% endif %}
+
+  {% if request.path.startswith('/catalogo') or request.path.startswith('/dataservice') %}
+    <div class="separator separator--vertical"></div>
+    {% if rdf_file %}
+    <li class="catalog-rdf catalog__internal-download"><a href="{{ rdf_file }}" target="_blank" title="{{ _('RDF Data Catalog') }}. {{ _('Opens a new window') }}"><img src="{{ h.url_for_static('/images/SVG/export-datase-rdf.svg') }}" alt="{{ _('RDF Data Catalog') }}. {{ _('Opens a new window') }}"></a></li>
+    {% endif %}
+    {% if csv_file %}
+    <li class="catalog-csv catalog__internal-download"><a href="{{ csv_file }}" target="_blank" title="{{ _('CSV Data Catalog') }}. {{ _('Opens a new window') }}"><img src="{{ h.url_for_static('/images/SVG/export-datase-csv.svg') }}" alt="{{ _('CSV Data Catalog') }}. {{ _('Opens a new window') }}"></a></li>
+    {% endif %}
+  {% endif %}
+</ul>

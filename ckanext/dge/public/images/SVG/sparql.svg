@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23.486" height="23.486" viewBox="0 0 23.486 23.486">
+  <g id="history" transform="translate(-2.25 -2.25)">
+    <path id="Trazado_4550" data-name="Trazado 4550" d="M2.25,4.96A2.71,2.71,0,0,1,4.96,2.25H23.026a2.71,2.71,0,0,1,2.71,2.71v9.033a.9.9,0,1,1-1.807,0V4.96a.9.9,0,0,0-.9-.9H4.96a.9.9,0,0,0-.9.9V23.026a.9.9,0,0,0,.9.9h9.033a.9.9,0,1,1,0,1.807H4.96a2.71,2.71,0,0,1-2.71-2.71Z" fill="#154481" fill-rule="evenodd"/>
+    <path id="Trazado_4551" data-name="Trazado 4551" d="M16.767,14.057a2.71,2.71,0,1,0,2.71,2.71A2.71,2.71,0,0,0,16.767,14.057Zm-4.517,2.71a4.517,4.517,0,1,1,4.517,4.517A4.517,4.517,0,0,1,12.25,16.767Z" transform="translate(2.044 2.044)" fill="#154481" fill-rule="evenodd"/>
+    <path id="Trazado_4552" data-name="Trazado 4552" d="M17.948,17.589a.9.9,0,0,1,1.27-.141l3.011,2.409A.9.9,0,1,1,21.1,21.267l-3.011-2.409a.9.9,0,0,1-.141-1.27Z" transform="translate(3.169 3.066)" fill="#154481" fill-rule="evenodd"/>
+    <path id="Trazado_4553" data-name="Trazado 4553" d="M6.25,8.153a.9.9,0,0,1,.9-.9H19.2a.9.9,0,0,1,0,1.807H7.153A.9.9,0,0,1,6.25,8.153Z" transform="translate(0.818 1.022)" fill="#154481" fill-rule="evenodd"/>
+    <path id="Trazado_4554" data-name="Trazado 4554" d="M6.25,12.153a.9.9,0,0,1,.9-.9h4.818a.9.9,0,1,1,0,1.807H7.153A.9.9,0,0,1,6.25,12.153Z" transform="translate(0.818 1.84)" fill="#154481" fill-rule="evenodd"/>
+  </g>
+</svg>

@@ -1,5 +1,5 @@
 # Translations template for ckanext-dge.
-# Copyright (C) 2025 Entidad Pública Empresarial Red.es
+# Copyright (C) 2026 Entidad Pública Empresarial Red.es
 #
 # This file is part of "dge (datos.gob.es)".
 #
@@ -680,6 +680,10 @@ msgstr ""
 
 #: ckanext/dge/templates/snippets/dge_social_list_footer.html:187
 msgid "Follow us on Instagram"
+msgstr ""
+
+#: ckanext/dge/templates/snippets/dge_social_list_footer.html:249
+msgid "Follow us on Spotify"
 msgstr ""
 
 #: ckanext/dge/templates/snippets/dge_social_list_footer.html:224
@@ -1528,10 +1532,6 @@ msgstr ""
 msgid "accessible_apidata_content"
 msgstr ""
 
-#: ckanext/dge/templates/yasgui/accessible-sparql.html:4
-msgid "accessible_sparql_content"
-msgstr ""
-
 #: ckanext/dge/helpers.py:1194
 msgid "display_name"
 msgstr ""
@@ -2024,4 +2024,8 @@ msgstr ""
 #: ckanext/dge/templates/error_document_template.html:16
 #: ckanext/dge/templates/error_document_template.html:17
 msgid "Forbidden"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/package/search.html:72
+msgid "The results obtained based on the search terms entered are shown below, grouped by each section of the website where they are published."
 msgstr ""

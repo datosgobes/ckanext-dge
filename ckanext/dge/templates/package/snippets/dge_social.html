@@ -1,0 +1,84 @@
+{% set current_url = h.full_current_url() %}
+{% block social %}
+  <section class="social" name="Compartir">
+    {% block social_title %}
+      <h2 class="section-title"><a href="#nav-simple">{{ _('Share') }}</a></h2>
+    {% endblock %}
+    {% block social_nav %}
+    <div class="dialog-container" role="dialog">
+        <div class="dialog-close">
+          <button aria-label="Cerrar" type="button">
+          <span><img src="/images/close.svg" alt="Close icon"></img></span>
+          </button>
+        </div>
+        <h3>{{ _('Share this content') }}</h3>
+        <ul class="nav nav-simple">
+          <li class="nav-item"><a id="copy-link" href="#" data-url="{{ current_url }}" target="_blank" title="{{ _('Copy link') }}"><i class="icon-copy-sign"></i> {{ _('Copy link') }}</a></li>
+          <li class="nav-item"><a href="http://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}" target="_blank" title="{{ _('LinkendIn') }}"><i class="icon-linkedin-sign"></i> {{ _('LinkendIn') }}</a></li>
+          <li class="nav-item"><a href="https://twitter.com/share?url={{ current_url }}" target="_blank" title="{{ _('X') }}"><i class="icon-x-sign"></i> {{ _('X') }}</a></li>
+          <li class="nav-item"><a href="https://wa.me/?text={{ current_url }}" target="_blank" title="Whatsapp"><i class="icon-whatsapp-sign"></i> Whatsapp</a></li>
+          <li class="nav-item"><a href="mailto:?subject={{ current_url }}&body=Check out this site {{ current_url }}" target="_blank" title="{{ _('Email') }}"><i class="icon-email-sign"></i> {{ _('Email') }}</a></li>
+        </ul>
+      </div>
+    {% endblock %}
+  </section>
+{% endblock %}
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+  const copyLink = document.getElementById('copy-link');
+  if (copyLink) {
+    copyLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      const link = copyLink.getAttribute('data-url');
+      navigator.clipboard.writeText(link)
+        .then(function () {
+        })
+        .catch(function (err) {
+          console.error('Error al copiar al portapapeles: ', err);
+        });
+      showCopyNotification(copyLink);
+    });
+  }
+
+  function showCopyNotification(element) {
+    const notification = document.createElement('div');
+    notification.className = 'copy-notification';
+
+    const checkmark = document.createElement('img');
+    checkmark.src = '/images/checkmark.svg';
+    checkmark.alt = 'Copiado';
+    notification.appendChild(checkmark);
+
+    const text = document.createElement('span');
+    text.textContent = '¡Enlace copiado al portapapeles!';
+    notification.appendChild(text);
+
+    element.closest('.dialog-container').appendChild(notification);
+    setTimeout(() => notification.remove(), 4000);
+  }
+
+  const openModalButton = document.querySelector('.section-title a');
+
+  if (openModalButton) {
+    openModalButton.addEventListener('click', function (event) {
+      event.preventDefault();  
+      const modalSection = document.querySelector('.social');  
+
+      if (modalSection) {
+        modalSection.classList.add('is-visible');  
+      }
+    });
+  }
+
+  const closeModalButton = document.querySelector('.dialog-close button');
+  if (closeModalButton) {
+    closeModalButton.addEventListener('click', function () {
+      const modalSection = document.querySelector('.social');
+      if (modalSection) {
+        modalSection.classList.remove('is-visible');
+      }
+    });
+  }
+});
+</script>

@@ -1,0 +1,106 @@
+{% extends "page.html" %}
+{% block seo_structured_data %}
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement":
+    [
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement":
+    [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item":
+          {
+            "@id": "{{ g.site_url }}",
+            "name": "{{ _('Home') }}"
+          }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item":
+          {
+            "@id": "{{ h.url_for('package.search', qualified = True) }}",
+            "name": "{{ _('Data Catalog') }}"
+          }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item":
+          {
+            "@id": "{{ h.url_for('dge.swagger', qualified = True) }}",
+            "name": "{{ _('API Data') }}"
+          }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+{% block subtitle %}{{ _('API Data') }}{% endblock %}
+{% block breadcrumb_content %}
+  <li>{{ h.nav_link(_('Data Catalog'), named_route='package.search') }}</li>
+  <li>{{ _('API Data') }}</li>
+{% endblock %}
+{% block page_title_content %}{{ _('API Data') }}{% endblock %}
+{% block catalog_downloads %}
+  {% snippet 'snippets/dge_catalog_downloads.html' %}
+{% endblock %}
+{% block page_header %} {% endblock %}
+{% block primary_content_inner %}
+
+
+<div class="swagger-intro">
+{% set accesible_version_url = h.url_for('dge.accessible_swagger') %}
+{% set documentation_url = h.dge_swagger_doc_url() %}
+{% trans page=accesible_version_url, doc=documentation_url %}API_introduction {{ page }} {{ doc }}{% endtrans %}
+<p style="float:right"><br/><a href="{{ accesible_version_url }}">{{ _('Accessible version') }}</a><br/></p>
+</div>
+
+  <div class='swagger-section'>
+    <div id='header'>
+      <div class="swagger-ui-wrap" id="swagger-form">
+        <a id="logo" href="http://swagger.io">{{ _('swagger') }}</a>
+        <form id='api_selector'>
+          <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text" title="{{ _('Base url') }}"/></div>
+          <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text" title="{{ _('Api key') }}"/></div>
+          <div class='input'><a id="explore" href="#" data-sw-translate>{{ _('Explore') }}</a></div>
+        </form>
+      </div>
+    </div>
+    {% set swagger_url = h.dge_api_swagger_url() %}
+    <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+    <div id="swagger-ui-container" 
+         class="swagger-ui-wrap" 
+         data-module="dge_swagger"
+         data-module-url="{{ swagger_url }}"></div>    
+  </div>
+{% endblock %}
+{% block secondary %}{% endblock %}
+
+{%- block styles %}
+  {{ super() }}
+  
+  <link href='{% url_for_static "swagger/css/typography.css" %}' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='{% url_for_static "swagger/css/screen.css" %}' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='{% url_for_static "swagger/css/reset.css" %}' media='print' rel='stylesheet' type='text/css'/>
+  <link href='{% url_for_static "swagger/css/print.css" %}' media='print' rel='stylesheet' type='text/css'/>
+  {% asset 'dge/dge-swagger-css' %}
+{% endblock -%}
+
+
+{%- block scripts %}
+   {{ super() }}
+
+  {% asset 'dge/dge-jquery-js' %}
+  {% asset 'dge/dge-swagger-ui-js' %}
+  {% asset 'dge/dge-jquery2-js' %}
+  
+  {% set swagger_lang = 'dge/dge-swagger-lang-' + request.environ.CKAN_LANG + '-js' %}
+  {% asset swagger_lang %}
+
+{% endblock -%}

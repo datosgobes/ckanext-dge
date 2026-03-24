@@ -1,0 +1,83 @@
+{% extends 'snippets/search_form.html' %}
+{% block search_input %}
+  {% block search_input_button %}
+    
+  {% endblock %}
+{% endblock %}
+
+{% block search_search_fields %}
+  {% set fields = h.dge_get_selected_fields(['sort'])  %}
+  {% if fields -%}
+    <span>{{ form.hidden_from_list(fields=fields) }}</span>
+  {%- endif %}
+{% endblock %}
+
+
+{% block search_sortby %}
+  {% if sorting %}
+    <div class="dge-search-dropdown-wrapper">
+      <div class="dge-search-dropdown">
+        <button class="dge-search-dropdown-trigger" type="button">
+          {{ sorting_selected_label if sorting_selected_label else _('Relevance') }}
+        </button>
+        <ul class="dge-search-dropdown-menu">
+          {% for label, value in sorting %}
+            {% if label and value %}
+              <li data-value="{{ value }}" class="dge-search-dropdown-item {% if sorting_selected == value %}dge-search-selected{% endif %}">
+                {{ label }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <input type="hidden" id="dge-search-hidden-input" name="sort" value="{{ sorting_selected }}">
+      </div>
+      {% block search_sortby_button %}
+
+      {% endblock %}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block search_title %}
+  {% if not error %}
+    <p class="dge-search-result-text">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</p>
+  {% else %}
+    <h2>Error</h2>
+  {% endif %}
+{% endblock %}
+
+{% block search_facets %}
+  {% if facets and facets.fields %}
+    <div class="tags flex">
+      {% for field in facets.fields %}
+        {% set search_facets_items = facets.search.get(field)['items'] %}
+        {% set title = facets.titles.get(field) %}
+        {% if title == None and field.startswith('tags_') %}
+          {% set title = _('Tag') + '(' + field.split('_')[1].upper() + ')' %}
+        {% endif %}
+        {% for value in facets.fields[field] %}
+          <div class="badge-group">
+            <a class="badge" aria-label="{{ _('Remove filter') }}" href="{{ h.dge_remove_field(c.controller, field, value) }}" title="{{ _('Remove') }}">
+              <span>
+                {%- if field == 'frequency' or  field == 'source_type' -%}
+                  {{_(value)}}
+                {%- elif facets.translated_fields and facets.translated_fields.has_key((field,value)) -%}
+                  {{ facets.translated_fields[(field,value)] }}
+                {%- else -%}
+                  {%- set item, lang = h.dge_searched_facet_item_filter(search_facets_items, 'name', 'display_name', value, field) -%}
+                  {%- if lang -%}<span lang="{{ lang }}" xml:lang="{{ lang }}">{%- endif -%}
+                  {{ item }}
+                  {%- if lang -%}</span>{%- endif -%}
+                {%- endif -%}
+              </span>
+              <span class="badge__close decoration-arrow">
+                <img src="/images/close.svg" alt="Close icon">
+              </span>
+            </a>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+  {% endif %}
+{% endblock %}

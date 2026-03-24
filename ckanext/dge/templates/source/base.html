@@ -1,0 +1,15 @@
+{% ckan_extends %}
+
+{% set harvest_source = harvest_source or h.get_harvest_source() %}
+
+{% block page_title_content %}{{ harvest_source.title }}{% endblock %}
+
+{% block breadcrumb_content %}
+    <li>{{ h.nav_link(_('Harvester'), named_route='{0}_search'.format(c.dataset_type)) }}</li>
+    {% if (c.controller == 'harvest' and c.action == 'read')
+        or (c.controller == 'harvester' and c.action == 'about')  %}
+        <li>{{ harvest_source.title|truncate(30) }}</li>
+    {% else %}
+        <li>{{ h.nav_link(harvest_source.title|truncate(30), named_route='{0}_read'.format(c.dataset_type), id=harvest_source.name) }}</li>
+    {% endif %}
+{% endblock %}

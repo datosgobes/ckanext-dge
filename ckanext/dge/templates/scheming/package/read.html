@@ -1,0 +1,131 @@
+{% ckan_extends %}
+
+{% block package_description %}
+  {% block package_archive_notice %}
+    {% if is_activity_archive %}
+      <div class="alert alert-danger">
+        {% trans url=h.url_for(pkg.type ~ '.read', id=pkg.id) %}
+        You're currently viewing an old version of this dataset. To see the
+        current version, click <a href="{{ url }}">here</a>.
+        {% endtrans %}
+      </div>
+    {% endif %}
+  {% endblock %}
+  <div class="flex-display flex-start flex-gap-05 responsive-md-wrap mt-10">
+    {% set is_hvd = h.dge_is_hvd(pkg) %}
+    <span class="data--type__icon data--type__icon--lg data--type-{{'hvd' if is_hvd else 'standard'}}">
+      <img 
+        src="{{ h.url_for_static('/images/SVG/' + ('hvd' if is_hvd else 'standard') + '-' + dataset_type + '.svg') }}"
+        alt="{{ _(('HVD ' if is_hvd else 'Standard ') + dataset_type | capitalize) }}">
+    </span>
+    <h1>
+      {% block page_heading %}
+        {% set language, value = h.dge_dataset_field_value(pkg.title_translated) %}
+        {% if (language and value) %}
+          <div lang='{{language}}' xml:lang='{{language}}'>{{ value }}</div>
+        {% elif value %}
+          {{ value }}
+        {% endif %}
+        {% if pkg.state.startswith('draft') %}
+            [{{ _('Draft') }}]
+        {% endif %}
+        {% if pkg.state == 'deleted' %}
+            [{{ _('Deleted') }}]
+        {% endif %}
+      {% endblock %}
+    </h1>
+
+    {% if pkg.private %}
+      <span class="dataset-private dataset-private--lg">
+          <img src="{{ h.url_for_static('/images/SVG/lock.svg') }}" alt="{{ _('Private') }}">
+      </span>
+    {% endif %}
+  </div>
+  {% block page_title %}{% endblock %}
+  {% block catalog_downloads %}{% endblock %}
+
+  {% block package_notes %}
+    {% set is_dcatapes = h.dge_is_dcatapes(pkg) %}
+    {% set inc_dict = h.dge_get_include_fields(dataset_type) %}
+    {% set dict_fields = h.dge_dataset_display_fields(inc_dict.values(), schema.dataset_fields) %}
+    <div class="group">
+      {% snippet "package/snippets/dge_theme.html", pkg_dict=pkg, dataset_type=dataset_type, schema=schema %}
+    </div>
+    {% snippet "package/snippets/dge_owner_license.html", pkg_dict=pkg, dataset_type=dataset_type, schema=schema, is_dcatapes=is_dcatapes %}
+    {% snippet "package/snippets/dge_description.html", pkg_dict=pkg %}
+    {% if dataset_type == 'dataservice' %}
+      {% snippet "package/snippets/dge_dataservice_section.html", pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      is_dcatapes=is_dcatapes, dict_fields=dict_fields %}
+    {% elif dataset_type == 'dataset' %}
+      {% snippet "package/snippets/dge_dataset_section.html", pkg_dict=pkg, dataset_type=dataset_type, schema=schema, 
+      is_dcatapes=is_dcatapes, dict_fields=dict_fields %}
+    {% endif %}
+  {% endblock %}
+  <span class="insert-comment-thread"></span>
+{% endblock %}
+
+{% block package_resources %}
+  {% if dataset_type == 'dataset' %}
+    {% snippet "package/snippets/dge_resources_list.html", pkg=pkg, 
+    resources=pkg.resources, dataset_type=dataset_type, schema=schema %}
+  {% elif dataset_type == 'dataservice' and pkg.dataservice_pkgs %}
+    {% snippet "package/snippets/dge_dataservice_served_datasets.html",
+    pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+    inc_dict=inc_dict, dict_fields=dict_fields, dataservice_pkgs=pkg.dataservice_pkgs %}
+  {% endif %}
+{% endblock %}
+
+{% block package_additional_info %}
+  {% set is_dcatapes = h.dge_is_dcatapes(pkg) %}
+  {% set inc_dict = h.dge_get_include_fields(dataset_type) %}
+  {% set dict_fields = h.dge_dataset_display_fields(inc_dict.values(), schema.dataset_fields) %}
+  {% if dataset_type == 'dataservice' %}
+    {% if h.dge_has_package_information_info(pkg, dict_fields, is_dcatapes, dataset_type) %}
+      {% snippet "package/snippets/dge_dataservice_information.html",
+      pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      inc_dict=inc_dict, dict_fields=dict_fields %}
+    {% endif %}
+
+    {% if h.dge_has_package_contact_info(pkg_dict, dict_fields, dataset_type) %}
+      {% snippet "package/snippets/dge_dataservice_contact.html",
+      pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      inc_dict=inc_dict, dict_fields=dict_fields %}
+    {% endif %}
+
+    {% if h.dge_has_package_quality_info(pkg_dict, dict_fields, dataset_type) %}
+      {% snippet "package/snippets/dge_dataservice_quality.html",
+      pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      inc_dict=inc_dict, dict_fields=dict_fields %}
+    {% endif %}
+  {% elif dataset_type == 'dataset' %}
+    {% if h.dge_has_package_information_info(pkg, dict_fields, is_dcatapes, dataset_type) %}
+      {% snippet "package/snippets/dge_dataset_information.html",
+      pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      is_dcatapes=is_dcatapes, inc_dict=inc_dict, dict_fields=dict_fields %}
+    {% endif %}
+
+    {% if h.dge_has_dataset_technical_sheet_info(pkg, dict_fields, is_dcatapes) %}
+      {% snippet "package/snippets/dge_dataset_technical-sheet.html",
+      pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      is_dcatapes=is_dcatapes, inc_dict=inc_dict, dict_fields=dict_fields %}
+    {% endif %}
+
+    {% if h.dge_has_package_contact_info(pkg_dict, dict_fields, dataset_type) %}
+      {% snippet "package/snippets/dge_dataset_contact.html",
+      pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      is_dcatapes=is_dcatapes, inc_dict=inc_dict, dict_fields=dict_fields %}
+    {% endif %}
+
+    {% if h.dge_has_package_quality_info(pkg_dict, dict_fields, dataset_type) %}
+      {% snippet "package/snippets/dge_dataset_quality.html",
+      pkg_dict=pkg, dataset_type=dataset_type, schema=schema,
+      is_dcatapes=is_dcatapes, inc_dict=inc_dict, dict_fields=dict_fields %}
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
+{% block content_primary_nav %}
+  {{ super() }}
+  {% snippet "package/snippets/dge_export_links.html", pkg=pkg %}
+  {% snippet "package/snippets/dge_social.html", pkg_dict=pkg %}
+{% endblock %}

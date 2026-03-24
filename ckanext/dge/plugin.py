@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Entidad Pública Empresarial Red.es
+# Copyright (C) 2026 Entidad Pública Empresarial Red.es
 #
 # This file is part of "dge (datos.gob.es)".
 #
@@ -303,7 +303,8 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
             'dge_get_request_params_for_text_search': helpers.dge_get_request_params_for_text_search,
             'dge_url_for_broken_links': helpers.dge_url_for_broken_links,
             'dge_get_display_byte_size': helpers.dge_get_display_byte_size,
-            'dge_display_dataservice_data': helpers.dge_display_dataservice_data
+            'dge_display_dataservice_data': helpers.dge_display_dataservice_data,
+            'get_dir3': helpers.get_dir3
         }
 
 
