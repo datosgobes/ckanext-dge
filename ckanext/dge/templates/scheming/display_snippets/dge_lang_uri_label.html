@@ -1,0 +1,11 @@
+<ul>
+  <li>
+    {%- if xml_lang -%}
+      <span lang='{{xml_lang}}' xml:lang='{{xml_lang}}'>
+    {%- endif -%}
+      <a href="{{ data[field.field_name] }}" target="_blank">{{ label }}</a>
+    {%- if xml_lang -%}
+      </span>
+    {%- endif -%}
+  </li>
+</ul>

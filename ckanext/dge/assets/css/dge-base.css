@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
 *
 * This file is part of "dge (datos.gob.es)".
 *
@@ -381,6 +381,20 @@ div, h1, h2, h3, h4, h5, h6, p, li {
 /* IE7 */
 *:first-child + html .clearfix {
   min-height: 1%; }
+
+/* metadata with markdown */
+.container-markdown ul, .container-markdown ol {
+  gap: 0.5rem;
+  padding: 0rem 0rem 0rem 1.5rem; }
+
+.container-markdown ul {
+  list-style: disc; }
+
+.container-markdown h1 {
+  padding-bottom: 0; }
+
+.container-markdown h1::after {
+  content: none !important; }
 
 /*----------------------------------------*/
 /* START - MEDIA QUERIES */

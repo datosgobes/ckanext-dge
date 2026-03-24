@@ -1,0 +1,47 @@
+{%- set values = data[field.field_name] -%}
+{%- set labels = [] -%}
+
+{%- if is_dcatapes -%}
+  <div class="large text-line-height-normal inline">
+    <ul>
+      {%- for theme in values -%}
+        {%- if h.dge_is_datosgobes_theme_uri(theme) -%}
+          {% set theme_label = h.dge_get_nti_field_uri_label('theme', theme) %}
+          {%- if theme_label -%}
+            <li><a href="{{ theme }}">{{ h.scheming_language_text(theme_label) }}</a></li>
+          {%- endif -%}
+        {%- else -%}
+          {% set theme_label, xml_lang = h.dge_get_vocabularies_uri_label(theme) %}
+          <li>
+            {%- if xml_lang -%}
+              <span lang='{{xml_lang}}' xml:lang='{{xml_lang}}'>
+            {%- endif -%}
+            <a href="{{ theme }}" target="_blank">{{ theme_label }}</a>
+            {%- if xml_lang -%}
+              </span>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+
+{%- else -%}
+	{%- for choice in h.dge_get_nti_field_choices('theme') -%}
+		{%- if choice.value in values -%}
+		  {%- do labels.append(h.scheming_language_text(choice.label)) -%}
+		{%- endif -%}
+	{%- endfor -%}
+
+	{%- if labels|length == 1 -%}
+	  {{ labels[0] }}
+	{%- else -%}
+		<div class="large text-line-height-normal">
+			<ul>
+			{%- for label in labels -%}
+			   <li>{{ label }}</li>
+			{%- endfor -%}
+			</ul>
+		</div>
+	{%- endif -%}
+{%- endif -%}

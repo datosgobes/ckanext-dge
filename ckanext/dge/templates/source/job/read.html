@@ -1,0 +1,94 @@
+{% ckan_extends %}
+
+{% block primary_content_inner %}
+<div class="module-content">
+
+  <p class="pull-right">
+    {{ h.nav_link(_('Back to job list'), named_route='harvester.job_list', source=harvest_source.name, class_='btn btn--tertiary', icon='arrow-left')}}
+  </p>
+
+  <h2>{{ _('Job Report') }}</h2>
+  {% snippet 'snippets/dge_harvest_job_details.html', job=job %}
+
+  {% if job.status == 'Finished' %}
+
+    {% if job.object_error_summary|length == 0 and job.gather_error_summary|length == 0 %}
+      <h3>{{ _('Error/Warning Summary') }}</h3>
+      <p class="empty">{{ _('No errors for this job') }}</p>
+    {% else %}
+      <h3 class="mt-6 mb-0">
+        {{ _('Error/Warning Summary') }}
+      </h3>
+      <small>{{ _('Only the 20 most frequent errors/warnings are shown') }}</small>
+      {% if job.gather_error_summary|length > 0 %}
+        <h4>{{ _('Catalog Errors/Warnings') }}</h4>
+        {% snippet 'snippets/job_error_summary.html', summary=job.gather_error_summary %}
+      {% endif %}
+      {% if job.object_error_summary|length > 0 %}
+        <h4>{{ _('Datasets Errors/Warnings') }}</h4>
+        {% snippet 'snippets/job_error_summary.html', summary=job.object_error_summary %}
+      {% endif %}
+    {% endif %}
+
+    {% if job_report.gather_errors|length > 0 or job_report.object_errors.keys()|length > 0 %}
+      <h3 class="mt-10">
+        {{ _('Error Report') }}
+      </h3>
+      {% if job_report.gather_errors|length > 0 %}
+        <h4>{{ _('Catalog Errors/Warnings') }}</h4>
+        <table class="table harvest-error-list">
+          <tbody>
+            {% for error  in job_report.gather_errors %}
+            <tr>
+              <td>
+                  <div class="error">
+                    {{ h.render_markdown(error.message) }}
+                  </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if job_report.object_errors.keys()|length > 0 %}
+        <h4>{{ _('Datasets Errors/Warnings') }}
+        </h4>
+        <small>{{ job_report.object_errors.keys()|length}} {{ _('datasets with errors/warnings') }}</small>
+        <table class="table harvest-error-list mt-4">
+          <tbody>
+            {% for harvest_object_id in job_report.object_errors.keys() %}
+            {% set object = job_report.object_errors[harvest_object_id] %}
+            <tr>
+              <td class="flex-display flex-column flex-gap-1">
+                <span class="large primary-color-dark">{{ object.guid }}</span>
+                {% for error in object.errors %}
+                  <div class="error">
+                    {{ error.message }}
+                    {% if error.line %}
+                      <span class="line">(line {{ error.line }})</span>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </td>
+              <td style="width: 300px;justify-items: center;">
+                <div class="flex-display flex-column content_action btn-group flex-gap-1">
+                  {% if 'original_url' in  object%}
+                    <a href="{{ object.original_url }}" class="btn btn-default">
+                      {{ _('Remote content') }}
+                    </a>
+                  {% endif %}
+                  <a href="{{ h.url_for('harvester.object_show', id=harvest_object_id) }}" class="btn btn-default">
+                    {{ _('Local content') }}
+                  </a>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+  {% endif %}
+  {% endif %}
+{% endblock %}

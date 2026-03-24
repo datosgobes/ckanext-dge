@@ -1,0 +1,55 @@
+{#
+Displays a single harvest source result.
+
+source         - A source to display.
+item_class     - The class name to use on the list item.
+hide_resources - If true hides the resources (default: false).
+banner         - If true displays a popular banner (default: false).
+truncate       - The length to trucate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+show_organization - Boolean on whether to show the related organization
+
+Example:
+
+  {% snippet 'snippets/source_item.html', source=c.sources[0] %}
+
+#}
+{% set truncate = truncate or 180 %}
+{% set truncate_title = truncate_title or 80 %}
+{% set title = source.title or source.name %}
+{% set source_type = source.source_type if source.source_type else '-' %}
+{% set frequency = source.frequency if source.frequency else '-' %}
+{% set url = h.url_for('harvester.admin', id=source.name) if within_organization else h.url_for('harvest.read', id=source.name) %}
+
+<tr class="{{ item_class or 'dataset-item' }}">
+  <td class="harvest-name">
+    {{ h.link_to(h.truncate(title, truncate_title), url) }}
+    {% if source.get(state, '').startswith('draft') %}
+      <span class="label label-info">{{ _('Draft') }}</span>
+    {% elif source.get(state, '').startswith('deleted') %}
+      <span class="label label-important">{{ _('Deleted') }}</span>
+    {% endif %}
+  </td>
+
+  <td>{{ _(frequency) }}</td>
+
+  <td>{{ _(source_type) }}</td>
+  
+  <td class="harvest-desc">
+    {% if source.notes %}
+      {{ source.notes }}
+    {% else %}
+      <span class="empty">{{ _('There is no description for this harvest source') }}</span>
+    {% endif %}
+  </td>
+
+  <td>
+    {% if not within_organization and source.organization %}
+      {{ h.link_to(source.organization.title or source.organization.name, h.url_for('package.search', publisher_display_name=source.organization.title)) }}
+    {% endif %}
+  </td>
+
+  <td class="harvest-actions"><a href="{{ url }}">
+    <img src="/images/edit.svg" alt="View">
+  </a></td>
+</tr>

@@ -1,0 +1,38 @@
+<section id="dataset-contact" style="display: none;">
+  <div class="additional-info__content relative flex-display w--100 flex-column">
+    {% block package_section_contact %}
+      <div class="read-more read-more--md">
+        {% block package_contacts %}
+          {% if pkg_dict.contact_point and dict_fields[inc_dict.contact_point] %}
+            <div class="container-style mb-6">
+              <div scope="row" class="x-large text--strong mb-2 text--color-primary-dark">
+                {{ h.scheming_language_text(dict_fields[inc_dict.contact_point].label) }}
+              </div>
+              <div class="flex-display flex-column  flex-gap-1">
+                {% snippet 'scheming/display_snippets/dge_contact_point.html',
+                data=pkg_dict, field=dict_fields[inc_dict.contact_point], schema=schema %}
+              </div>
+            </div>
+          {% endif %}
+        {% endblock %}
+        
+        {% block package_authors %}
+          {% if pkg_dict.creator and dict_fields[inc_dict.creator] %}
+            <div class="container-style mb-6">
+              <div scope="row" class="x-large text--strong mb-2 text--color-primary-dark">
+                {{ h.scheming_language_text(dict_fields[inc_dict.creator].label) }}
+              </div>
+              <div class="flex-display flex-column  flex-gap-1">
+                {% snippet 'scheming/display_snippets/dge_creator.html',
+                data=pkg_dict, field=dict_fields[inc_dict.creator], schema=schema %}
+              </div>
+            </div>
+          {% endif %}
+        {% endblock %}
+      </div>
+      <div class="read-more__bottom read-more__bottom--gray">
+        <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+      </div>
+    {% endblock %}
+  </div>
+</section>

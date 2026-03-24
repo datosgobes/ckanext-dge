@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Entidad Pública Empresarial Red.es
+# Copyright (C) 2026 Entidad Pública Empresarial Red.es
 #
 # This file is part of "dge (datos.gob.es)".
 #
@@ -759,8 +759,9 @@ def dge_get_endpoints_menu(keys=[], lang=None, header=True, footer=False):
     menu['ckanext.dge.drupal_menu.sectors.tourism'] = prefix + '/sector/turismo'
     menu['ckanext.dge.drupal_menu.sectors.justice'] = prefix + '/sector/justicia-sociedad'
 
-
-    menu['ckanext.dge.drupal_menu.contact_email'] = config.get('ckanext.dge.drupal_menu_footer.contact_email','')
+     ## MENU FOOTER
+    #contacta con nosotros
+    menu['ckanext.dge.drupal_menu.contact_email'] = config.get('ckanext.dge.drupal_menu_footer.contact_email','contacto@datos.gob.es')
 
 
 
@@ -1180,7 +1181,7 @@ def dge_get_facet_items_dict(facet, limit=None, exclude_active=False, default_so
 def dge_default_facet_search_operator():
     '''Returns the default facet search operator: AND/OR
     '''
-    facet_operator = config.get('ckanext.dge.facet.default.search.operator', '')
+    facet_operator = config.get('ckanext.dge.facet.default.search.operator', 'AND')
     if facet_operator and (facet_operator.upper() == 'AND' or facet_operator.upper() == 'OR'):
         facet_operator = facet_operator.upper()
     else:
@@ -1326,7 +1327,7 @@ def dge_get_recaptcha_public_key():
 
 
 def dge_get_limit_to_download():
-    return int(config.get('ckanext.dge.download_csv_limit', ''))
+    return int(config.get('ckanext.dge.download_csv_limit', '200'))
 
 
 def dge_remove_field(controller, key, value=None, replace=None):
@@ -1497,10 +1498,9 @@ def descargar_csv():
         return toolkit.abort(404, _('User does not exist'))
     
     ckan_user_org_id = None
-    context = {'user': request_user.name}
-    orgs = get_action('organization_list_for_user')(context, data_dict={'permission': 'read'})
-    if orgs and len(orgs) > 0:
-        ckan_user_org_id = orgs[0].get('id')
+    org = model.Session.query(model.Member).filter_by(table_id=ckan_user_id, table_name='user', state='active').first()
+    if org:
+        ckan_user_org_id = org.group_id
     
     if not ckan_user_org_id:
         return toolkit.abort(403, _('Not authorized to see this page'))
@@ -1606,7 +1606,7 @@ def generar_csv_conjunto_datos_mas_vistos_publicador(ckan_user_org_id):
 				else (
 	           	 TO_CHAR(TO_DATE(dgp.year_month, 'YYYY-MM'), 'TMMonth') || ' ' || TO_CHAR(TO_DATE(dgp.year_month, 'YYYY-MM'), 'YYYY') ||
 	            	case
-		           		when extract(month from	TO_DATE(dgp.year_month, 'YYYY-MM')) = 2	and dgp.end_day::INT in (28, 29) then ''
+		           		when extract(month from TO_DATE(dgp.year_month, 'YYYY-MM')) = 2 and dgp.end_day::INT in (28, 29) then ''
 						when dgp.end_day::INT in (30, 31) then ''
 						else ' (hasta el ' || dgp.end_day || ')'
 					end
@@ -1619,22 +1619,30 @@ def generar_csv_conjunto_datos_mas_vistos_publicador(ckan_user_org_id):
 				else '[Eliminado] ' || dgp.package_name
 			end as "Conjunto de datos",
 			case
-				when p.title is not null
-				and p.state = 'active' then 'Público'
+				when p.title is not null and p.state = 'active' and p.private = false then 'Público'
+                when p.title is not null and p.state = 'active' and p.private = true then 'Privado'
 				else ''
 			end as "Público/Privado",
 			coalesce(g.title, dgp.publisher_id) as "Publicador",
-			dgp.pageviews as "Visitas",
+			dgp.total_pageviews as "Visitas",
 			array_to_string(array_agg(distinct dgr.url || '(' || dgr.total_events || ')'),';') as "Recurso(Descargas)"
-		from
-			dge_ga_packages dgp
+		from (
+            select
+                organization_id,
+                package_name,
+                year_month,
+                end_day,
+                publisher_id,
+                sum(pageviews) as total_pageviews
+            from dge_ga_packages
+            where organization_id = :ckan_user_org_id
+            group by organization_id, package_name, year_month, end_day, publisher_id
+        ) dgp
 		left join dge_ga_resources dgr on dgr.organization_id = dgp.organization_id
 			and dgr.package_name = dgp.package_name
 			and dgr.year_month = dgp.year_month
 		left join package p on p.name = dgp.package_name
 		left join "group" g on g.id = dgp.organization_id
-		where
-			dgp.organization_id = :ckan_user_org_id
 		group by
 			dgp.organization_id,
 			dgp.year_month,
@@ -1645,10 +1653,10 @@ def generar_csv_conjunto_datos_mas_vistos_publicador(ckan_user_org_id):
 			p.private,
 			g.title,
 			dgp.publisher_id,
-			dgp.pageviews
+			dgp.total_pageviews
 		order by
 			dgp.year_month desc,
-			dgp.pageviews desc;
+			dgp.total_pageviews desc;
     """
     return generar_csv_desde_sql(sql,ckan_user_org_id)
 
@@ -2375,20 +2383,21 @@ def dge_display_dataservice_data(dataservice_uri, catalogs_uris=None):
     '''
     _catalog_uris = catalogs_uris or _dge_get_catalog_uris()
     dataservice_dict = {}
-    if dataservice_uri and dataservice_uri.startswith(tuple(_catalog_uris)):
-        dataservice_name = dataservice_uri.rsplit('/', 1)[-1]
-        result = model.Session.query(model.Package)\
-                      .filter_by(name=dataservice_name)\
-                      .filter_by(type='dataservice')\
-                      .filter_by(state='active')\
-                      .filter_by(private=False)\
-                      .first()
-        if result:
-            dataservice_dict['title'] = result.title
-            dataservice_dict['uri'] =  h.url_for('package.dataset_read', id=result.name, qualified = True)
-        else:
-            dataservice_dict['title'] = dataservice_uri
-            dataservice_dict['uri'] = dataservice_uri
+    if dataservice_uri:
+        dataservice_dict['title'] = dataservice_uri
+        dataservice_dict['uri'] = dataservice_uri
+        if dataservice_uri.startswith(tuple(_catalog_uris)):
+            dataservice_name = dataservice_uri.rsplit('/', 1)[-1]
+            result = model.Session.query(model.Package)\
+                        .filter_by(name=dataservice_name)\
+                        .filter_by(type='dataservice')\
+                        .filter_by(state='active')\
+                        .filter_by(private=False)\
+                        .first()
+            if result:
+                dataservice_dict['title'] = result.title
+                dataservice_dict['uri'] =  h.url_for('package.dataset_read', id=result.name, qualified = True)
+        
     return dataservice_dict
 
 def _dge_get_catalog_uris():
@@ -2400,3 +2409,26 @@ def _dge_get_catalog_uris():
     if site_uri:
         catalog_uris.append(site_uri)
     return catalog_uris
+
+def get_dir3(organization_id):
+    '''
+    :param organization_id: organization id
+    
+    Return dir3 for the requested publisher,
+    or None if none exists
+    '''
+    if organization_id is None:
+        return None
+    try:
+        organization = get_action('organization_show')(data_dict={'id': organization_id})
+        if organization is None:
+            return None
+        result = None
+        if (organization and organization['extras']):
+            for extra in organization['extras']:
+                if extra and extra['key'] == 'C_ID_UD_ORGANICA' \
+                   and extra['value']:
+                    result = extra['value'].lower()
+    except:
+        return None
+    return result

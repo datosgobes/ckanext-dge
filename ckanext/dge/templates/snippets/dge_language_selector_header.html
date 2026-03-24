@@ -1,0 +1,27 @@
+{% set current_url = request.environ.CKAN_CURRENT_URL %}
+{% set query_string_url = request.environ.QUERY_STRING %}
+{% set path_info = request.environ.PATH_INFO %}
+{% set current_lang = request.environ.CKAN_LANG %}
+<form class="lang_dropdown_form language" id="lang_dropdown_form_language" action="/util/redirect" method="POST" accept-charset="UTF-8">
+  <div class="dropdown language-switcher" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="{{ _('Language selector, current language is') }} {{ current_lang.upper() }}">
+    <div class="language" title="{{ _('Languages') }}">
+      <span class="language-state">{{ current_lang.upper() }} </span>
+      <span class="language-arrow">
+        <img src="/images/blue-arrow.svg" alt="Simple arrow icon">
+      </span>
+    </div>
+    <ul class="links" role="listbox">
+      {% for locale in h.get_available_locales() %}
+        <li role="option" aria-selected="{{ 'true' if locale.short_name == current_lang else 'false' }}">
+          <a
+            href="{% url_for path_info, locale=locale.short_name %}{% if query_string_url%}?{{query_string_url}}{%endif%}"
+            class="language-link {% if locale.short_name == current_lang %}is-active{% endif %}"
+            hreflang="{{ locale.short_name }}"
+          >
+            {{ locale.display_name.title() or locale.english_name.title() }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</form>

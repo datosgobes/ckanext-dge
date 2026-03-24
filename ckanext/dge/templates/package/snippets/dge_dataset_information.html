@@ -1,0 +1,208 @@
+<section id="dataset-information" style="display: none;">
+  <div class="additional-info__content flex-display w--100 flex-column relative">
+    {% block package_additional_info %}
+      <div class="read-more read-more--md">
+        <div class="table-container">
+          <table class="custom-table">
+
+            {% block package_hvd %}
+              {% if pkg_dict.hvd_category and dict_fields[inc_dict.hvd_category] %}
+              <tbody>
+                  <tr class="hvd-row--title">
+                    <th colspan="2">{{ h.scheming_language_text(dict_fields[inc_dict.hvd_category].label) }}</th>
+                  </tr>
+                  <tr class="hvd-row--value">
+                    <th class="large text--color-primary-dark">
+                      {{ h.scheming_language_text(dict_fields[inc_dict.hvd_category].label) }}
+                    </th>
+                    <td>
+                      {% snippet 'scheming/display_snippets/dge_multiple_uri_text_label.html',
+                      data=pkg_dict, field=dict_fields[inc_dict.hvd_category] %}
+                    </td>
+                  </tr>
+              </tbody>
+              {% endif %}
+            {% endblock %}
+
+            {% block package_multilingual_tags %}
+              {% if pkg_dict.multilingual_tags and dict_fields[inc_dict.multilingual_tags] %}
+              <tbody>
+                <tr>
+                  <th colspan="2">
+                    {{ _('Keywords') }}
+                  </th>
+                </tr>
+                <tr>
+                  <th class="large text--color-primary-dark">
+                    {{ h.scheming_language_text(dict_fields[inc_dict.multilingual_tags].label) }}
+                  </th>
+                  <td>
+                    {% snippet "package/snippets/dge_tags.html", tags=pkg_dict.multilingual_tags %}
+                  </td>
+                </tr>
+              </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block package_themes %}
+              {% if pkg_dict.theme and dict_fields[inc_dict.theme] %}
+              <tbody>
+                <tr>
+                  <th colspan="2">
+                    {{ h.scheming_language_text(dict_fields[inc_dict.theme].label) }}
+                  </th>
+                </tr>
+                <tr>
+                  <th class="large text--color-primary-dark">
+                    {{ h.scheming_language_text(dict_fields[inc_dict.theme].label) }}
+                  </th>
+                  <td>
+                    {% snippet 'scheming/display_snippets/multiple_choice_theme.html',
+                    field=dict_fields[inc_dict.theme], data=pkg_dict, is_dcatapes=is_dcatapes %}
+                  </td>
+                </tr>
+              </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block package_coverage %}
+              {% if (pkg_dict.coverage_new and dict_fields[inc_dict.coverage_new]) or
+              (not is_dcatapes and pkg_dict.valid and dict_fields[inc_dict.valid]) or
+              (pkg_dict.spatial and dict_fields[inc_dict.spatial]) or 
+              (pkg_dict.frequency and dict_fields[inc_dict.frequency]) %}
+                <tbody>
+                  <tr>
+                    <th colspan="2">{{_('Coverage')}}</th>
+                  </tr>
+                  {% if pkg_dict.spatial and dict_fields[inc_dict.spatial] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.spatial].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/multiple_choice_spatial.html', field=dict_fields[inc_dict.spatial], data=pkg_dict, is_dcatapes=is_dcatapes %}
+                      </td>
+                    </tr>
+          
+                  {% endif %}
+
+                  {% if pkg_dict.coverage_new and dict_fields[inc_dict.coverage_new] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.coverage_new].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/dge_date_period.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.coverage_new], is_dcatapes=is_dcatapes %}
+                      </td>
+                    </tr>
+                  {% endif %}
+
+                  {% if not is_dcatapes and pkg_dict.valid and dict_fields[inc_dict.valid] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.valid].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'package/snippets/dge_local_friendly_datetime.html', datetime_obj=pkg_dict.valid %}
+                      </td>
+                    </tr>
+                  {% endif %}
+
+                  {% if pkg_dict.frequency  and dict_fields[inc_dict.frequency] %}
+                    {% snippet 'scheming/display_snippets/dge_frequency.html',
+                    data=pkg_dict, field=dict_fields[inc_dict.frequency] %}
+                  {% endif %}
+                </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block package_language %}
+              {% if (pkg_dict.language and dict_fields[inc_dict.language]) %}
+              <tbody>
+                <tr>
+                  <th colspan="2">{{ _('Language') }}</th>
+                </tr>
+                <tr>
+                  <th class="large text--color-primary-dark">
+                    {{ h.scheming_language_text(dict_fields[inc_dict.language].label) }}
+                  </th>
+                  <td>
+                    {% snippet 'scheming/display_snippets/multiple_choice_language.html', field=dict_fields[inc_dict.language], data=pkg_dict, is_dcatapes=is_dcatapes %}
+                  </td>
+                </tr>
+              </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block package_dataset_type %}
+              {% if (pkg_dict.dataset_type and dict_fields[inc_dict.dataset_type]) %}
+                {% set dataset_type_label, xml_lang = h.dge_get_vocabularies_uri_label(pkg_dict[dict_fields[inc_dict.dataset_type].field_name]) %}
+                <tbody>
+                  <tr>
+                    <th colspan="2">{{ _('Type of dataset') }}</th>
+                  </tr>
+                  <tr>
+                    <th class="large text--color-primary-dark">
+                      {{ h.scheming_language_text(dict_fields[inc_dict.dataset_type].label) }}
+                    </th>
+                    <td>
+                      {% snippet 'scheming/display_snippets/dge_lang_uri_label.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.dataset_type],
+                        label=dataset_type_label, xml_lang=xml_lang %}
+                    </td>
+                  </tr>
+                </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block package_rate %}
+              {% set value = '' %}
+              {% if pkg_dict.rate_info and dict_fields[inc_dict.rate_info] %}
+                {% set language, value = h.dge_dataset_field_value(pkg_dict.rate_info) %}
+              {% endif %}
+              {% if (pkg_dict.rate and dict_fields[inc_dict.rate]) or value %}
+                <tbody>
+                  <tr>
+                    <th colspan="2">{{ h.scheming_language_text(dict_fields[inc_dict.rate].label) }}</th>
+                  </tr>
+                  {% if pkg_dict.rate and dict_fields[inc_dict.rate] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.rate].label) }}
+                      </th>
+                      <td>
+                          {% snippet 'scheming/display_snippets/select.html', field=dict_fields[inc_dict.rate], data=pkg_dict %}
+                      </td>
+                    </tr>
+                  {% endif %}
+              
+                  {% if value %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.rate_info].label) }}
+                      </th>
+                      <td class="container-markdown">
+                        {% if (language) %}
+                          <div lang='{{language}}' xml:lang='{{language}}'>{{ h.render_markdown(value) }}</div>
+                        {% elif value %}
+                          {{ h.render_markdown(value) }}
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block extras scoped %}{% endblock %}
+          </table>
+        </div>
+      </div>
+      <div class="read-more__bottom read-more__bottom--blue">
+        <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+      </div>
+      
+    {% endblock %}
+  </div>
+</section>

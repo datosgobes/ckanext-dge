@@ -1,0 +1,10 @@
+{% set format_str, is_uri = h.dge_get_format_from_vocabulary_uri(format_value) %}
+{% if is_uri %}
+  <ul>
+    <li><a href="{{ format_value }}" target="_blank">{{ format_str if format_str else format_value }}</a></li>
+  </ul>
+{% else %}
+  <ul>
+    <li>{{ format_str if format_str else format_value }}</li>
+  </ul>
+{% endif %}

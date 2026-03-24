@@ -1,0 +1,5 @@
+{% set checksum_dict = h.dge_load_json(data.checksum) %}
+<ul>
+  <li><strong>{{ h.scheming_language_text(_('Algorithm')) }}:</strong> <a href="{{ checksum_dict.algorithm }}">{{ checksum_dict.algorithm }}</a></li>
+  <li><strong>{{ h.scheming_language_text(_('Checksum value')) }}:</strong> {{ checksum_dict.checksum_value }}</li>
+</ul>

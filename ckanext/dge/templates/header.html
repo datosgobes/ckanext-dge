@@ -1,0 +1,398 @@
+{% ckan_extends %}
+
+{% set visible_data_catalog = '' %}
+{% set active_data_catalog = '' %}
+{% set active_data_catalog_a = '' %}
+{% if ((c.controller == 'package' and (c.dataset_type == 'package' or not c.dataset_type))
+       or (c.controller == 'dgeDataservice' and (c.dataset_type == 'dataservice' or not c.dataset_type))
+       or (c.controller == 'dge' and (c.action == 'swagger' or c.action == 'yasgui' or c.action == 'accessible_swagger')))%}
+  {% set visible_data_catalog = ' is-visible' %}
+  {% set active_data_catalog = ' active' %}
+  {% set active_data_catalog_a = " class='active'" %}
+{% endif %}
+
+
+{% set visible_my_account = '' %}
+{% set active_my_account = '' %}
+{% set active_my_account_a = '' %}
+{% if (c.controller == 'dgePackage'
+       or c.controller == 'organization'
+       or c.controller == 'dgeOrganization'
+       or c.controller == 'dgeDataservice'
+       or c.controller == 'harvester'
+       or (c.controller == 'package' and c.dataset_type == 'harvest'))%}
+  {% set visible_my_account = ' is-visible' %}
+  {% set active_my_account = ' active' %}
+  {% set active_my_account_a = " class='active'" %}
+{% endif %}
+
+
+{% set current_lang = request.environ.CKAN_LANG %}
+{% set user_logged = c.userobj %}
+{% set drupal_menu_endpoints = h.dge_get_endpoints_menu([], current_lang, True, False) %}
+{% set dge_load_dropdown_sections = h.dge_load_dropdown_sections(current_lang) %}
+
+{% set query_string_url = request.environ.QUERY_STRING %}
+{% set path_info = request.environ.PATH_INFO %}
+
+{% block header_wrapper %}
+  {% block header_account %}
+    <div class="site-header">
+      <div class="site-wrapper">
+        <div class="site-header__banner"> 
+          <a href="https://digital.gob.es/index.html" title="{{ _('Ministry for Digital Transformation and Public Service') }}" target="_blank" rel="noopener noreferrer" class="site-header__link">
+            <img class="site-header__logo" src="{{ h.url_for_static('/sites/default/files/2024-03/logo_ministerio_cabecera_0.svg') }}" alt="{{ _('Ministry for Digital Transformation and Public Service') }}"   />
+          </a>
+        </div>
+        <div class="site-header__options">
+          <div class="region region-header">
+            <div id="block-lang-dropdown-language" class="block block-lang-dropdown dge-menu-lang">
+              <h2 class="block__title" title="{{ _('Languages') }}">{{ _('Languages') }}</h2>
+              <div class="block__content content">
+                {% snippet 'snippets/dge_language_selector_header.html' %}
+              </div>
+            </div> 
+            {% if not user_logged %}
+              <a class="user-login" href="#" title="{{ _('Publisher') }}">{{ _('Publisher') }}</a>
+              <div class="submenu-children-login">
+                <a href="/user/login">{{ _('Log in') }}</a>
+              </div>
+            {% endif %}
+
+            {% if user_logged %}
+            <div id="block-dge-basic-dge-basic-user-info-block" class="block block-dge-basic contextual-links-region">
+              <div class="block__content content">
+                <a href="#">
+                  <span class="user-name-info">{{ c.userobj.fullname or c.userobj.name }}</span>
+                </a>
+              </div>
+              <div class="submenu-children">
+                {% if c.userobj.sysadmin %}
+                  <a href="{{ h.dge_url_for_user_organization() }}">Organizaciones</a>
+                {% else %}
+                  <a href="{{ h.dge_url_for_user_organization() }}">Conjuntos de datos</a>
+                {% endif %}
+                <a href="/harvest">Federador</a>
+                {% if c.userobj.sysadmin %}
+                  <a href="/report/broken-links">Mis enlaces rotos</a>
+                {% else %}
+                  <a href="{{ h.dge_url_for_broken_links() }}">Mis enlaces rotos</a>
+                {% endif %}
+                <a href="/dashboard/widget">Widget</a>
+                {% if c.userobj.sysadmin %}
+                <a href="/panel-de-trabajo/mi-cuadro-de-mando-privado">Cuadro de mando (admin)</a>
+                {% else %}
+                <a href="/panel-de-trabajo/cuadro-de-mando-privado-publicador">Mi cuadro de mando</a>
+                {% endif %}
+                <a href="/panel-de-trabajo/initiatives">Iniciativas</a>
+                <a href="/panel-de-trabajo/apps">Aplicaciones</a>
+                <a href="/panel-de-trabajo/companies">Empresas</a>
+                <a href="/panel-de-trabajo/peticiones-de-datos">Solicitudes de datos</a>
+                <a href="/ckan-view-comentarios">Comentarios catálogo</a>
+                <a href="/panel-de-trabajo/comentarios">Comentarios contenidos</a>
+                {% if c.userobj.sysadmin %}
+                <a href="/admin/content/files">Archivos</a>
+                <a href="/admin/content/media">Multimedia</a>
+                <a href="/admin/people">Usuarios</a>
+                {% endif %}
+                <a href="/user">{{ _('My Account') }}</a>
+                <a href="/user/logout">{{ _('Log out') }}</a>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% block header_debug %}
+        {% if g.debug and not g.debug_supress_header %}
+          <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}<br/>Dataset_type : {{ c.dataset_type }}</div>
+        {% endif %}
+        {% endblock %}
+      </div>
+    </div>
+  {% endblock %}
+  {% block header_logo %}{% endblock %}
+  <div class="site-navigation">
+    <div class="site-wrapper">
+      {% block header_site_navigation %}
+        <nav class="main-navigation">
+          <div class="region region-navigation">
+            {% block mainmenu %}
+            <div class="block block-logo">
+              <div class="site-header__banner_datos"> 
+                <a href="/{{ current_lang }}/" title="{{ _('Home') }}" rel="home" class="site-header__link">
+                  <img src="{{ h.url_for_static(g.site_logo) }}" alt="{{ _('Datos.gob.es. Reuse the public information . Go home') }}" class="site-header__logo_datos"  />
+                </a>
+              </div>
+            </div>
+              <a class="nav-search-menu"></a>
+              <a href="#" class="nav-menu-trigger nav-burger-menu" role="button" aria-expanded="false">
+                <div class="nav-burger-menu-content">
+                  <span class="visually-hidden">Toggle menu</span>
+                  <span class="nav-burger-menu-bars"></span>
+                </div>
+              </a>
+
+
+              <div class="menu-navigator-nav">
+                <div class="block block-menu-block dge-main-menu">
+                  <h2 class="block__title">{{ _('Navigation') }}</h2>
+                  <div class="block__content content">
+                    <div class="menu-block-wrapper menu-block-1 menu-name-main-menu parent-mlid-0 menu-level-1">
+                      <ul class="menu">
+                        {% set active_li = ' active-trail active is-visible' %}
+                        {% set active_a = 'active-trail active' %}
+
+                        <li class="leaf has-children"><a href="#data">{{ _('Data') }}</a>
+                          <div class="submenu-children">
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.open_data_catalogue'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.open_data_catalogue'] }}">{{ _('Open data catalogue') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.data_request'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.data_request'] }}">{{ _('Data request') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.support_for_publishers'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.support_for_publishers'] }}">{{ _('Support for publishers') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.safe_environments'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.safe_environments'] }}">{{ _('Safe environments') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.data_spaces'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.data_spaces'] }}">{{ _('Data spaces') }}</a>
+                            {% endif %}
+                          </div>
+                        </li>
+                        <li class="leaf has-children"><a href="#community">{{ _('Community') }}</a>
+                          <div class="submenu-children">
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.initiatives'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.initiatives'] }}">{{ _('Initiatives') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.companies'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.companies'] }}">{{ _('Companies') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.applications'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.applications'] }}">{{ _('Applications') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.challenges'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.challenges'] }}">{{ _('Challenges') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.sectors'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.sectors'] }}">{{ _('Sectors') }}</a>
+                            {% endif %}
+
+                          </div>
+                        </li>
+                        <li class="leaf has-children"><a href="#current-news">{{ _('Current news') }}</a>
+                          <div class="submenu-children">
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.news'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.news'] }}">{{ _('News') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.events'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.events'] }}">{{ _('Events') }}</a>
+                            {% endif %}
+
+                          </div>
+                        </li>
+                        <li class="leaf has-children"><a href="#knowledge">{{ _('Knowledge') }}</a>
+                          <div class="submenu-children">
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.blog'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.blog'] }}">{{ _('Blog') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.data_exercises'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.data_exercises'] }}">{{ _('Data exercises') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.infographics'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.infographics'] }}">{{ _('Infographics') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.interviews'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.interviews'] }}">{{ _('Interviews') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.reports_and_guides'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.reports_and_guides'] }}">{{ _('Reports and guides') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.github_datosgob'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.github_datosgob'] }}">{{ _('Github datosgob') }}</a>
+                            {% endif %}
+                          </div>
+                        </li>
+                        <li class="leaf has-children"><a href="#about-us">{{ _('About us') }}</a>
+                          <div class="submenu-children">
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.what_we_do'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.what_we_do'] }}">{{ _('What we do') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.metrics_and_impact'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.metrics_and_impact'] }}">{{ _('Metrics and impact') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.frequently_asked_questions'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.frequently_asked_questions'] }}">{{ _('Frequently Asked Questions') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.technology'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.technology'] }}">{{ _('Technology') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.form.contact'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.form.contact'] }}">{{ _('Contact') }}</a>
+                            {% endif %}
+
+                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.sitemap'] %}
+                            <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.sitemap'] }}">{{ _('Site map') }}</a>
+                            {% endif %}
+
+                          </div>
+                        </li>
+                        {% if user_logged %}
+                        {% endif %}
+                      </ul>
+                    </div>
+                    <div class="block-language-mobile">
+                        <div class="language">
+                          <ul class="language-switcher-language-url">
+                            {% for locale in h.get_available_locales() %}
+                            <li class="{% if locale.short_name == current_lang %}is-active{% endif %}">
+                              <a href="{% url_for path_info, locale=locale.short_name %}{% if query_string_url%}?{{query_string_url}}{%endif%}"
+                                 class="language-link {% if locale.short_name == current_lang %}is-active{% endif %}"
+                                 hreflang="{{ locale.short_name }}">
+                                {{ locale.display_name.title() or locale.english_name.title() }}
+                              </a>
+                            </li>
+                          {% endfor %}
+                          </ul>
+                        </div>
+                    </div>
+                    <div class="block-login-mobile">
+                      {% if not user_logged %}
+                        <a class="btn btn-primary" href="/user/login">{{ _('Log in') }}</a>
+                      {% endif %}
+                      {% if user_logged %}
+                        <div id="block-dge-basic-dge-basic-user-info-block" class="block-login-mobile-autentified">
+                            <ul>
+                              {% if c.userobj.sysadmin %}
+                              <li>
+                                <a href="/organization">Organizaciones</a>
+                              </li>
+                              {% else %}
+                              <li>
+                                <a href="{{ h.dge_url_for_user_organization() }}">Conjuntos de datos</a>
+                              </li>
+                              {% endif %}
+                              <li>
+                                <a href="/harvest">Federador</a>
+                              </li>
+                              <li>
+                                <a href="/broken-links">Mis enlaces rotos</a>
+                              </li>
+                              <li>
+                                <a href="/dashboard/widget">Widget</a>
+                              </li>
+                              {% if c.userobj.sysadmin %}
+                              <li>
+                                <a href="/panel-de-trabajo/mi-cuadro-de-mando-privado">Cuadro de mando (admin)</a>
+                              </li>
+                              {% endif %}
+                              <li>
+                                <a href="/panel-de-trabajo/cuadro-de-mando-privado-publicador">Mi cuadro de mando</a>
+                              </li>
+                              <li>
+                                <a href="/panel-de-trabajo/initiatives">Iniciativas</a>
+                              </li>
+                              <li>
+                                <a href="/panel-de-trabajo/apps">Aplicaciones</a>
+                              </li>
+                              <li>
+                                <a href="/panel-de-trabajo/companies">Empresas</a>
+                              </li>
+                              <li>
+                                <a href="/panel-de-trabajo/peticiones-de-datos">Solicitudes de datos</a>
+                              </li>
+                              <li>
+                                <a href="/ckan-view-comentarios">Comentarios catálogo</a>
+                              </li>
+                              <li>
+                                <a href="/panel-de-trabajo/comentarios">Comentarios contenidos</a>
+                              </li>
+                              {% if c.userobj.sysadmin %}
+                                <li>
+                                  <a href="/admin/content/files">Archivos</a>
+                                </li>
+                                <li>
+                                  <a href="/admin/content/media">Multimedia</a>
+                                </li>
+                                <li>
+                                  <a href="/admin/people">Usuarios</a>
+                                </li>
+                              {% endif %}
+                              <li>
+                                <a href="/user">{{ _('My Account') }}</a>
+                              </li>
+                            </ul>
+                            <div class="mt-5">
+                              <a class="btn btn-primary" href="/user/logout">{{ _('Log out') }}</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% endblock %}
+                <div id="block-search-form" class="block block-search block-search contextual-links-region">
+                  <div class="block__content content">
+                    <form  action="{% url_for 'dgeUtil.redirect_search' %}" method="post" id="search-block-form" accept-charset="UTF-8">
+                      <div class="container-inline">
+                        <div class="form-item form-type-textfield form-item-search-block-form">
+                          <label class="element-invisible"> </label>
+                          {% set query_text = c.q if (c.controller == 'package' or c.controller == 'dgeDataservice') and c.action == 'search' else '' %}
+                          <input minlength="3" placeholder="" type="text" id="edit-search-block-form--2" title="{{ _('Enter the terms you wish to search for.') }}" name="search_block_form" value="{{ query_text }}" size="15" maxlength="128" class="form-text" required>
+                        </div>
+                        <div class="custom-dropdown">
+                          <button type="button" class="custom-btn-search">
+                            {% set dropdown = dge_load_dropdown_sections %}
+                            {{dropdown[0].value}}
+                            <span class="menu-arrow"><img src="/images/blue-arrow.svg" alt="Blue arrow icon"></span>
+                          </button>
+                          <ul id="opciones" name="search_filter" class="search-filter">
+                            {% for section in dropdown %}
+                              <li >
+                                <a class="dropdown-item {% if section.custom_key == 'custom_content_type_ckan' %} special-highlight{% endif %}" data-value="{{ section.custom_key }}">
+                                  {{ section.value }}
+                                </a>
+
+                              </li>
+                            {% endfor %}
+                          </ul>
+                            <input type="hidden" name="search_filter" id="search-filter-hidden">
+                        </div>
+                      
+                        <div class="form-actions form-wrapper" id="search-actions">
+                          <input type="submit" id="search-submit--2" title="{{ _('Search') }}" name="op" value="" class="form-submit">
+                        </div>
+                        <input type="hidden" name="form_id" value="search_block_form">
+                        <input type="hidden" name="url" value=/>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </nav>
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %} 

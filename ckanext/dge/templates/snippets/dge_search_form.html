@@ -1,0 +1,143 @@
+{% extends 'snippets/search_form.html' %}
+{% block search_input %}
+  <div class="search-input control-group {{ search_class }}">
+    <button class="btn-searcher" type="submit" aria-labelledby="search-label"></button>
+    <input id="search_bar" type="text" class="search" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}" title="{{ placeholder }}">
+    <script>
+      window.onload = function search_bar_length() {
+          if (window.jQuery) {
+              $('#search_bar').on("keyup", function (e) {
+                  console.log(this.e.value.length);
+              });
+          }
+      }
+    </script>
+    {% block search_input_button %}
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <button id="search" type="submit" value="search">
+        <i class="icon-search"></i>
+        <span>{{ _('Search') }}</span>
+      </button>
+
+      {% if (count >= 1 and count <= h.dge_get_limit_to_download()) and dataset_type == 'dataset' %}
+        <div id="download-placeholder">
+          <a id="a-download-csv" style="display: none"></a>
+          {% set download_link = h.dge_generate_download_link(h.url_for('package.download_csv'), request.args) %}
+          <button id="download-csv" type="button" title="{{ _('Download search results in CSV format') }}" alt="{{ _('Download search results in CSV format') }}">
+            <i class="fa fa-arrow-circle-o-down"></i>
+            <span>{{ _('Download') }}</span>
+          </button>
+          <script>
+            const RESPONSE_PARAM = 'g-recaptcha-response';
+            const url = "{{ download_link }}".replace(/&amp;/g, "&");
+
+            window.onload = function () {
+              if (window.jQuery) {
+                $('#download-csv').click(function (e) {
+                  e.preventDefault();
+                  $('#recaptcha-container').attr({
+                    style: "display: block; position: absolute; margin: 10px;"
+                  });
+                });
+              }
+            };
+            function onSubmit(token) {
+              $('#a-download-csv').attr({
+                target: '_blank',
+                href: url + '&' + RESPONSE_PARAM + '=' + encodeURIComponent(token)
+              })[0].click();
+
+              grecaptcha.reset();
+              $('#recaptcha-container').attr({
+                style: "display: none;"
+              });
+            }
+          </script>
+          <div id="recaptcha-container" style="display: none;">
+            {% set recaptcha_public_key = h.dge_get_recaptcha_public_key() %}
+            <div class="g-recaptcha" data-callback="onSubmit" data-sitekey="{{ recaptcha_public_key }}"></div>
+          </div>
+        </div>
+      {% endif %}
+    {% endblock %}
+  </div>
+{% endblock %}
+
+{% block search_title %}
+  {% if not error %}
+    <p class="dge-search-result-text">{% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}</p>
+  {% else %}
+    <h2>Error</h2>
+  {% endif %}
+{% endblock %}
+
+{% block search_sortby %}
+  {% if sorting and sorting|length > 0 %}
+    <div class="dge-search-dropdown-wrapper">
+      <div class="dge-search-dropdown">
+        <button class="dge-search-dropdown-trigger" type="button">
+          {{ sorting_selected_label if sorting_selected_label else sorting[0][0] }}
+        </button>
+        <ul class="dge-search-dropdown-menu">
+          {% for label, value in sorting %}
+            {% if label and value %}
+              <li data-value="{{ value }}" class="dge-search-dropdown-item {% if sorting_selected == value %}dge-search-selected{% endif %}">
+                {{ label }}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+        <input type="hidden" id="dge-search-hidden-input" name="sort" value="{{ sorting_selected if sorting_selected else sorting[0][1] }}">
+      </div>
+      {% block search_sortby_button %}
+
+      {% endblock %}
+    </div>
+  {% endif %}
+{% endblock %}
+{% block search_facets %}
+  {% if facets and facets.fields %}
+    <div class="tags flex">
+      {% for field in facets.fields %}
+        {% set search_facets_items = facets.search.get(field)['items'] %}
+        {% set title = facets.titles.get(field) %}
+        {% if title == None and field.startswith('tags_') %}
+          {% set title = _('Tag') + '(' + field.split('_')[1].upper() + ')' %}
+        {% endif %}
+        {% for value in facets.fields[field] %}
+          <div class="badge-group">
+            <a class="badge" aria-label="{{ _('Remove filter') }}" href="{{ h.dge_remove_field(c.controller, field, value) }}" title="{{ _('Remove') }}">
+              <span>
+                {%- if facets.translated_fields and facets.translated_fields.has_key((field, value)) -%}
+                  {{ facets.translated_fields[(field, value)] }}
+                {%- else -%}
+                  {%- set item, lang = h.dge_searched_facet_item_filter(search_facets_items, 'name', 'display_name', value, field) -%}
+                  {%- if lang -%}<span lang="{{ lang }}" xml:lang="{{ lang }}">{%- endif -%}
+                  {{ item }}
+                  {%- if lang -%}</span>{%- endif -%}
+                {%- endif -%}
+              </span>
+              <span class="badge__close decoration-arrow">
+                <img src="/images/close.svg" alt="Close icon">
+              </span>
+            </a>
+          </div>
+        {% endfor %}
+      {% endfor %}
+      {% if facets.fields|length > 0 %}
+        <div class="badge-clear-all">
+          <div class="link link--primary">
+            <div class="field__item">
+              <a href="/catalogo">Borrar filtros
+                <span class="remove-filter">
+                  <img src="/images/trash-can.svg" alt="Remove icon">
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+  {% endif %}
+{% endblock %}

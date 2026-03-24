@@ -1,0 +1,258 @@
+<section id="dataset-technical-sheet" style="display: none;">
+  <div class="additional-info__content relative flex-display w--100 flex-column">
+      {% block package_technical_sheet %}
+        <div class="read-more read-more--md">
+          <div class="table-container">
+            <table class="custom-table">
+
+              {% block package_identification %}
+                {% if (pkg_dict.identifier and dict_fields[inc_dict.identifier]) or
+                (pkg_dict.another_identifier and dict_fields[inc_dict.another_identifier]) or 
+                (pkg_dict.issued_date and dict_fields[inc_dict.issued_date]) or 
+                (pkg_dict.modified_date and dict_fields[inc_dict.modified_date]) %}
+                  <tbody>
+                    <tr>
+                      <th colspan="2">{{_('Identification')}}</th>
+                    </tr>
+                    {% if pkg_dict.identifier and dict_fields[inc_dict.identifier] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.identifier].label) }}
+                        </th>
+                        <td>
+                          {% if is_dcatapes %}
+                            {% snippet 'scheming/display_snippets/dge_multiple_text.html',
+                            data=pkg_dict, field=dict_fields[inc_dict.identifier] %}
+                          {% else %}
+                            {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                            data=pkg_dict, field=dict_fields[inc_dict.identifier] %}
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.another_identifier and dict_fields[inc_dict.another_identifier] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.another_identifier].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/dge_multiple_text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.another_identifier] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.modified_date and dict_fields[inc_dict.modified_date] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.modified_date].label) }}
+                        </th>
+                        <td>
+                          {% if is_dcatapes %}
+                            <ul>
+                              <li>{{ pkg_dict.modified_date }}</li>
+                            </ul>
+                          {% else %}
+                            {% snippet 'package/snippets/dge_local_friendly_datetime.html', datetime_obj=pkg_dict.modified_date %}
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endif %}
+                    
+                    {% if pkg_dict.issued_date and dict_fields[inc_dict.issued_date] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.issued_date].label) }}
+                        </th>
+                        <td>
+                          {% if is_dcatapes %}
+                            <ul>
+                              <li>{{ pkg_dict.issued_date }}</li>
+                            </ul>
+                          {% else %}
+                            {% snippet 'package/snippets/dge_local_friendly_datetime.html', datetime_obj=pkg_dict.issued_date %}
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                {% endif %}
+              {% endblock %}
+              
+              {% block package_resolution %}
+                {% if (pkg_dict.spatial_resolution_in_meters and dict_fields[inc_dict.spatial_resolution_in_meters]) or
+                (pkg_dict.temporal_resolution and dict_fields[inc_dict.temporal_resolution]) %}
+                <tbody>
+                    <tr>
+                      <th colspan="2">{{_('Resolution')}}</th>
+                    </tr>
+                      
+                    {% if pkg_dict.spatial_resolution_in_meters and dict_fields[inc_dict.spatial_resolution_in_meters] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.spatial_resolution_in_meters].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.spatial_resolution_in_meters] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.temporal_resolution and dict_fields[inc_dict.temporal_resolution] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.temporal_resolution].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.temporal_resolution] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                {% endif %}
+              {% endblock %}
+              
+              {% block package_references %}
+                {% if (pkg_dict.qualified_relation and dict_fields[inc_dict.qualified_relation]) or
+                (pkg_dict.source and dict_fields[inc_dict.source]) or
+                (pkg_dict.is_referenced_by and dict_fields[inc_dict.is_referenced_by]) or
+                (pkg_dict.relation and dict_fields[inc_dict.relation]) or 
+                (not is_dcatapes and pkg_dict.reference and dict_fields[inc_dict.reference]) %}
+                  <tbody>
+                    <tr>
+                      <th colspan="2">{{_('References')}}</th>
+                    </tr>
+                    {% if pkg_dict.relation and dict_fields[inc_dict.relation] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.relation].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.relation] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.source and dict_fields[inc_dict.source] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.source].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.source] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if not is_dcatapes and pkg_dict.reference and dict_fields[inc_dict.reference] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.reference].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/multiple_uri_text.html', data=pkg_dict, field=dict_fields[inc_dict.reference] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.is_referenced_by and dict_fields[inc_dict.is_referenced_by] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.is_referenced_by].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.is_referenced_by] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.qualified_relation and dict_fields[inc_dict.qualified_relation] %}
+                        {% snippet 'scheming/display_snippets/dge_list_of_dicts_of_uris.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.qualified_relation], schema=schema %}
+                    {% endif %}
+                  </tbody>
+                {% endif %}
+              {% endblock %}
+              
+              {% block package_versioning %}
+                {% if (pkg_dict.dataset_version and dict_fields[inc_dict.dataset_version]) or
+                (pkg_dict.version_notes and dict_fields[inc_dict.version_notes]) or 
+                (pkg_dict.has_version and dict_fields[inc_dict.has_version]) or
+                (pkg_dict.is_version_of and dict_fields[inc_dict.is_version_of]) %}
+                <tbody>
+                    <tr>
+                      <th colspan="2">{{_('Versioning')}}</th>
+                    </tr>
+                    {% if pkg_dict.dataset_version and dict_fields[inc_dict.dataset_version] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.dataset_version].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.dataset_version] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.version_notes and dict_fields[inc_dict.version_notes] %}
+                      {% set language, value = h.dge_dataset_field_value(pkg_dict.version_notes) %}
+                      {% if (value) %}
+                        <tr>
+                          <th class="large text--color-primary-dark">
+                            {{ h.scheming_language_text(dict_fields[inc_dict.version_notes].label) }}
+                          </th>
+                          <td class="container-markdown">
+                            {% if (language) %}
+                              <div lang='{{language}}' xml:lang='{{language}}'>
+                                {{ h.render_markdown(value) }}
+                              </div>
+                            {% elif value %}
+                              {{ h.render_markdown(value) }}
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endif %}
+                    {% endif %}
+
+                    {% if pkg_dict.has_version and dict_fields[inc_dict.has_version] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.has_version].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.has_version] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+
+                    {% if pkg_dict.is_version_of and dict_fields[inc_dict.is_version_of] %}
+                      <tr>
+                        <th class="large text--color-primary-dark">
+                          {{ h.scheming_language_text(dict_fields[inc_dict.is_version_of].label) }}
+                        </th>
+                        <td>
+                          {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                          data=pkg_dict, field=dict_fields[inc_dict.is_version_of] %}
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </tbody>
+                {% endif %}
+              {% endblock %}
+            </table>
+          </div>
+        </div>
+        <div class="read-more__bottom read-more__bottom--blue">
+          <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+        </div>
+      {% endblock %}
+  </div>
+</section>

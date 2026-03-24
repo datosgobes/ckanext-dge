@@ -1,0 +1,51 @@
+{% extends "page.html" %}
+{% set current_lang = request.environ.CKAN_LANG %}
+
+{% set error_code = code %}
+
+{% set subtitle = _('Page not found') or name %}
+{% set name = _('Page not found') or name %}
+{% set content = _("We're sorry, but the page you're looking for doesn't exist or is no longer available.") or content %}
+{% set error_img = '/sites/default/files/2025-03/404-error-page-not-found_datos-gob.svg' %}
+
+{% if error_code == 403 or error_code == 401 %}
+  {% set subtitle = _('Forbidden') or name %}
+  {% set name = _('Forbidden') %}
+  {% set content = _('No está autorizado para acceder al recurso solicitado') %}
+  {% set error_img = '/sites/default/files/2025-03/403-error-page-acces-denied_datos-gob.svg' %}
+{% endif %}
+
+{% block subtitle %}{{ subtitle }}{% endblock %}
+
+{% block breadcrumb_content %}
+<li>{{ name }}</li>
+{% endblock %}
+{% block page_title_content %}{{ name }}{% endblock %}
+
+{% block primary %}
+
+  <div class="w--100 pb-10 align-center">
+    <div style="max-width:600px;" class="w--100 mr-auto ml-auto align-center">
+      <article class="module align-center">
+        <div class="module-content">
+          <img loading="lazy" width="297" height="297" src="{{ h.url_for_static(error_img) }}" alt="">
+        </div>
+      </article>
+      <p>{{ content }}</p>
+      <div class="flex-display flex-justify-center mt-10 mb-10">
+        <a href="/{{ current_lang }}/" title="{{ _('Home') }}" class="btn btn-primary button-arrow">{{ _('Back to top') }}</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block flash %}
+  {# eat the flash messages caused by the 404 #}
+  {% set flash_messages = h.flash.pop_messages() %}
+{% endblock %}
+
+{% block catalog_downloads %}
+{% endblock %}
+
+{% block secondary %}{% endblock %}

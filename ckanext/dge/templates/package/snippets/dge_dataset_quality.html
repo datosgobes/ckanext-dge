@@ -1,0 +1,137 @@
+<section id="dataset-quality" style="display: none;">
+  <div class="additional-info__content relative flex-display w--100 flex-column">
+    {% block package_quality %}
+      <div class="read-more read-more--md">
+        <div class="table-container">
+          <table class="custom-table">
+
+            {% block package_regulation %}
+              {% if (pkg_dict.hvd_applicable_legislation and dict_fields[inc_dict.hvd_applicable_legislation]) or
+              (pkg_dict.conforms_to and dict_fields[inc_dict.conforms_to]) or 
+              (pkg_dict.access_rights and dict_fields[inc_dict.access_rights]) %}
+                <tbody>
+                  <tr>
+                    <th colspan="2">{{_('Regulation')}}</th>
+                  </tr>
+                  {% if pkg_dict.hvd_applicable_legislation and dict_fields[inc_dict.hvd_applicable_legislation] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.hvd_applicable_legislation].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.hvd_applicable_legislation] %}
+                      </td>
+                    </tr>
+                  {% endif %}
+                  
+                  {% if pkg_dict.conforms_to and dict_fields[inc_dict.conforms_to] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.conforms_to].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/multiple_uri_text.html', data=pkg_dict, field=dict_fields[inc_dict.conforms_to] %}
+                      </td>
+                    </tr>
+                  {% endif %}
+
+                  {% if pkg_dict.access_rights and dict_fields[inc_dict.access_rights] %}
+                    {% set access_rights_label, xml_lang = h.dge_get_vocabularies_uri_label(pkg_dict[dict_fields[inc_dict.access_rights].field_name]) %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.access_rights].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/dge_lang_uri_label.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.access_rights],
+                        label=access_rights_label, xml_lang=xml_lang %}
+                      </td>
+                    </tr>
+                  {% endif %}
+                  </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block package_documentation %}
+              {% if (pkg_dict.landing_page and dict_fields[inc_dict.landing_page]) or 
+              (pkg_dict.page and dict_fields[inc_dict.page]) %}
+                <tbody>
+                  <tr>
+                    <th colspan="2">{{ h.scheming_language_text(dict_fields[inc_dict.page].label) }}</th>
+                  </tr>
+                  {% if pkg_dict.page and dict_fields[inc_dict.page] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.page].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.page] %}
+                      </td>
+                    </tr>
+                  {% endif %}
+
+                  {% if pkg_dict.landing_page and dict_fields[inc_dict.landing_page] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                      {{ h.scheming_language_text(dict_fields[inc_dict.landing_page].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.landing_page] %}
+                      </td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              {% endif %}
+            {% endblock %}
+            
+            {% block package_provenance %}
+              {% if (pkg_dict.provenance and dict_fields[inc_dict.provenance]) or
+              (pkg_dict.qualified_attribution and dict_fields[inc_dict.qualified_attribution]) or
+              (pkg_dict.was_generated_by and dict_fields[inc_dict.was_generated_by]) %}
+                <tbody>
+                  <tr>
+                    <th colspan="2">{{ h.scheming_language_text(dict_fields[inc_dict.provenance].label) }}</th>
+                  </tr>
+                  {% if pkg_dict.provenance and dict_fields[inc_dict.provenance] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.provenance].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.provenance] %}
+                      </td>
+                    </tr>
+                  {% endif %}
+
+                  {% if pkg_dict.was_generated_by and dict_fields[inc_dict.was_generated_by] %}
+                    <tr>
+                      <th class="large text--color-primary-dark">
+                        {{ h.scheming_language_text(dict_fields[inc_dict.was_generated_by].label) }}
+                      </th>
+                      <td>
+                        {% snippet 'scheming/display_snippets/multiple_uri_text.html',
+                        data=pkg_dict, field=dict_fields[inc_dict.was_generated_by] %}
+                      </td>
+                    </tr>
+                  {% endif %}
+
+                  {% if pkg_dict.qualified_attribution and dict_fields[inc_dict.qualified_attribution] %}
+                    {% snippet 'scheming/display_snippets/dge_list_of_dicts_of_uris.html',
+                    data=pkg_dict, field=dict_fields[inc_dict.qualified_attribution], schema=schema %}
+                  {% endif %}
+                </tbody>
+              {% endif %}
+            {% endblock %}
+          </table>
+        </div>
+      </div>
+      <div class="read-more__bottom read-more__bottom--blue">
+        <button role="button" class="" data-more="{{ _('Read more') }}" data-less="{{_('Read less') }}">{{ _('Read more') }}</button>
+      </div>
+    {% endblock %}
+  </div>
+</section>

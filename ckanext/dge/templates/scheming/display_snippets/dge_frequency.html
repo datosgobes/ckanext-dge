@@ -1,0 +1,21 @@
+{%- set values = data[field.field_name] -%}
+{%- set freq = h.dge_dataset_display_frequency(values.value, values.type, values.uri, values.identifier) %}
+{% if freq %}
+  <tr>
+    <th class="large text--color-primary-dark">
+      {{ h.scheming_language_text(field.label) }}
+    </th>
+    <td>
+        {% if values.uri %}
+          <ul>
+            <li><a href="{{ values.uri }}" target="_blank">{{ freq }}</a></li>
+          </ul>
+        {% else %}
+          <ul>
+            <li>{{ freq }}</li>
+          </ul>
+        {% endif %}
+    </td>
+  </tr>
+{% endif %}
+

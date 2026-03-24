@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
 *
 * This file is part of "dge (datos.gob.es)".
 *
@@ -325,3 +325,26 @@ button#toggle-tags {
     border-radius: 6px;
     color: var(--primary-700);
     cursor: pointer; }
+
+blockquote {
+  background-color: var(--primary-100);
+  padding: 1rem;
+  margin: 0;
+  border-left: 0.5rem solid var(--primary-500);
+  font-family: 'montserrat-italic';
+  text-align: left;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+  blockquote.full-blockquote {
+    max-width: 100%;
+    width: 100%; }
+  blockquote.success {
+    background-color: var(--alert-success-bg-drupal);
+    border-left: 0.5rem solid var(--alert-success-color-drupal);
+    color: var(--alert-success-color-drupal); }

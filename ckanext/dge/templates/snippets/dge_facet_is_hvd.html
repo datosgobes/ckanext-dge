@@ -1,0 +1,76 @@
+{#
+Construct a facet module populated with links to filtered results.
+
+name
+  The field name identifying the facet field, eg. "tags"
+
+title
+  The title of the facet, eg. "Tags", or "Tag Cloud"
+
+label_function
+  Renders the human-readable label for each facet value.
+  If defined, this should be a callable that accepts a `facet_item`.
+  eg. lambda facet_item: facet_item.display_name.upper()
+  By default it displays the facet item's display name, which should
+  usually be good enough
+
+if_empty
+  A string, which if defined, and the list of possible facet items is empty,
+  is displayed in lieu of an empty list.
+
+count_label
+  A callable which accepts an integer, and returns a string.  This controls
+  how a facet-item's count is displayed.
+
+extras
+  Extra info passed into the add/remove params to make the url
+
+alternative_url
+  URL to use when building the necessary URLs, instead of the default
+  ones returned by url_for. Useful eg for dataset types.
+
+hide_empty
+  Do not show facet if there are none, Default: false.
+
+within_tertiary
+  Boolean for when a facet list should appear in the the right column of the
+  page and not the left column.
+
+show_sort_facet
+  Do not show sort facet, Default: false
+
+search_facets
+  Dictionary with search facets(or `c.search_facets` if not provided)
+
+#}
+
+{% block facet_is_hvd %}
+  {% set facet_is_hvd = request.params.get(name) %}
+  {% set href = h.add_url_param(new_params={name: 'true'}, extras=extras, alternative_url=alternative_url) if not facet_is_hvd else '' %}
+  {% set no_href = h.remove_url_param(name, 'true', extras=extras, alternative_url=alternative_url) if facet_is_hvd else '' %}
+  <section class="{{ wrapper_class or 'module module-narrow module-shallow' }} mb-7">
+    <nav>
+      <ul class="unstyled nav nav-simple nav-facet">
+        <li class="nav-item container__filter__type__search">
+          <span class="span__filter__type__search regular text--strong text--color-primary-semi-dark">{{ _(title) }}</span>
+          <div class="container__filter__type__search_and__or">
+            <label class="radio-button__filter__type__search">
+              <input type="radio" class="radio-button__input" id="choice_hvd-yes" name="choice_hvd" {% if facet_is_hvd %} checked {% endif %}>
+              <a href="{{ href }}">
+                <span class="radio-button__control"></span>
+                <span class="radio-button__label">{{ _('Yes') }}</span>
+              </a>
+            </label>
+            <label class="radio-button__filter__type__search and_padding">
+              <input type="radio" class="radio-button__input" id="choice_hvd-no" name="choice_hvd" {% if not facet_is_hvd %} checked {% endif %}>
+              <a href="{{ no_href }}">
+                <span class="radio-button__control"></span>
+                <span class="radio-button__label">{{ _('No') }}</span>
+              </a>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </section>
+{% endblock %}

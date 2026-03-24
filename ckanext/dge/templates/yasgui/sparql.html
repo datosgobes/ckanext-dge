@@ -1,0 +1,90 @@
+{% extends "page.html"%}
+{% block seo_structured_data %}
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement":
+    [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item":
+          {
+            "@id": "{{ g.site_url }}",
+            "name": "{{ _('Home') }}"
+          }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item":
+          {
+            "@id": "{{ h.url_for('package.search', qualified=True) }}",
+            "name": "{{ _('Data Catalog') }}"
+          }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item":
+          {
+            "@id": "{{ h.url_for('dge.yasgui', qualified=True) }}",
+            "name": "{{ _('Sparql Point') }}"
+          }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+{% block subtitle %}{{ _('Sparql Point') }}{% endblock %}
+{% block breadcrumb_content %}
+  <li>{{ h.nav_link(_('Data Catalog'), named_route='package.search') }}</li>
+  <li>{{ _('Sparql Point') }}</li>
+{% endblock %}
+{% block page_title_content %}{{ _('Sparql Point') }}{% endblock %}
+{% block catalog_downloads %}
+  {% snippet 'snippets/dge_catalog_downloads.html' %}
+{% endblock %}
+{% block page_header %}{% endblock %}
+{% block primary %}
+
+{% set current_lang = request.environ.CKAN_LANG %}
+{% set accesible_version_url = h.url_for_static('/' + current_lang + '/ejemplos-sparql') %}
+{% set documentation_url = h.dge_sparql_yasgui_doc_url() %}
+{% trans page=accesible_version_url, doc=documentation_url %}Sparql_Point_introduction {{ page }} {{ doc }}{% endtrans %}
+  <p style="text-align: right"><br/><a href="{{ accesible_version_url }}">{{ _('Accessible version') }}</a><br/></p>
+
+  <div>
+  {% set yasgui_endpoint = h.dge_sparql_yasgui_endpoint() %}
+    <div id="yasqe" data-module="dge_glue" data-module-endpoint="{{ yasgui_endpoint }}"></div>
+    <div id="yasr"></div>
+  </div>
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  {% asset 'dge/dge-sparql-css' %}
+  <link href='//cdn.jsdelivr.net/g/yasqe@2.11.2(yasqe.min.css),yasr@2.9.0(yasr.min.css)' rel='stylesheet' type='text/css'/>
+{% endblock %}
+
+{%- block scripts %}
+  <script src='//cdn.jsdelivr.net/yasr/2.9.0/yasr.bundled.min.js'></script>
+  <script src='//cdn.jsdelivr.net/yasqe/2.11.2/yasqe.bundled.min.js'></script>
+  {% asset 'dge/dge-yasgui-glue-js' %}
+
+  <script>
+    Array.prototype.getUnique = function(){
+      var u = {}, a = [];
+      for(var i = 0, l = this.length; i < l; ++i){
+        if(u.hasOwnProperty(this[i])) {
+          continue;
+        }
+        a.push(this[i]);
+        u[this[i]] = 1;
+      }
+      return a;
+    }
+  </script>
+  {{ super() }}
+{% endblock -%}

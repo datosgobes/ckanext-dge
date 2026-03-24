@@ -1,0 +1,59 @@
+{% if pkg_dict.publisher or (pkg_dict.license_id and not is_dcatapes) %}
+  {% set publisher = h.dge_get_dataset_publisher(pkg_dict.publisher) %}
+  <section class="publisher">
+    {% if publisher %}
+      {% set publisher_title = publisher.get('NAME') %}
+      {% set publisher_principal_name = publisher.get('PPAL_NAME') %}
+      {% set administration_level = publisher.get('AL') %}
+      
+        
+        <div class="flex-display flex-center flex-row mb-4">
+          <span class="b-l mb-0"></span>
+          <div class="dataset-metadata">
+                <strong>{{ _("Publisher") }}</strong>
+                <span>
+                {% link_for publisher_title|truncate(120), named_route='package.search', publisher_display_name=publisher_title %}
+                {% if publisher_principal_name %}
+                ({{ publisher_principal_name }})
+                {% endif%}
+                </span>
+          </div>
+        </div>
+
+          {% if administration_level %}
+            <div class="flex-display flex-center flex-row mb-4">
+              <span class="b-l mb-0"></span>
+              <div class="dataset-metadata">
+                <strong>{{ _("Administration level") }}</strong>
+                <span>{{ administration_level }}</span>
+              </div> 
+            </div> 
+
+            <div class="flex-display flex-center flex-row mb-4">
+              <span class="b-l mb-0"></span>
+              <div class="dataset-metadata">
+                <strong>{{ _('Entity') }}</strong>
+                <div class = "btn-group">
+                  <span>
+                    {% if administration_level == _('Private Entity') %}
+                      {{ _('Private') }}
+                    {% else %}
+                    {{  _('Public') }}
+                    {% endif%}
+                  </span>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+    {% endif %}
+    {% if (not is_dcatapes or dataset_type == 'dataservice') and pkg_dict.license_id %}
+      <div class="flex-display flex-center flex-row mb-4">
+        <span class="b-l mb-0"></span>
+        <div class="dataset-metadata">
+          <strong>{{ _("License") }}</strong>
+          {% snippet "package/snippets/dge_license.html", pkg_dict=pkg_dict %}
+        </div>
+      </div>
+    {% endif %}
+  </section>
+{% endif %}

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
 *
 * This file is part of "dge (datos.gob.es)".
 *
@@ -162,11 +162,30 @@
       flex-flow: row;
       color: #fff;
       padding: 0.375rem 1rem;
-      align-self: end; }
+      align-self: end;
+      justify-content: right; }
       .footer-info .footer-info__container .region-footer-right .field--name-field-iconos-sociales .field__items {
         display: flex;
         gap: 1rem;
         flex-wrap: wrap; }
+        .footer-info .footer-info__container .region-footer-right .field--name-field-iconos-sociales .field__items .field__item .paragraph--type--imagen-enlace {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 2.813rem;
+          height: 2.813rem;
+          overflow: hidden; }
+          .footer-info .footer-info__container .region-footer-right .field--name-field-iconos-sociales .field__items .field__item .paragraph--type--imagen-enlace a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%; }
+            .footer-info .footer-info__container .region-footer-right .field--name-field-iconos-sociales .field__items .field__item .paragraph--type--imagen-enlace a img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block; }
         .footer-info .footer-info__container .region-footer-right .field--name-field-iconos-sociales .field__items .field__item:hover {
           opacity: 0.7;
           cursor: pointer; }
@@ -185,19 +204,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.5rem;
     margin-top: 1.5rem;
     flex-wrap: wrap;
     max-width: 58rem;
     margin-left: auto;
     margin-right: auto; }
-    .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item a {
-      display: flex;
-      font-size: 0; }
-      .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item a img {
-        max-height: 4.192rem;
-        width: auto;
-        display: flex; }
+    .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item {
+      width: auto;
+      height: 4.192rem;
+      max-height: 4.192rem;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      max-width: max-content;
+      display: inline-block; }
+      .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item .paragraph--type--imagen-enlace {
+        width: 100%;
+        height: 100%; }
+        .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item .paragraph--type--imagen-enlace a {
+          font-size: 0;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          display: block; }
+          .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item .paragraph--type--imagen-enlace a img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            max-width: 100%; }
 
 @media (max-width: 67.5rem) {
   .region-footer-top .footer-top__container__left {
@@ -232,15 +269,27 @@
           width: 100%;
           max-width: none; }
       .footer-info .footer-info__container .region-footer-right {
-        align-self: center; }
+        align-items: center;
+        padding: 0.375rem 1rem;
+        justify-content: center;
+        width: calc(100% - 2rem); }
   .footer-colaborators .region-footer .field--name-field-slogan {
     padding: 0rem 1rem; }
     .footer-colaborators .region-footer .field--name-field-slogan img {
       height: auto;
       width: auto; }
   .footer-colaborators .region-footer .field--name-field-logos-colaboradores {
-    padding: 0rem 1rem; }
-    .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item img {
-      height: auto;
-      width: auto;
-      max-width: 100%; } }
+    padding: 0rem 1rem;
+    width: calc(100% - 2rem); }
+    .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items {
+      width: 100%; } }
+
+@media (max-width: 48rem) {
+  .footer-colaborators .region-footer .field--name-field-slogan .field__items .field__item,
+  .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item {
+    max-width: 19rem;
+    height: auto;
+    max-height: initial; }
+    .footer-colaborators .region-footer .field--name-field-slogan .field__items .field__item .paragraph--type--imagen-enlace img,
+    .footer-colaborators .region-footer .field--name-field-logos-colaboradores .field__items .field__item .paragraph--type--imagen-enlace img {
+      max-height: 4.65rem; } }

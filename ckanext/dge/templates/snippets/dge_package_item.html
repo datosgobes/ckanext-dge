@@ -1,0 +1,130 @@
+{#
+Displays a single of dataset.
+
+package        - A package to display.
+item_class     - The class name to use on the list item.
+hide_resources - If true hides the resources (default: false).
+banner         - If true displays a popular banner (default: false).
+truncate       - The length to trucate the description to (default: 180)
+truncate_title - The length to truncate the title to (default: 80).
+
+Example:
+
+  {% snippet 'snippets/dge_package_item.html', package=c.datasets[0] %}
+
+#}
+{% set truncate = truncate or 180 %}
+{% set truncate_title = truncate_title or 80 %}
+{% set title_language, title = h.dge_dataset_field_value(package.title_translated) %}
+{% set desc_language, desc = h.dge_dataset_field_value(package.description) %}
+{% set desc = h.markdown_extract(desc, extract_length=truncate) %}
+{% set named_route = package.type ~ '.read'%}
+
+{% block package_item %}
+  <li class="{{ item_class or 'dataset-item' }} dge-list--elm">
+    {% block content %}
+      <a href="{{ h.url_for('package.dataset_read', id=package.name) }}" class="card-link">
+        <div class="dataset-content">
+          {% block heading %}
+            <div class="dge-list__title dataset-heading">
+              {% set is_hvd = h.dge_is_hvd(package) %}
+              <span class="data--type__icon data--type__icon--md data--type-{{'hvd' if is_hvd else 'standard'}}">
+                <img
+                  src="{{ h.url_for_static('/images/SVG/' + ('hvd' if is_hvd else 'standard') + '-' + package.type + '.svg') }}"
+                  alt="{{ _(('HVD ' if is_hvd else 'Standard ') + package.type | capitalize) }}">
+              </span>
+              
+              {% block heading_title %}
+                {% if (title_language and title) %}
+                  <span lang='{{title_language}}' xml:lang='{{title_language}}'>
+                {% endif %}
+                  {{ h.truncate(title, truncate_title) }}
+                {% if (title_language and title) %}
+                  </span>
+                {% endif %}
+              {% endblock %}
+
+              {% block heading_private %}
+                {% if package.private %}
+                  <span class="dataset-private dataset-private--md">
+                    <img src="{{ h.url_for_static('/images/SVG/lock.svg') }}" alt="{{ _('Private') }}">
+                  </span>
+                {% endif %}
+              {% endblock %}
+
+              {% block heading_meta %}
+                {% if package.get('state', '').startswith('draft') %}
+                  <span class="dataset-private dataset-private--md">
+                    <img src="{{ h.url_for_static('/images/edit.svg') }}" alt="{{ _('Draft') }}">
+                  </span>
+                {% elif package.get('state', '').startswith('deleted') %}
+                  <span class="label label-important">{{ _('Deleted') }}</span>
+                {% endif %}
+                {{ h.popular('recent views', package.tracking_summary.recent, min=10) if package.tracking_summary }}
+              {% endblock %}
+            </div>
+          {% endblock %}
+
+          {% block banner %}
+            {% if banner %}
+              <span class="banner">{{ _('Popular') }}</span>
+            {% endif %}
+          {% endblock %}
+
+          {% block themes %}
+            {% if package.theme %}
+              <div class="field-content">
+                {% for id, theme in h.dge_list_themes(package.theme) %}
+                  <div class="flex-display flex-center">
+                    <div class="{{ id }} decoration-dot"></div>
+                    <p class="{{ id }}" data-format="{{ theme.lower() }}" title="{{ theme }}">{{ theme }}</p>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endblock %}
+
+          {% block publisher %}
+            {% set publisher = h.dge_get_dataset_publisher(package.publisher) %}
+            {% if publisher %}
+              {% set publisher_name = publisher.get('NAME') %}
+              {% set publisher_principal_name = publisher.get('PPAL_NAME') %}
+              {% if publisher_name %}
+                <p class="dge-list__publisher">
+                  <span class="publisher-title">
+                    {{ publisher_name|truncate(120) }}
+                    {% if publisher_principal_name %}
+                      ({{ publisher_principal_name }})
+                    {% endif %}
+                  </span>
+                </p>
+              {% endif %}
+            {% endif %}
+          {% endblock %}
+
+          {% block notes %}
+            {% if desc %}
+              <div class="dge-list__desc">
+                <p>{{ desc }}</p>
+              </div>
+            {% else %}
+              <p class="empty">{{ _('This {package_type} has no description').format(package_type=_(package.type)) }}</p>
+            {% endif %}
+          {% endblock %}
+        </div>
+
+        {% block resources %}
+          {% if package.resources and not hide_resources %}
+            <ul class="dataset-resources resources unstyled">
+              {% for resource in h.dge_list_reduce_resource_format_label(package.resources, 'format') %}
+                <li>
+                  <span class="label {{ resource.lower() }}" data-format="{{ resource.lower() }}">{{ resource }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endblock %}
+      </a>
+    {% endblock %}
+  </li>
+{% endblock %}

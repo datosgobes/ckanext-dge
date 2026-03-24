@@ -1,0 +1,18 @@
+{%- set values = data[field.field_name] -%}
+
+  <div class="large text-line-height-normal inline">
+    <ul>
+      {%- for value in values -%}
+        {% set value_label, xml_lang = h.dge_get_vocabularies_uri_label(value) %}
+        <li>
+          {%- if xml_lang -%}
+            <span lang='{{xml_lang}}' xml:lang='{{xml_lang}}'>
+          {%- endif -%}
+          <a href="{{ value }}" target="_blank">{{ value_label }}</a>
+          {%- if xml_lang -%}
+            </span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>

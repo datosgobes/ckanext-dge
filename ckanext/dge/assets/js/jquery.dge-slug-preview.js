@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2025 Entidad Pública Empresarial Red.es
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
 *
 * This file is part of "dge (datos.gob.es)".
 *
@@ -96,7 +96,7 @@
       '<button class="btn btn-default btn-xs mt-0"></button>',
       '</div>',
       '<div class="flex flex-wrap">',
-      '<span id="info-url" class="info-block"></span>',
+      '<span class="info-block"><i class="fa fa-info-circle"></i><span id="info-url"></span></span>',
       '</div>',
       '</div>',
       '</div>'

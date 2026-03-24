@@ -1,0 +1,44 @@
+{% set creator_name_translated = 'creator_name_translated' %}
+{% set creator_identifier = 'creator_identifier' %}
+{% set creator_type = 'creator_type' %}
+{% set subfields = h.dge_field_display_subfields(field.field_name, schema.dataset_fields) %}
+{% set creators = data[field.field_name] %}
+{% for creator in creators %}
+   <div class="contact_point container-cols container-cols-3 bt-nth2">
+   {% if creator.creator_name_translated %}
+      {% set language, value = h.dge_dataset_field_value(creator.creator_name_translated) %}
+      {% if (value) %}
+         <ul>
+            <li>
+               {{ h.scheming_language_text(subfields[creator_name_translated].label) }}
+            </li>
+            {% if (language) %}
+               <li><span lang='{{language}}' xml:lang='{{language}}'>{{ h.render_markdown(value) }}</span></li>
+            {% elif value %}
+               <li>{{ h.render_markdown(value) }}</li>
+            {% endif %}
+         </ul>
+      {% endif %}
+   {% endif %}
+   {% if creator.creator_identifier %}
+      <ul>
+         <li>
+            {{ h.scheming_language_text(subfields[creator_identifier].label) }}
+         </li>
+         <li>
+            {{ creator.creator_identifier }}
+          </li>
+      </ul>
+   {% endif %}
+   {% if creator.creator_type %}
+      <ul>
+         <li>
+            {{ h.scheming_language_text(subfields[creator_type].label) }}
+         </li>
+         <li>
+            <a href="{{ creator.creator_type }}" target="_blank">{{ creator.creator_type }}</a>
+         </li>
+      </ul>
+   {% endif %}
+   </div>
+{% endfor %}

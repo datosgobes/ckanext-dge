@@ -1,0 +1,2338 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "These are the datos.gob.es APIs available for developers",
+		"version": "0.0.1",
+		"title": "datos.gob.es APIs",
+		"license": {
+			"name": ""
+		}
+	},
+	"host": "datos.gob.es",
+	"basePath": "/apidata",
+	"paths": {
+		"/nti/territory/Province": {
+			"get": {
+				"tags": [
+					"NTI geographical coverage taxonomy"
+				],
+				"summary": "Finds all provinces",
+				"operationId": "findAllProvinces",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "label",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/TerritorioResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/nti/territory/Province/{id}": {
+			"get": {
+				"tags": [
+					"NTI geographical coverage taxonomy"
+				],
+				"summary": "Finds a province by the URI Identifier",
+				"operationId": "findProvinceById",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of the Province",
+						"default": "Madrid",
+						"required": true,
+						"type": "string",
+						"enum": [
+							"A-Coruna",
+							"Alava",
+							"Albacete",
+							"Alicante",
+							"Almeria",
+							"Asturias",
+							"Avila",
+							"Badajoz",
+							"Barcelona",
+							"Burgos",
+							"Caceres",
+							"Cadiz",
+							"Cantabria",
+							"Castellon",
+							"Ceuta",
+							"Ciudad-Real",
+							"Cordoba",
+							"Cuenca",
+							"Girona",
+							"Granada",
+							"Guadalajara",
+							"Guipuzcoa",
+							"Huelva",
+							"Huesca",
+							"Illes-Balears",
+							"Jaen",
+							"La-Rioja",
+							"Las-Palmas",
+							"Leon",
+							"Lleida",
+							"Lugo",
+							"Madrid",
+							"Malaga",
+							"Melilla",
+							"Murcia",
+							"Navarra",
+							"Ourense",
+							"Palencia",
+							"Pontevedra",
+							"Salamanca",
+							"Santa-Cruz-Tenerife",
+							"Segovia",
+							"Sevilla",
+							"Soria",
+							"Tarragona",
+							"Teruel",
+							"Toledo",
+							"Valencia",
+							"Valladolid",
+							"Vizcaya",
+							"Zamora",
+							"Zaragoza"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/TerritorioResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/nti/territory/Autonomous-region": {
+			"get": {
+				"tags": [
+					"NTI geographical coverage taxonomy"
+				],
+				"summary": "Finds all autonomous regions",
+				"operationId": "findAllAutonomies",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "label",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/TerritorioResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/nti/territory/Autonomous-region/{id}": {
+			"get": {
+				"tags": [
+					"NTI geographical coverage taxonomy"
+				],
+				"summary": "Finds a autonomous region by the URI Identifier",
+				"operationId": "findAutonomousRegionById",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of the autonomous region",
+						"default": "Comunidad-Madrid",
+						"required": true,
+						"type": "string",
+						"enum": [
+							"Andalucia",
+							"Aragon",
+							"Canarias",
+							"Cantabria",
+							"Castilla-La-Mancha",
+							"Castilla-Leon",
+							"Cataluna",
+							"Ceuta",
+							"Comunidad-Foral-Navarra",
+							"Comunidad-Madrid",
+							"Comunitat-Valenciana",
+							"Extremadura",
+							"Galicia",
+							"Illes-Balears",
+							"La-Rioja",
+							"Melilla",
+							"Pais-Vasco",
+							"Principado-Asturias",
+							"Region-Murcia"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/TerritorioResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/nti/territory/Country/{id}": {
+			"get": {
+				"tags": [
+					"NTI geographical coverage taxonomy"
+				],
+				"summary": "Finds a country by the URI Identifier",
+				"operationId": "findCountryById",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of the Country",
+						"default": "España",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/TerritorioResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/nti/public-sector": {
+			"get": {
+				"tags": [
+					"NTI primary sector taxonomy"
+				],
+				"summary": "Finds all public sectors",
+				"operationId": "findAllPublicSector",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "prefLabel",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/PublicSectorResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/nti/public-sector/sector/{id}": {
+			"get": {
+				"tags": [
+					"NTI primary sector taxonomy"
+				],
+				"summary": "Finds a public sector by the URI Identifier",
+				"operationId": "findPublicSectorById",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of the public sector",
+						"default": "salud",
+						"required": true,
+						"type": "string",
+						"enum": [
+							"ciencia-tecnologia",
+							"comercio",
+							"cultura-ocio",
+							"demografia",
+							"deporte",
+							"economia",
+							"educacion",
+							"empleo",
+							"energia",
+							"hacienda",
+							"industria",
+							"legislacion-justicia",
+							"medio-ambiente",
+							"medio-rural-pesca",
+							"salud",
+							"sector-publico",
+							"seguridad",
+							"sociedad-bienestar",
+							"transporte",
+							"turismo",
+							"urbanismo-infraestructuras",
+							"vivienda"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/PublicSectorResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds all datasets",
+				"operationId": "findAllDatasets",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/{id}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds a dataset by the URI Identifier",
+				"operationId": "findDatasetById",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of the dataset",
+						"default": "l01281230-calidad-del-aire",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/title/{title}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds datasets by title",
+				"operationId": "findDatasetbyTitle",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "title",
+						"in": "path",
+						"description": "Full title or part of title of the dataset",
+						"default": "mirador",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/publisher/{id}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds datasets by publisher",
+				"operationId": "findDatasetsbyPublisher",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of publisher",
+						"default": "L01280066",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/theme/{id}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds datasets by theme",
+				"operationId": "findAllDatasetsbyTheme",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of theme",
+						"default": "sector-publico",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/format/{format}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds all datasets that have a distribution with a format that you use as parameter",
+				"operationId": "findAllDatasetsbyFormat",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "format",
+						"in": "path",
+						"description": "name of the format",
+						"default": "json",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/keyword/{keyword}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds all datasets that have a keyword that you use as parameter",
+				"operationId": "findAllDatasetsbyKeyword",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "keyword",
+						"in": "path",
+						"description": "a keyword of dataset",
+						"default": "turismo",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/spatial/{spatialWord1}/{spatialWord2}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds all datasets that have a spatial that you use as parameter",
+				"operationId": "findAllDatasetsbySpatial",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "spatialWord1",
+						"in": "path",
+						"description": "first word of spatial",
+						"default": "Autonomia",
+						"required": true,
+						"type": "string",
+						"enum": [
+							"Autonomia",
+							"Pais",
+							"Provincia"
+						]
+					},
+					{
+						"name": "spatialWord2",
+						"in": "path",
+						"description": "second word of spatial",
+						"default": "Aragon",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/dataset/modified/begin/{beginDate}/end/{endDate}": {
+			"get": {
+				"tags": [
+					"dataset"
+				],
+				"summary": "Finds all datasets that were modified between two dates",
+				"operationId": "findAllDatasetsbyDate",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "beginDate",
+						"in": "path",
+						"description": "lower date",
+						"default": "2016-04-18T00:00Z",
+						"required": true,
+						"type": "string",
+						"format": "date-time"
+					},
+					{
+						"name": "endDate",
+						"in": "path",
+						"description": "higher date",
+						"default": "2016-06-30T00:00Z",
+						"required": true,
+						"type": "string",
+						"format": "date-time"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DatasetResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/distribution": {
+			"get": {
+				"tags": [
+					"distribution"
+				],
+				"summary": "Finds all distributions",
+				"operationId": "findAllDistributions",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DistributionResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/distribution/dataset/{id}": {
+			"get": {
+				"tags": [
+					"distribution"
+				],
+				"summary": "Finds all distributions of a dataset",
+				"operationId": "findAllDistributionsByDataset",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Identifier of dataset",
+						"default": "l01281230-calidad-del-aire",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DistributionResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/distribution/format/{format}": {
+			"get": {
+				"tags": [
+					"distribution"
+				],
+				"summary": "Finds all distributions of a dataset that have the format that you use as parameter",
+				"operationId": "findAllDistributionsByFormat",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "format",
+						"in": "path",
+						"description": "Name of the format",
+						"default": "json",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "title",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/DistributionResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/theme": {
+			"get": {
+				"tags": [
+					"theme"
+				],
+				"summary": "Finds all themes",
+				"operationId": "findAllThemes",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "notation",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/ThemeResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/publisher": {
+			"get": {
+				"tags": [
+					"publisher"
+				],
+				"summary": "Finds all publishers",
+				"operationId": "findAllPublishers",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_sort",
+						"in": "query",
+						"description": "With this param you can order your results. You can use all the fields of the item. For reverse order you must add a '-' simbol before the field. Example: _sort=label. You can combine more than one sort using ','. Example: _sort=label,-issued",
+						"default": "notation",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/PublisherResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		},
+		"/catalog/spatial": {
+			"get": {
+				"tags": [
+					"spatial"
+				],
+				"summary": "Finds all spatials",
+				"operationId": "findAllSpatials",
+				"produces": [
+					"application/json",
+					"text/csv",
+					"text/turtle",
+					"application/rdf+xml",
+					"application/xml"
+				],
+				"parameters": [
+					{
+						"name": "_pageSize",
+						"in": "query",
+						"description": "With this param you can set the number of results for page. The max value is 200.",
+						"default": 10,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"name": "_page",
+						"in": "query",
+						"description": "The number of page that you want to see. The first page is 0.",
+						"default": 0,
+						"required": false,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"schema": {
+							"$ref": "#/definitions/SpatialResponse"
+						}
+					},
+					"400": {
+						"description": "Bad request"
+					},
+					"403": {
+						"description": "Access denied"
+					},
+					"404": {
+						"description": "Not found"
+					},
+					"500": {
+						"description": "Internal error"
+					}
+				}
+			}
+		}
+	},
+	"securityDefinitions": {
+		"api_key": {
+			"type": "apiKey",
+			"name": "api_key",
+			"in": "header"
+		}
+	},
+	"definitions": {
+		"SpatialResponse": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"result"
+			],
+			"properties": {
+				"format": {
+					"type": "string",
+					"description": "format"
+				},
+				"version": {
+					"type": "string",
+					"format": "version"
+				},
+				"result": {
+					"$ref": "#/definitions/SpatialResult"
+				}
+			},
+			"xml": {
+				"name": "SpatialResponse"
+			}
+		},
+		"SpatialResult": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"items"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"first": {
+					"type": "string",
+					"description": "URL of the first page"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Spatial"
+					}
+				},
+				"itemsPerPage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"next": {
+					"type": "string",
+					"description": "URL of the next page"
+				},
+				"page": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"prev": {
+					"type": "string",
+					"description": "URL of the previous page"
+				},
+				"startIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"xml": {
+				"name": "SpatialResult"
+			}
+		},
+		"Spatial": {
+			"type": "object",
+			"required": [
+				"_about"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URI of the object",
+					"example": "http://datos.gob.es/recurso/sector-publico/territorio/provincia/Madrid"
+				}
+			}
+		},
+		"ThemeResponse": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"result"
+			],
+			"properties": {
+				"format": {
+					"type": "string",
+					"description": "format"
+				},
+				"version": {
+					"type": "string",
+					"format": "version"
+				},
+				"result": {
+					"$ref": "#/definitions/ThemeResult"
+				}
+			},
+			"xml": {
+				"name": "ThemeResponse"
+			}
+		},
+		"ThemeResult": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"items"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"first": {
+					"type": "string",
+					"description": "URL of the first page"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Theme"
+					}
+				},
+				"itemsPerPage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"next": {
+					"type": "string",
+					"description": "URL of the next page"
+				},
+				"page": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"prev": {
+					"type": "string",
+					"description": "URL of the previous page"
+				},
+				"startIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"xml": {
+				"name": "ThemeResult"
+			}
+		},
+		"Theme": {
+			"type": "object",
+			"required": [
+				"_about"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URI of the object",
+					"example": "http://datos.gob.es/kos/sector-publico/sector/sector-publico"
+				},
+				"notation": {
+					"type": "string",
+					"description": "Identificer of the theme",
+					"example": "sector-publico"
+				},
+				"prefLabel": {
+					"type": "string",
+					"description": "Name of the theme",
+					"example": "Sector público"
+				}
+			}
+		},
+		"PublisherResponse": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"result"
+			],
+			"properties": {
+				"format": {
+					"type": "string",
+					"description": "format"
+				},
+				"version": {
+					"type": "string",
+					"format": "version"
+				},
+				"result": {
+					"$ref": "#/definitions/PublisherResult"
+				}
+			},
+			"xml": {
+				"name": "PublisherResponse"
+			}
+		},
+		"PublisherResult": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"items"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"first": {
+					"type": "string",
+					"description": "URL of the first page"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Publisher"
+					}
+				},
+				"itemsPerPage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"next": {
+					"type": "string",
+					"description": "URL of the next page"
+				},
+				"page": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"prev": {
+					"type": "string",
+					"description": "URL of the previous page"
+				},
+				"startIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"xml": {
+				"name": "PublisherResult"
+			}
+		},
+		"Publisher": {
+			"type": "object",
+			"required": [
+				"_about"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URI of the object",
+					"example": "http://datos.gob.es/recurso/sector-publico/org/Organismo/L01280066"
+				},
+				"notation": {
+					"type": "string",
+					"description": "Identificer of the publisher",
+					"example": "L01280066"
+				},
+				"prefLabel": {
+					"type": "string",
+					"description": "Name of the publisher",
+					"example": "Ayuntamiento de Alcobendas"
+				}
+			}
+		},
+		"PublicSectorResponse": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"result"
+			],
+			"properties": {
+				"format": {
+					"type": "string",
+					"description": "format"
+				},
+				"version": {
+					"type": "string",
+					"format": "version"
+				},
+				"result": {
+					"$ref": "#/definitions/PublicSectorResult"
+				}
+			},
+			"xml": {
+				"name": "PublicSectorResponse"
+			}
+		},
+		"TerritorioResponse": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"result"
+			],
+			"properties": {
+				"format": {
+					"type": "string",
+					"description": "format"
+				},
+				"version": {
+					"type": "string",
+					"format": "version"
+				},
+				"result": {
+					"$ref": "#/definitions/TerritorioResult"
+				}
+			},
+			"xml": {
+				"name": "TerritorioResponse"
+			}
+		},
+		"DatasetResponse": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"result"
+			],
+			"properties": {
+				"format": {
+					"type": "string",
+					"description": "format"
+				},
+				"version": {
+					"type": "string",
+					"format": "version"
+				},
+				"result": {
+					"$ref": "#/definitions/DatasetResult"
+				}
+			},
+			"xml": {
+				"name": "DatasetResponse"
+			}
+		},
+		"DistributionResponse": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"result"
+			],
+			"properties": {
+				"format": {
+					"type": "string",
+					"description": "format"
+				},
+				"version": {
+					"type": "string",
+					"format": "version"
+				},
+				"result": {
+					"$ref": "#/definitions/DistributionResult"
+				}
+			},
+			"xml": {
+				"name": "DistributionResponse"
+			}
+		},
+		"DatasetResult": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"items"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"first": {
+					"type": "string",
+					"description": "URL of the first page"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Dataset"
+					}
+				},
+				"itemsPerPage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"next": {
+					"type": "string",
+					"description": "URL of the next page"
+				},
+				"page": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"prev": {
+					"type": "string",
+					"description": "URL of the previous page"
+				},
+				"startIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"xml": {
+				"name": "DatasetResult"
+			}
+		},
+		"PublicSectorResult": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"items"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"first": {
+					"type": "string",
+					"description": "URL of the first page"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/PublicSector"
+					}
+				},
+				"itemsPerPage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"next": {
+					"type": "string",
+					"description": "URL of the next page"
+				},
+				"page": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"prev": {
+					"type": "string",
+					"description": "URL of the previous page"
+				},
+				"startIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"xml": {
+				"name": "PublicSectorResult"
+			}
+		},
+		"TerritorioResult": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"items"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"first": {
+					"type": "string",
+					"description": "URL of the first page"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Territorio"
+					}
+				},
+				"itemsPerPage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"next": {
+					"type": "string",
+					"description": "URL of the next page"
+				},
+				"page": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"prev": {
+					"type": "string",
+					"description": "URL of the previous page"
+				},
+				"startIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"xml": {
+				"name": "TerritorioResult"
+			}
+		},
+		"DistributionResult": {
+			"type": "object",
+			"required": [
+				"format",
+				"version",
+				"items"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"first": {
+					"type": "string",
+					"description": "URL of the first page"
+				},
+				"items": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Distribution"
+					}
+				},
+				"itemsPerPage": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"next": {
+					"type": "string",
+					"description": "URL of the next page"
+				},
+				"page": {
+					"type": "string",
+					"description": "URL of the call"
+				},
+				"prev": {
+					"type": "string",
+					"description": "URL of the previous page"
+				},
+				"startIndex": {
+					"type": "integer",
+					"format": "int32"
+				}
+			},
+			"xml": {
+				"name": "DistributionResult"
+			}
+		},
+		"Dataset": {
+			"type": "object",
+			"required": [
+				"_about"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URI of the dataset",
+					"example": "http://datos.gob.es/es/catalogo/e00136201-1033elecciones-a-procuradores-en-cortes-por-representacion-familiar"
+				},
+				"modified": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Modification date",
+					"example": "2015-09-23T15:23:04Z"
+				},
+				"description": {
+					"description": "Description of the dataset",
+					"type": "object",
+					"properties": {
+						"text": {
+							"type": "string",
+							"description": "the description text",
+							"example": "Intención de voto en las elecciones de Procuradores por representación familiar. - Información sobre los candidatos a las elecciones. - Opinión sobre las elecciones."
+						},
+						"lang": {
+							"type": "string",
+							"description": "language of the text",
+							"example": "es"
+						}
+					}
+				},
+				"distribution": {
+					"$ref": "#/definitions/Distribution"
+				},
+				"identifier": {
+					"type": "string",
+					"description": "URI of the identifier",
+					"example": "http://datos.gob.es/es/catalogo/e00136201-1033elecciones-a-procuradores-en-cortes-por-representacion-familiar"
+				},
+				"keyword": {
+					"type": "array",
+					"description": "Keywords of the dataset",
+					"items": {
+						"type": "string"
+					}
+				},
+				"language": {
+					"type": "string",
+					"description": "Language of the dataset",
+					"example": "es"
+				},
+				"license": {
+					"type": "string",
+					"description": "URI of the license",
+					"example": "http://www.cis.es/cis/opencms/ES/2_bancodatos/Productos.html"
+				},
+				"publisher": {
+					"type": "string",
+					"description": "URI of the publisher",
+					"example": "http://datos.gob.es/recurso/sector-publico/org/Organismo/E00136201"
+				},
+				"references": {
+					"type": "string",
+					"description": "URI of the references",
+					"example": "http://analisis.cis.es/cisdb.jsp?ESTUDIO=1033"
+				},
+				"spatial": {
+					"type": "string",
+					"description": "URI of the statial",
+					"example": "http://datos.gob.es/recurso/sector-publico/territorio/Provincia/madrid"
+				},
+				"temporal": {
+					"type": "string",
+					"description": "Usually empty",
+					"example": ""
+				},
+				"theme": {
+					"type": "array",
+					"description": "themes of the dataset",
+					"items": {
+						"type": "string"
+					}
+				},
+				"title": {
+					"type": "string",
+					"description": "Title os the dataset",
+					"example": "1030|REFERÉNDUM SOBRE LA LEY ORGÁNICA DEL ESTADO"
+				},
+				"accrualPeriodicity": {
+					"type": "string",
+					"description": "Usually empty",
+					"example": ""
+				},
+				"conformsTo": {
+					"type": "string",
+					"description": "URI conformsTo",
+					"example": "http://www.msssi.gob.es/avisoLegal/home.htm"
+				},
+				"issued": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Date issued",
+					"example": "2013-06-06T00:00:00Z"
+				},
+				"valid": {
+					"type": "string",
+					"description": "dataset valid",
+					"example": "2013-05-16T22:00:00Z"
+				},
+				"type": {
+					"type": "object"
+				}
+			}
+		},
+		"PublicSector": {
+			"type": "object",
+			"required": [
+				"_about"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URI of the public sector",
+					"example": "http://datos.gob.es/kos/sector-publico/sector/ciencia-tecnologia"
+				},
+				"inScheme": {
+					"type": "string",
+					"description": "URI of the top category",
+					"example": "http://datos.gob.es/kos/sector-publico/sector"
+				},
+				"prefLabel": {
+					"type": "string",
+					"description": "The preferred lexical label.",
+					"example": "Ciencia y tecnología"
+				},
+				"type": {
+					"type": "object"
+				}
+			}
+		},
+		"Territorio": {
+			"type": "object",
+			"required": [
+				"_about"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URI of the territory",
+					"example": "http://datos.gob.es/recurso/sector-publico/territorio/Autonomia/Andalucia"
+				},
+				"label": {
+					"type": "string",
+					"description": "Name of the territory",
+					"example": "Andalucia"
+				},
+				"pais": {
+					"type": "string",
+					"description": "Country of the territory.",
+					"example": "http://datos.gob.es/recurso/sector-publico/territorio/Pais/España"
+				},
+				"autonomia": {
+					"type": "string",
+					"description": "Autonomy of the territory.",
+					"example": "http://es.dbpedia.org/resource/Andalucía"
+				},
+				"sameAs": {
+					"type": "string",
+					"description": "URI of a sameAs link",
+					"example": "http://es.dbpedia.org/resource/Andalucía"
+				},
+				"type": {
+					"type": "object"
+				}
+			}
+		},
+		"Distribution": {
+			"type": "object",
+			"required": [
+				"_about"
+			],
+			"properties": {
+				"_about": {
+					"type": "string",
+					"description": "URI of the distribution",
+					"example": "http://administracion.gob.es/pagFront/tramites/catalogo/catalogo.htm?idAgrupacion=0#.VFyg86SDPcs"
+				},
+				"accessURL": {
+					"type": "string",
+					"description": "URI access of the distribution",
+					"example": "http://administracion.gob.es/pagFront/tramites/catalogo/catalogo.htm?idAgrupacion=0#.VFyg86SDPcs"
+				},
+				"byteSize": {
+					"type": "string",
+					"description": "Size of file",
+					"example": "2218042"
+				},
+				"format": {
+					"type": "object",
+					"description": "Format of the document",
+					"example": "application/json"
+				},
+				"relation": {
+					"type": "string",
+					"description": "URI of the relation",
+					"example": "http://lascuentasclaras.malaga.eu"
+				},
+				"title": {
+					"type": "string",
+					"description": "Title of the distribution",
+					"example": "Datos enlazados de la Biblioteca Nacional de España"
+				},
+				"identifier": {
+					"type": "string",
+					"description": "URI of the identifier",
+					"example": "http://datos.apc.es/wps/poc/wcm/oid%3ab4dacbb9-0cae-4b7b-b40c-d8fdc3d0a791_link"
+				},
+				"type": {
+					"type": "object"
+				}
+			}
+		}
+	},
+	"externalDocs": {
+		"description": "",
+		"url": ""
+	}
+}

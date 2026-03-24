@@ -1,0 +1,84 @@
+{% extends 'snippets/search_form.html' %}
+  {% block search_input %}
+  <h2>{{ _("Search") }}</h2>
+  <div class="search-input control-group {{ search_class }}">
+    <button class="btn-searcher" type="submit" aria-labelledby="search-label">
+    </button>
+    <input id="search_bar" type="text" class="search" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}" title="{{ placeholder }}">
+    <script>
+      window.onload = function search_bar_length() {
+          if (window.jQuery) {
+              $('#search_bar').on("keyup", function (e) {
+                  console.log(this.e.value.length);
+              });
+          }
+      }
+    </script>
+    {% block search_title %}
+    {% endblock %}
+    {% block search_input_button %}
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      
+      {% if (count >= 1 and count <= h.dge_get_limit_to_download()) and dataset_type == 'dataset' %}
+
+        <div  id="download-placeholder">
+          <a id="a-download-csv" style="display: none"></a>
+          {% set download_link=h.dge_generate_download_link(h.url_for('package.download_csv'), request.args)%}
+          <button id="download-csv" type="button" title= "Descarga el resultado de la búsqueda en CSV" alt="Descarga el resultado de la búsqueda en CSV">
+            <i class="fa fa-arrow-circle-o-down"></i>
+            <span>{{ _('Download') }}</span>
+          </button>
+
+          <script>
+            const RESPONSE_PARAM = 'g-recaptcha-response';
+            const url = "{{download_link}}".replace(/&amp;/g, "&");
+
+            window.onload = function() {
+              if (window.jQuery) {
+                $('#download-csv').click(function (e) {
+                  e.preventDefault();
+                  $('#recaptcha-container').attr({
+                    style: "display: block; position: absolute; margin: 10px;"
+                  });
+                });
+              }
+            };
+            function onSubmit(token) {
+              $('#a-download-csv').attr({
+                target: '_blank',
+                href  : url + '&' + RESPONSE_PARAM + '=' + encodeURIComponent(token)
+              })[0].click();
+
+              grecaptcha.reset();
+              $('#recaptcha-container').attr({
+                style: "display: none;"
+              });
+            };
+          </script>
+          <div id="recaptcha-container" style="display:none">
+            {% set recaptcha_public_key = h.dge_get_recaptcha_public_key() %}
+            <div 
+              class="g-recaptcha" 
+              data-callback="onSubmit" 
+              data-sitekey="{{recaptcha_public_key}}">
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endblock %}
+  </div>
+  {% endblock %}
+
+  {% block search_search_fields %}
+    {% set fields = h.dge_get_selected_fields(['q', 'page'])  %}
+    {% if fields -%}
+      <span>{{ form.hidden_from_list(fields=fields) }}</span>
+    {%- endif %}
+  {% endblock %}
+
+  {% block search_sortby %}
+  
+  {% endblock %}
+  {% block search_facets %}
+    
+  {% endblock %}

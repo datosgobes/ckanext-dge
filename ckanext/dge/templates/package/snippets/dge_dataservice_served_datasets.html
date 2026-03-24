@@ -1,0 +1,123 @@
+<section id="dataservice-served-datasets" class="resources" style="display: none;">
+  <div class="additional-info__content flex-display w--100 flex-column relative">
+    {% block dataservice_served_datasets %}
+      {% if pkg_dict %}
+        {% if dataservice_pkgs %}
+          <div id="served-datasets-list" class="accordion-container resource-list">
+            {% for package in dataservice_pkgs %}
+              <div class="container-style served-dataset-item">
+                <div class="flex-display flex-center flex-gap-05">
+                  <div class="flex-display flex-center decoration-img-xs">
+                    <img src="{{ h.url_for_static('/images/SVG/standard-dataset.svg') }}"
+                      aria-hidden="true" alt="">
+                  </div>
+                  <div>
+                    {% set title = package.title %}
+                    {{ h.link_to(title, h.url_for('package.dataset_read', id=package.name)) }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endblock %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const itemsPerPage = 6;
+    const containers = document.querySelectorAll(".resource-list");
+
+    containers.forEach((container) => {
+
+      const items = Array.from(container.querySelectorAll(".served-dataset-item"));
+
+      const totalPages = Math.ceil(items.length / itemsPerPage);
+      let currentPage = 1;
+
+      function showPage(page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        items.forEach((item, index) => {
+          item.style.display = index >= start && index < end ? "block" : "none";
+        });
+      }
+
+      function createPagination() {
+        if (totalPages <= 1) return;
+        const paginationWrapper = document.createElement("div");
+        paginationWrapper.className = "pagination-wrapper";
+
+        const paginationList = document.createElement("ul");
+        paginationList.className = "pagination";
+
+        const prevItem = document.createElement("li");
+        const prevLink = document.createElement("a");
+        prevLink.href = "#";
+        prevLink.textContent = "«";
+        prevLink.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+            updateActiveButton();
+          }
+        });
+        prevItem.appendChild(prevLink);
+        paginationList.appendChild(prevItem);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const listItem = document.createElement("li");
+          if (i === currentPage) listItem.classList.add("active");
+
+          const link = document.createElement("a");
+          link.href = "#";
+          link.textContent = i;
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            currentPage = i;
+            showPage(currentPage);
+            updateActiveButton();
+          });
+
+          listItem.appendChild(link);
+          paginationList.appendChild(listItem);
+        }
+
+        const nextItem = document.createElement("li");
+        const nextLink = document.createElement("a");
+        nextLink.href = "#";
+        nextLink.textContent = "»";
+        nextLink.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+            updateActiveButton();
+          }
+        });
+        nextItem.appendChild(nextLink);
+        paginationList.appendChild(nextItem);
+
+        paginationWrapper.appendChild(paginationList);
+        container.appendChild(paginationWrapper);
+        updateActiveButton();
+      }
+
+      function updateActiveButton() {
+        const links = container.querySelectorAll(".pagination li");
+        links.forEach((link) => link.classList.remove("active"));
+        links[currentPage].classList.add("active");
+      }
+
+      showPage(currentPage);
+      createPagination();
+    });
+
+  });
+
+
+</script>

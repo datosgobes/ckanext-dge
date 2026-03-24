@@ -1,0 +1,55 @@
+{% set organization_name = 'organization-name_translated' %}
+{% set fn_translated = 'fn_translated' %}
+{% set has_email = 'has_email' %}
+{% set has_uid = 'has_uid' %}
+{% set has_telephone = 'has_telephone' %}
+{% set has_url = 'has_url' %}
+{% set subfields = h.dge_field_display_subfields(field.field_name, schema.dataset_fields) %}
+{% set contact_points = data[field.field_name] %}
+{% for contact_point in contact_points %}
+   <div class="contact_point container-cols container-cols-3 bt-nth2">
+      {% if contact_point[organization_name] %}
+      <ul>
+         <li>{{ h.scheming_language_text(subfields[organization_name].label) }}</li>
+         <li>{{ h.scheming_language_text(contact_point[organization_name]) }}</li>
+      </ul>
+   {% endif %}
+   {% if contact_point.fn_translated %}
+      <ul>
+         <li>{{ h.scheming_language_text(subfields[fn_translated].label)}}</li>
+         <li>{{ h.scheming_language_text(contact_point.fn_translated) }}</li>
+      </ul>
+   {% endif %}
+   {% if contact_point.has_email %}
+      <ul>
+         <li>{{ h.scheming_language_text(subfields[has_email].label) }}</li>
+         {% for email in contact_point.has_email %}
+            <li><a href="{{ email }}">{{h.dge_get_email_from_iri(email) }}</a></li>
+         {% endfor %}
+         
+      </ul>
+   {% endif %}
+   {% if contact_point.has_uid %}
+      <ul>
+         <li>{{ h.scheming_language_text(subfields[has_uid].label) }}</li>
+         <li><a href="{{ contact_point.has_uid }}" target="_blank">{{contact_point.has_uid}}</a></li>
+      </ul>
+   {% endif %}
+   {% if contact_point.has_telephone %}
+      <ul>
+         <li>{{ h.scheming_language_text(subfields[has_telephone].label) }}</li>
+         {% for phone in contact_point.has_telephone %}
+            <li>{{h.dge_get_telephone_from_iri(phone)}}</li>
+         {% endfor %}
+      </ul>
+   {% endif %}
+   {% if contact_point.has_url %}
+      <ul>
+         <li>{{ h.scheming_language_text(subfields[has_url].label) }}</li>
+         {% for url in contact_point.has_url %}
+            <li><a href="{{ url }}" target="_blank">{{url}}</a></li>
+         {% endfor %}
+      </ul>
+   {% endif %}
+   </div>
+{% endfor %}

@@ -1,0 +1,275 @@
+{% ckan_extends %}
+
+{% set current_lang = request.environ.CKAN_LANG %}
+{% set search_query = request.args.get('q') %}
+{% set facet_search = 'facet_search' in request.args.keys() %}
+{% set is_search_content = 'sections_catalog' in request.args.keys() %}
+{% set rdf_file, csv_file, atom_file = h.dge_exported_catalog_files() %}
+{% set authorized_user = h.check_access('package_create') %}
+
+{% if (search_query) %}
+  {% set dge_count_by_type_content_by_search = h.dge_count_by_type_content_by_search(current_lang,search_query) %}
+{% endif %}
+
+{% block seo_structured_data %}
+  {% set name = _('Datasets') %}
+  {% set url = h.url_for('package.search', qualified = True) %}
+  {% if dataset_type == 'dataservice' %}
+    {% set name = _('Dataservices') %}
+    {% set url = h.url_for('dgeDataservice.search', qualified = True) %}
+  {% endif %}
+  <script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement":
+    [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item":
+          {
+            "@id": "{{ g.site_url }}",
+            "name": "{{ _('Home') }}"
+          }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item":
+          {
+            "@id": "{{ h.url_for('package.catalogo_redirect_search', qualified=True) }}",
+            "name": "{{ _('Data Catalog') }}"
+          }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item":
+          {
+            "@id": "{{ url }}",
+            "name": "{{ name }}"
+          }
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+{% block subtitle %}{{ _('Data Catalog') }}{% endblock %}
+{% block page_primary_action %}
+{% endblock %}
+{% block breadcrumb_content %}
+
+  {% if (search_query and not facet_search and not is_search_content ) %}
+    <li>{{ _('Search')}}</li>
+  {%else %}
+    <li>{{ h.nav_link(_('Data Catalog'), named_route='package.catalogo_redirect_search', highlight_actions = 'new index') }}</li>
+    <li>{{ _(dataset_type.title() + 's') }}</li>
+  {% endif %}
+{% endblock %}
+{% block page_title_content %}
+  {% if (search_query and not facet_search and not is_search_content ) %}
+    {{ _('Search')}}
+  {%else %}
+    {{ _('Data Catalog') }}
+  {% endif %}
+{% endblock %}
+{% block catalog_request %}
+{% if search_query and not facet_search and not is_search_content %}
+  <p class="{% if authorized_user %} section-admin-desc pr-0  {% else %} pr-0{% endif %}">
+    {{ _('The results obtained based on the search terms entered are shown below, grouped by each section of the website where they are published.') }}
+  </p>
+{% endif %}
+
+
+  {% block page_primary_action_dataset %}
+    {% if h.check_access('package_create') %}
+      <div class="page_primary_action">
+        {{ h.snippet ('snippets/dge_add_dataset.html', dataset_type=dataset_type) }}
+      </div>
+    {% endif %}
+  {% endblock %}
+{% endblock %}
+{% block catalog_downloads %}
+  {% if (not  search_query or facet_search or is_search_content ) %}
+    {% snippet 'snippets/dge_catalog_downloads.html', rdf_file=rdf_file, csv_file=csv_file %}
+  {% endif %}
+ 
+{% endblock %}
+{% block catalog_description %}
+<div class="section-desc">
+  {% if (not  search_query or facet_search or is_search_content ) %}
+    <p>{{ _('Discover the content to carry out the digital transformation of your business.') }}</p>
+  {% endif %}
+  
+</div>
+{% endblock %}
+{% block catalog_filters_mobile %}
+<div>
+  <a href="#" class="button-arrow-filter-mobile button-arrow mb-4">{{ _('Filter Results') }}</a>
+</div>
+{% endblock %}
+{% block catalog_links %}
+
+<div class="contextual">
+  <div class="tabs-container mt-10">
+    <ul class="tabs">
+
+      {% set query_string = '?q=' ~ search_query if (search_query and not facet_search) else '' %}
+
+      {% if search_query and  is_search_content %}
+        {% set query_string = query_string ~ '&sections_catalog='  %}
+      {% endif %}
+
+      {% set dataset_count = h.dge_get_search_package_count('dataset',search_query) if dataset_type == 'dataservice' else c.page.item_count %}
+      {% if dataset_count > 0 %}
+        <li {% if dataset_type == 'dataset' %}class="active"{% endif %}>
+          <a href="{{ h.url_for('package.search') ~ ('?' + request.query_string.decode('utf-8') if request.query_string and dataset_type == 'dataservice' else '') }}">
+            {{ _('Datasets') }} ({{ '{:,.0f}'.format(dataset_count | int).replace(',', '.') }})
+          </a>
+        </li>
+      {% elif is_search_content or facet_search or (request.query_string and not search_query) %}
+        <li class="tab-no-result" {% if dataset_type == 'dataservice' %} {% endif %}>
+          <span>
+            {{ _('Datasets') }} ({{ '{:,.0f}'.format(dataset_count | int).replace(',', '.') }})
+          </span>
+        </li>
+      {% endif %}
+      {% set dataservice_count = h.dge_get_search_package_count('dataservice',search_query) if dataset_type == 'dataset' else c.page.item_count %}
+      {% if dataservice_count > 0 %}
+        <li {% if dataset_type == 'dataservice' %}class="active"{% endif %}>
+          <a href="{{ h.url_for('dgeDataservice.search') ~ ('?' + request.query_string.decode('utf-8') if request.query_string and dataset_type == 'dataset' else '') }}">
+            {{ _('Dataservices') }} ({{ '{:,.0f}'.format(dataservice_count | int).replace(',', '.') }})
+          </a>
+        </li>
+      {% elif is_search_content or facet_search or (request.query_string and not search_query) %}
+        <li class="tab-no-result" {% if dataset_type == 'dataset' %} {% endif %}>
+          <span>
+            {{ _('Dataservices') }} ({{ '{:,.0f}'.format(dataservice_count | int).replace(',', '.') }})
+          </span>
+        </li>
+      {% endif %}
+            
+      {% if search_query and ( not is_search_content) and not facet_search %}
+        {{ dge_count_by_type_content_by_search | safe }}
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}
+{% block tabs_filters %}
+{% endblock %}
+{% block form %}
+  {% set facets = {
+    'fields': c.fields_grouped,
+    'search': c.search_facets,
+    'titles': c.facet_titles,
+    'translated_fields': c.translated_fields,
+    'remove_field': c.remove_field }
+  %}
+  {% set sorting = [
+    (_('Relevance'), 'score desc, metadata_created desc'),
+    (_('Modified Descending'), 'metadata_modified desc'),
+    (_('Modified Ascending'), 'metadata_modified asc'),
+    (_('Published Descending'), 'metadata_created desc'),
+    (_('Published Ascending'), 'metadata_created asc'),
+    (_('Name'), 'title_string_sort asc')
+    ]
+  %}
+  {% snippet 'snippets/dge_search_form_catalog.html', form_id=(dataset_type + '-search-form'), type=dataset_type, query=c.q, sorting=sorting,
+    sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.params, error=c.query_error,
+    fields=h.dge_add_additional_facet_fields(c.fields, c.facet_titles), dataset_type=dataset_type, is_search_content=is_search_content,
+    facet_search=facet_search %}
+  <div class="feed-icons">
+    {% block search_download %}
+      {% if (c.page.item_count >= 1 and c.page.item_count <= h.dge_get_limit_to_download()) and dataset_type in ('dataset', 'dataservice') %}
+      {% set controller = 'package' if dataset_type == 'dataset' else 'dgeDataservice' %}
+        <div id="download-placeholder">
+          <a href="{{ h.dge_generate_download_link(h.url_for(controller ~'.download_csv'), request.args) }}" title="{{ _('Download search results in CSV format') }}">
+            {{ _('Download') }}<img class="download-icon" src="{{ h.url_for_static('/images/download-icon.svg') }}" aria-hidden="true" alt="{{_('Download')}}">
+          </a>
+        </div>
+        <div class="separator separator--vertical"></div>
+      {% endif %}
+    {% endblock %}
+
+    <a href="{{ atom_file }}" target="_blank" title="{{ _('ATOM Data Catalog') }}. {{ _('Opens a new window') }}" class="feed-button flex-justify-right">
+      <span class="operation-item" title="Suscribirse a">
+        {{ _('Subscribe to the data catalog') }}
+        <img src="{{ h.url_for_static('/themes/custom/dge_theme/images/icons/feed.svg') }}" alt="{{ _('ATOM Data Catalog') }}. {{ _('Opens a new window') }}">
+        
+      </span>
+    </a>
+  </div>
+{% endblock %}
+
+
+{% block package_search_results_list %}
+  {{ h.snippet('snippets/dge_package_list.html', packages=c.page.items) }}
+{% endblock %}
+
+{% block package_search_results_api %}{% endblock %}
+
+{% block secondary_content %}
+<aside class="secondary span3">
+
+  <div class="flex-display flex-row flex-justify-between flex-baseline flex-gap-05">
+
+    <div class="flex-display">
+      <label class="large mb-7">{{_('Filter by')}}
+        <img src="{{ h.url_for_static('/images/filter.svg') }}" class="filter-icon" alt="Filtros">
+      </label>
+    </div>
+
+    
+    <div class="flex-display flex-gap-2 flex-center align-right">
+      
+      
+      {% if facet_search or is_search_content or (c.fields_grouped|length > 0 or search_query) and not (facet_search or is_search_content) %}
+        {% set controller = 'package' if dataset_type == 'dataset' else 'dgeDataservice' %}
+        {% set q = "" %}
+        {% if (c.fields_grouped|length > 0 or search_query) and not (facet_search or is_search_content)  %}
+          {% set q = "?q="+search_query if search_query else "" %}
+        {% endif %} 
+      <div class="badge-clear-all">
+        <div class="link link--primary">
+          <div class="field__item">
+              <a href="{{ h.url_for(controller ~'.search') }}{{q}}">{{_('Delete filters')}}
+              <span class="remove-filter">
+                <img src="/images/trash-can.svg" alt="remove icon">
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    {% endif %}
+      <div class="flex-display filter-container__close">
+        <a href="" class="close-filters">
+          <img src="/images/close.svg" alt="{{_('Close icon')}}">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div>
+      {{ h.snippet('snippets/dge_facet_search_operator.html', title= _('Search configuration')) }}
+      {% for facet in c.facet_titles %}
+        {% if facet == 'is_hvd' and c.search_facets[facet]['items']|length > 0 %}
+          {{ h.snippet('snippets/dge_facet_is_hvd.html', title=c.facet_titles[facet], name=facet, show_sort_facet=false) }}
+        {% endif %}
+      {% endfor %}
+      {{ h.snippet('snippets/dge_filters_search.html', form_id='dataset-filters-search-form', type='dataset', query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.params, error=c.query_error, fields=h.dge_add_additional_facet_fields(c.fields, c.facet_titles), dataset_type=dataset_type, facet_titles=c.facet_titles) }}
+      {% for facet in c.facet_titles %}
+        {% if facet != 'is_hvd' and c.search_facets[facet]['items']|length > 0 %}
+          {{ h.snippet('snippets/dge_facet_list.html', title=c.facet_titles[facet],
+              name=facet, show_sort_facet=false, facets_fields=c.fields_grouped,
+              facets_search=c.search_facets, facets_translated=c.translated_fields) }}
+        {% endif %}
+      {% endfor %}
+    </div>
+    <a class="close no-text hide-filters"><i class="icon-remove-sign"></i><span class="text">close</span></a>
+  </div>
+</aside>
+{% endblock %}

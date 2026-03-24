@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 29 36.5">
+  <!-- Generator: Adobe Illustrator 29.3.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 146)  -->
+  <defs>
+    <style>
+      .st0 {
+        isolation: isolate;
+      }
+
+      .st1 {
+        fill: #ffc107;
+      }
+
+      .st2 {
+        fill: #fff;
+      }
+
+      .st3 {
+        fill: #ffc132;
+      }
+
+      .st4 {
+        fill: #ffd54f;
+      }
+    </style>
+  </defs>
+  <g id="Grupo_1837">
+    <g id="dataset-hdv">
+      <path id="Trazado_4437" class="st1" d="M14,24c-1.2,0-12,0-12-3v-7h24v7c0,2.9-10.8,3-12,3Z"/>
+      <path id="Trazado_4438" class="st4" d="M14,18c-1.2,0-12,0-12-3v-7h24v7c0,2.9-10.8,3-12,3Z"/>
+      <path id="Trazado_4439" class="st1" d="M14,12c-1.2,0-12,0-12-3V3h24v6c0,2.9-10.8,3-12,3Z"/>
+      <path id="Trazado_4440" class="st4" d="M14,6c-1.2,0-12,0-12-3S12.8,0,14,0s12,0,12,3-10.8,3-12,3Z"/>
+      <g id="Grupo_1836">
+        <circle id="Elipse_153" class="st2" cx="6.5" cy="8.5" r="1.5"/>
+        <circle id="Elipse_154" class="st2" cx="6.5" cy="14.5" r="1.5"/>
+        <circle id="Elipse_155" class="st2" cx="6.5" cy="20.5" r="1.5"/>
+      </g>
+    </g>
+  </g>
+  <g id="HVD" class="st0">
+    <g class="st0">
+      <path class="st3" d="M8.7,28.1v8.4h-1.6v-3.6H2.8v3.6h-1.6v-8.4h1.6v3.5h4.3v-3.5h1.6Z"/>
+      <path class="st3" d="M18.6,28.1l-3.7,8.4h-1.5l-3.7-8.4h1.7l2.8,6.5,2.8-6.5h1.6Z"/>
+      <path class="st3" d="M19.5,28.1h3.7c2.7,0,4.6,1.7,4.6,4.2s-1.9,4.2-4.6,4.2h-3.7v-8.4ZM23.1,35.2c1.9,0,3.1-1.1,3.1-2.9s-1.2-2.9-3.1-2.9h-2v5.8h2Z"/>
+    </g>
+  </g>
+</svg>
