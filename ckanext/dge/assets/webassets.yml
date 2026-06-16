@@ -22,11 +22,76 @@ dge-main-css:
     - css/dge-footer.css
     - css/dge-buttons.css
     - css/dge-form-elements.css
+    - css/dge-multiple-identifier.css
+    - css/dge-multiple-select-spatial.css
+    - css/dge-multilanguage-fields.css
+    - css/dge-help-popover.css
+    - css/dge-visibility-select.css
+    - css/dge-date-period.css
+    - css/dge-uri-text-deprecated.css
+    - css/dge-userInfo.css
+    - css/dge-base-cookies.css
 
 dge-header:
   output: ckanext-dge/%(version)s-dge-header.css
   contents:
     - css/dge-header.css
+  extra:
+    preload:
+      - base/main
+
+dge-multilanguage-fields-css:
+  output: ckanext-dge/%(version)s-dge-multilanguage-fields.css
+  contents:
+    - css/dge-multilanguage-fields.css
+  extra:
+    preload:
+      - base/main
+
+dge-help-popover-css:
+  output: ckanext-dge/%(version)s-dge-help-popover.css
+  contents:
+    - css/dge-help-popover.css
+  extra:
+    preload:
+      - base/main
+
+dge-uri-text-deprecated-css:
+  output: ckanext-dge/%(version)s-dge-uri-text-deprecated.css
+  contents:
+    - css/dge-uri-text-deprecated.css
+  extra:
+    preload:
+      - base/main
+
+dge-multiple-identifier-css:
+  output: ckanext-dge/%(version)s-dge-multiple-identifier.css
+  contents:
+    - css/dge-multiple-identifier.css
+  extra:
+    preload:
+      - base/main
+
+dge-multiple-select-spatial-css:
+  output: ckanext-dge/%(version)s-dge-multiple-select-spatial.css
+  contents:
+    - css/dge-multiple-select-spatial.css
+  extra:
+    preload:
+      - base/main
+
+dge-visibility-select-css:
+  output: ckanext-dge/%(version)s-dge-visibility-select.css
+  contents:
+    - css/dge-visibility-select.css
+  extra:
+    preload:
+      - base/main
+
+dge-date-period-css:
+  output: ckanext-dge/%(version)s-dge-date-period.css
+  contents:
+    - css/dge-date-period.css
   extra:
     preload:
       - base/main
@@ -75,6 +140,14 @@ dge-base-css:
   output: ckanext-dge/%(version)s-dge-base.css
   contents:
     - css/dge-base.css
+  extra:
+    preload:
+      - base/main
+
+dge-base-cookies-css:
+  output: ckanext-dge/%(version)s-dge-base.css
+  contents:
+    - css/dge-base-cookies.css
   extra:
     preload:
       - base/main
@@ -179,6 +252,22 @@ dge-form-elements-css:
   output: ckanext-dge/%(version)s-dge-form-elements.css
   contents:
     - css/dge-form-elements.css
+  extra:
+    preload:
+      - base/main
+
+dge-dataset-form-css:
+  output: ckanext-dge/%(version)s-dge-dataset-form.css
+  contents:
+    - css/dge-dataset-form.css
+  extra:
+    preload:
+      - base/main
+
+dge-userInfo:
+  output: ckanext-dge/%(version)s-dge-userInfo.css
+  contents:
+    - css/dge-userInfo.css
   extra:
     preload:
       - base/main
@@ -375,6 +464,15 @@ dge-js:
     preload:
       - base/main
 
+dge-cookies-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-cookies.js
+  contents:
+    - js/dge-cookies.js
+  extra:
+    preload:
+      - base/main
+
 dge-jquery-bxslider-js:
   filter: rjsmin
   output: ckanext-dge/%(version)s-dge-jquery-bxslider.js
@@ -461,6 +559,87 @@ dge-clear-message-js:
   output: ckanext-dge/%(version)s-dge-clear-message.js
   contents:
     - js/dge-clear-message.js
+  extra:
+    preload:
+      - base/main
+
+dge-multilanguage-fields-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-multilanguage-fields.js
+  contents:
+    - js/dge-multilanguage-fields.js
+  extra:
+    preload:
+      - base/main
+
+dge-help-popover-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-help-popover.js
+  contents:
+    - js/dge-help-popover.js
+  extra:
+    preload:
+      - base/main
+
+dge-multiple-identifier-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-multiple-identifier.js
+  contents:
+    - js/dge-multiple-identifier.js
+  extra:
+    preload:
+      - base/main
+
+dge-multiple-select-spatial-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-multiple-select-spatial.js
+  contents:
+    - js/dge-multiple-select-spatial.js
+  extra:
+    preload:
+      - base/main
+
+dge-visibility-select-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-visibility-select.js
+  contents:
+    - js/dge-visibility-select.js
+  extra:
+    preload:
+      - base/main
+
+dge-date-period-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-date-period.js
+  contents:
+    - js/dge-date-period.js
+  extra:
+    preload:
+      - base/main
+
+dge-multiple-uri-text-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-multiple-uri-text.js
+  contents:
+    - js/dge-multiple-uri-text.js
+  extra:
+    preload:
+      - base/main
+
+dge-form-resources-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-form-resources.js
+  contents:
+    - js/dge-form-resources.js
+  extra:
+    preload:
+      - base/main
+
+dge-multilanguage-tags-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-multilanguage-tags.js
+  contents:
+    - js/dge-multilanguage-tags.js
   extra:
     preload:
       - base/main

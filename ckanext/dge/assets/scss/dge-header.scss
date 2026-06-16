@@ -21,7 +21,13 @@
 .site-navigation {
   border-bottom: 1px solid var(--primary-700);
 }
-
+.menu-arrow-user {
+  align-content: center;
+  img {
+    width: 0.75rem !important;
+    height: auto !important;
+  }
+}
 .site-header {
   .site-wrapper {
     .site-header__options {
@@ -73,34 +79,30 @@
         .user-login {
           cursor: pointer;
           display: block;
-          background: url(/images/user-profile.svg) no-repeat 0 0;
-          margin: 0;
+
           padding: 0;
           font-size: 0px;
-          background-size: contain;
+
           width: 26.84px;
           height: 30px;
           margin-bottom: 4px;
-          background-position: center;
+          background: url(/images/user-profile.svg) no-repeat 0 0;
         }
 
         /* User name - navigation */
-        #block-dge-basic-dge-basic-user-info-block{
-          .content{
+        #block-dge-basic-dge-basic-user-info-block {
+          .content {
             display: flex;
-            a{
+            a {
               display: flex;
-              .user-name-info{
-                cursor: pointer;
-                margin: 0;
-                padding: 0;
-                background: url(/images/user-profile.svg) no-repeat 0px 0px;
-                font-size: 0px;
-                background-size: contain;
-                width: 26.84px;
-                height: 30px;
-                margin-bottom: 4px;
-                background-position: center;
+              text-decoration: none;
+
+              &::after {
+                width: 12.73px;
+                height: 7.55px;
+                transform: none !important;
+                background: url(/images/white-arrow.svg) no-repeat 0 0;
+                margin-left: 0.8rem;
               }
             }
           }
@@ -437,6 +439,7 @@
               transition: 0.3s;
               width: calc(100% - 5rem);
               margin-left: auto;
+              box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
               &:hover {
                 border: 1px solid var(--primary-500);
                 transition: 0.3s;
@@ -907,7 +910,7 @@
   }
 
   .nav-burger-menu {
-    &.open-burger-menu+.menu-navigator-nav {
+    &.open-burger-menu + .menu-navigator-nav {
       .block-menu-block {
         z-index: 1025;
         display: block !important;
@@ -1024,8 +1027,8 @@
                   text-transform: none;
 
                   &.is-active {
-                    text-decoration: underline;
                     color: var(--primary-700);
+                    text-decoration: underline;
                   }
                 }
               }
@@ -1036,18 +1039,25 @@
             display: block;
             position: relative;
             padding: 1rem;
-            ul{
-              li{
-                a{
-
+            ul {
+              li {
+                a {
                 }
               }
             }
             .btn-primary {
               margin: 0 auto;
               min-width: unset;
-              color: var(--white);
-              padding: .625rem;
+              color: var(--secondary-700) !important;
+              padding: 0.625rem;
+              background-color: transparent;
+            }
+            .btn-login {
+              margin: 0 auto;
+              min-width: unset;
+              color: var(--white) !important;
+              padding: 0.625rem;
+              background-color: var(--primary-500);
             }
           }
         }
@@ -1104,10 +1114,24 @@
       }
     }
 
+    ul li.user-user-info {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu-mobile-separator {
+      width: 100%;
+      border-top: 1px solid var(--primary-500);
+    }
+
     .btn-primary {
       margin: 0 auto !important;
       min-width: unset;
-      color: var(--white) !important;
+      color: var(--secondary-700) !important;
     }
   }
 }
@@ -1146,6 +1170,15 @@
           }
         }
       }
+    }
+  }
+}
+
+.language-switcher-language-url {
+  li.is-active {
+    //border-bottom: 2px solid var(--primary-700);
+    a {
+      text-decoration: underline;
     }
   }
 }

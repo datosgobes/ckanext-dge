@@ -1,36 +1,45 @@
 {% import 'macros/form.html' as form %}
 
-<style>
-  fieldset.checkboxes label {
-    font-weight: normal;
-    display: block;
-  }
-
-  fieldset.checkboxes label:after {
-    content: none;
-  }
-
-  fieldset.checkboxes label input {
-    width: auto;
-    top: 0;
-  }
-</style>
+{% macro help_text() %}
+  {%- snippet 'scheming/form_snippets/dge_help_popover.html', field=field %}
+  {%- snippet 'scheming/form_snippets/help_text.html', field=field -%}
+{% endmacro %}
 
 {%- call form.input_block(
-label=h.scheming_language_text(field.label),
-classes=field.classes if 'classes' in field else ['control-medium'],
-error=errors[field.field_name],
-is_required=h.scheming_field_required(field)) -%}
-{%- set choices = h.dge_get_nti_field_choices('language') -%}
+    "field-" + field.field_name,
+    label=h.scheming_language_text(field.label),
+    classes=field.classes if 'classes' in field else ['control-full'],
+    error=errors[field.field_name],
+    is_required=h.scheming_field_required(field),
+    extra_html=help_text()
+    ) -%}
 
-<fieldset class="checkboxes">
-  {%- for choice in choices -%}
-  <label for="field-{{ field.field_name }}-{{ choice.value }}">
-    <input id="field-{{ field.field_name }}-{{ choice.value }}" type="checkbox"
-      name="{{ field.field_name }}" value="{{ choice.value }}" {{"checked " if choice.value in data[field.field_name] }} />
-                {{ h.scheming_language_text(choice.label) }}
-            </label>
-        {%- endfor -%}
-    </fieldset>
-    {%- snippet 'scheming/form_snippets/help_text.html', field=field -%}
+  {%- set choices = [] -%}
+  {%- for c in h.dge_get_nti_field_choices('language') -%}
+    {%- do choices.append(
+      (c.value, h.scheming_language_text(c.label))) -%}
+  {%- endfor -%}
+  {%- set selected_choices = [] -%}
+
+  {%- if data[field.field_name] is string -%}
+      {%- do selected_choices.append(data[field.field_name]) -%}
+  {%- else -%}
+    {%- for v in data[field.field_name] -%}
+        {%- do selected_choices.append(v) -%}
+    {%- endfor -%}
+  {%- endif -%}
+  <select multiple
+      size="{{ ([field.get('select_size', 1), choices|length]|sort)[0] }}"
+      id="field-{{ field.field_name }}"
+      name="{{ field.field_name }}"
+      {{ form.attributes(dict(
+        {"class": "form-control"}, **field.get('form_select_attrs', {}))) }}>
+
+    {%- for val, label in choices -%}
+      <option id="field-{{ field.field_name }}-{{ val }}" value="{{ val }}"
+        {{"selected " if val in selected_choices }} />
+              {{ label }}
+      </option>
+    {%- endfor -%}
+  </select>
 {%- endcall -%}

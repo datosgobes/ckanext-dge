@@ -224,6 +224,9 @@
 .responsive-md-show {
   display: none !important; }
 
+.container-style-gray {
+  background-color: var(--light-gray); }
+
 @media screen and (max-width: 48rem) {
   .responsive-md-flex-column {
     flex-direction: column; }

@@ -24,26 +24,38 @@ from jinja2 import Environment, FileSystemLoader
 
 class EmailSender:
     def __init__(self, config):
-        if config.has_option('app:main', 'smtp.server'):
-            smtp_config = config.get('app:main', 'smtp.server')
+        self.smtp_enabled = False
+        smtp_config = config.get('app:main', 'smtp.server', fallback=None)
+        if smtp_config:
             self.host, self.port = smtp_config.split(':', 1) if ':' in smtp_config else (smtp_config, 25)
             self.port = int(self.port)
-            self.starttls = eval(config.get('app:main', 'smtp.starttls'))
-            self.username, self.password = None, None
-            self.path = config.get('app:main', 'ckanext.dge.template.path_emails')
-            self.url = config.get('app:main', 'ckanext.comments.url.images.drupal')
-            self.url_logos = config.get('app:main', 'ckanext.comments.url.image.logos')
-            self.url_image_subscribe = config.get('app:main', 'ckanext.comments.url.image.subscribe')
-            self.url_subscribe = config.get('app:main', 'ckanext.comments.url.subscribe')
-            if config.has_option('app:main', 'smtp.user') and config.has_option('app:main', 'smtp.password'):
-                self.username = config.get('app:main', 'smtp.user')
-                self.password = config.get('app:main', 'smtp.password')
-            if config.has_option('app:main', 'smtp.mail_from') and config.has_option('app:main', 'smtp.purge_to'):
-                self.from_addr = config.get('app:main', 'smtp.mail_from')
-                self.to = config.get('app:main', 'smtp.purge_to')
+            self.starttls = config.getboolean('app:main', 'smtp.starttls', fallback=None)
+            self.username = config.get('app:main', 'smtp.user', fallback=None)
+            self.password = config.get('app:main', 'smtp.password', fallback=None)
+            self.path = config.get('app:main', 'ckanext.dge.template.path_emails', fallback=None)
+            self.url = config.get('app:main', 'ckanext.comments.url.images.drupal', fallback=None)
+            self.url_logos = config.get('app:main', 'ckanext.comments.url.image.logos', fallback=None)
+            self.url_image_subscribe = config.get('app:main', 'ckanext.comments.url.image.subscribe', fallback=None)
+            self.url_subscribe = config.get('app:main', 'ckanext.comments.url.subscribe', fallback=None)
+            self.from_addr = config.get('app:main', 'smtp.mail_from', fallback=None)
+            self.to = config.get('app:main', 'smtp.purge_to', fallback=None)
+            required_values = [
+                self.host,
+                self.port,
+                self.starttls,
+                self.path,
+                self.url,
+                self.url_logos,
+                self.url_image_subscribe,
+                self.url_subscribe,
+                self.from_addr,
+                self.to,
+            ]
+            if all(x not in (None, '') for x in required_values):
+                self.smtp_enabled = True            
 
     def __fill_common_headers(self, msg):
-        if hasattr(self, 'from_addr') and hasattr(self, 'to'):
+        if self.from_addr and self.to:
             msg['From'] = self.from_addr
             msg['To'] = self.to
 

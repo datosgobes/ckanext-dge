@@ -1,22 +1,20 @@
 {% import 'macros/form.html' as form %}
 
-{% macro help_text() %}
-  {%- snippet 'scheming/form_snippets/help_text.html', field=field -%}
-{% endmacro %}
+{% set popover %}{% snippet 'scheming/form_snippets/dge_help_popover.html', field=field %}{% endset %}
+{% set full_label = h.scheming_language_text(field.label) ~ popover %}
 
 {%- call form.input_block(
     "field-" + field.field_name,
-    label=h.scheming_language_text(field.label),
-    classes=field.classes if 'classes' in field else ['control-full'],
+    label=full_label,
+    classes=(field.classes if 'classes' in field else ['control-full']) + ['multiple-select-spatial'],
     error=errors[field.field_name],
     is_required=h.scheming_field_required(field),
-    extra_html=help_text()
+
     ) -%}
-  
+
   {%- set choices = [] -%}
   {%- for c in h.dge_get_nti_field_choices('spatial') -%}
-    {%- do choices.append(
-      (c.value, h.scheming_language_text(c.label))) -%}
+    {%- do choices.append((c.value, h.scheming_language_text(c.label))) -%}
   {%- endfor -%}
 
   {%- set selected_choices = [] -%}
@@ -32,20 +30,49 @@
     {%- endif -%}
   {%- endif -%}
 
-  <select multiple
+<div class="multi-select" data-component="multi-select">
+
+  <div class="multi-select__trigger">
+    <div class="multi-select__chips"></div>
+
+    <span class="multi-select__placeholder">
+      {{ _("Select...") }}
+    </span>
+
+    <span class="multi-select__arrow">
+      <span class="arrow-down"><img src="/images/blue-arrow.svg" alt=""></span>
+      <span class="arrow-up"><img src="/images/blue-arrow-up.svg" alt=""></span>
+    </span>
+  </div>
+
+  <ul class="multi-select__dropdown">
+    {%- for val, label in choices -%}
+      <li
+        class="multi-select__option {{ 'is-selected' if val in selected_choices }}"
+        data-value="{{ val }}">
+        {{ label }}
+      </li>
+    {%- endfor -%}
+  </ul>
+
+  <select
+      multiple
       size="{{ ([field.get('select_size', 10), choices|length]|sort)[0] }}"
-      style="display: block"
       id="field-{{ field.field_name }}"
       name="{{ field.field_name }}"
-      {{ form.attributes(dict(
-        {"class": "form-control"}, **field.get('form_select_attrs', {}))) }}>
+      class="multi-select__native"
+      {{ form.attributes(dict({"class": "form-control"}, **field.get('form_select_attrs', {}))) }}>
+
     {%- for val, label in choices -%}
-      <option id="field-{{ field.field_name }}-{{ val }}"
-          value="{{ val }}"
-          {{"selected " if val in selected_choices }} />
-        {{ label }}
+      <option
+        value="{{ val }}"
+        {{ "selected" if val in selected_choices }}>
+        {{ label }} 
       </option>
     {%- endfor -%}
-  </select>
-{%- endcall -%}
 
+  </select>
+
+</div>
+
+{%- endcall -%}

@@ -33,10 +33,6 @@ msgstr ""
 msgid "0 Datasets"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_facet_search_operator.html:66
-msgid "AND"
-msgstr ""
-
 #: ckanext/dge/templates/footer.html:59
 #: ckanext/dge/templates/header.html:162
 #: ckanext/dge/templates/header.html:164
@@ -194,6 +190,10 @@ msgstr ""
 msgid "Certificado de calidad UNE-ISO/IEC 27001:2014"
 msgstr ""
 
+#: ckanext/dge/templates/footer.html:221
+msgid "Compromiso con la IA responsable"
+msgstr ""
+
 #: ckanext/dge/templates/footer.html:255
 msgid "Certificado de conformidad con el Esquema Nacional de Seguridad"
 msgstr ""
@@ -252,7 +252,7 @@ msgid "Continuous"
 msgstr ""
 
 #: ckanext/dge/templates/footer.html:180
-msgid "Cookies policiy"
+msgid "Cookies policy"
 msgstr ""
 
 #: ckanext/dge/templates/package/edit_base.html:16
@@ -973,10 +973,6 @@ msgstr ""
 msgid "No errors for this job"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_facet_search_operator.html:59
-msgid "OR"
-msgstr ""
-
 #: ckanext/dge/templates/source/admin.html:15
 #: ckanext/dge/templates/source/job/list.html:9
 msgid "No jobs yet for this source"
@@ -1690,18 +1686,6 @@ msgstr ""
 msgid "MONTHLY"
 msgstr ""
 
-#: ckanext/dge/templates/snippets/dge_facet_search_operator.html:53
-msgid "Search type"
-msgstr ""
-
-#: ckanext/dge/templates/snippets/dge_facet_search_operator.html:59
-msgid "OR"
-msgstr ""
-
-#: ckanext/dge/templates/snippets/dge_facet_search_operator.html:63
-msgid "AND"
-msgstr ""
-
 #: ckanext/dge/templates/package/search.html:76
 msgid "Search configuration"
 msgstr ""
@@ -1962,4 +1946,76 @@ msgstr ""
 
 #: ckanext/ckanext-dge/ckanext/dge/templates/package/search.html:72
 msgid "The results obtained based on the search terms entered are shown below, grouped by each section of the website where they are published."
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:13
+msgid "This website portal only uses its own cookies for technical purposes, and does not collect or share personal data about users without their knowledge. However, it contains links to third-party websites with privacy policies separate from this site, which you can decide whether to accept or not when you access them."
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:29
+msgid "Cookie settings"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:34
+msgid "Deny all"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:39
+msgid "Accept all"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:79
+msgid "Funtional"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:85
+msgid "Cookies are small text files that are placed by your browser on your device in order to store certain information. Using the information that is stored and returned, a website can recognize that you have previously accessed and visited it using the browser on your end device. We use this information to arrange and display the website optimally in accordance with your preferences. Within this process, only the cookie itself is identified on your device. Personal data is only stored following your express consent or where this is absolutely necessary to enable use the service provided by us and accessed by you."
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:91
+msgid "Required functional"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:102
+msgid "Power BI reports"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:95
+msgid "Always active"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:109
+msgid "Optional"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:115
+msgid "These cookies allow you to activate optional functionalities that enrich your experience on the site. This includes viewing embedded media content (such as YouTube/Vimeo videos). By accepting them, you enable these components provided by third parties, which may collect data about your interaction for their operation and possible anonymous analysis."
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:122
+msgid "Analytics cookies"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:136
+msgid "Video provided by YouTube"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:150
+msgid "Video provided by Vimeo"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html:182
+msgid "Save"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/package/snippets/dge_export_links.html.:3
+msgid "Metadata"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html.:19
+msgid "Cookie documentation"
+msgstr ""
+
+#: ckanext/ckanext-dge/ckanext/dge/templates/snippets/dge_banner_cookies.html.:180
+msgid "Settings for all services"
 msgstr ""

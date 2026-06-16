@@ -246,7 +246,8 @@ DGE Detail: 1col 100%
 
 .social {
   width: fit-content;
-  float: right; }
+  float: right;
+  margin-top: 1em; }
   .social .section-title {
     margin: 0 !important;
     padding: 0 !important; }
@@ -636,6 +637,8 @@ div[data-module="comments-thread"]:has(.comments-thread) {
             resize: none;
             width: 100%;
             margin-bottom: 2rem; }
+    .dgecomment-panel .comment-form .control-label {
+      gap: 8px; }
     .dgecomment-panel .comment-form .comment-consent .checkbox,
     .dgecomment-panel .comment-form .comment-consent a {
       color: var(--dark-gray);

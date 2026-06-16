@@ -1,49 +1,49 @@
 {% import 'macros/form.html' as form %}
 
-{% macro help_text() %}
-  {%- snippet 'scheming/form_snippets/help_text.html', field=field -%}
-{% endmacro %}
+{# Choices originales del preset #}
+{%- set choices = [] -%}
+{%- for c in h.dge_get_nti_field_choices('theme') -%}
+  {%- do choices.append((c.value, h.scheming_language_text(c.label))) -%}
+{%- endfor -%}
 
-{%- call form.input_block(
-    "field-" + field.field_name,
-    label=h.scheming_language_text(field.label),
-    classes=field.classes if 'classes' in field else ['control-full'],
-    error=errors[field.field_name],
-    is_required=h.scheming_field_required(field),
-    extra_html=help_text()
-    ) -%}
-
-  {%- set choices = [] -%}
-  {%- for c in h.dge_get_nti_field_choices('theme') -%}
-    {%- do choices.append(
-      (c.value, h.scheming_language_text(c.label))) -%}
-  {%- endfor -%}
-  {%- set selected_choices = [] -%}
-  {%- if h.dge_is_list_of_items_field_value(data[field.field_name]) -%}
-    {%- for v in data[field.field_name] -%}
-        {%- if h.dge_is_datosgobes_theme_uri(v) -%}
-          {%- do selected_choices.append(v) -%}
-        {%- endif -%}
-    {%- endfor -%}
-  {%- else -%}
-    {%- if h.dge_is_datosgobes_theme_uri(data[field.field_name]) -%}
-      {%- do selected_choices.append(data[field.field_name]) -%}
+{# Valores seleccionados originales del preset #}
+{%- set selected_choices = [] -%}
+{%- if h.dge_is_list_of_items_field_value(data[field.field_name]) -%}
+  {%- for v in data[field.field_name] -%}
+    {%- if h.dge_is_datosgobes_theme_uri(v) -%}
+      {%- do selected_choices.append(v) -%}
     {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- if h.dge_is_datosgobes_theme_uri(data[field.field_name]) -%}
+    {%- do selected_choices.append(data[field.field_name]) -%}
   {%- endif -%}
-  <select multiple
-      size="{{ ([field.get('select_size', 10), choices|length]|sort)[0] }}"
-      style="display: block"
-      id="field-{{ field.field_name }}"
-      name="{{ field.field_name }}"
-      {{ form.attributes(dict(
-        {"class": "form-control"}, **field.get('form_select_attrs', {}))) }}>
+{%- endif -%}
 
-    {%- for val, label in choices -%}
-      <option id="field-{{ field.field_name }}-{{ val }}" value="{{ val }}"
-        {{"selected " if val in selected_choices }} />
-              {{ label }}
-      </option>
-    {%- endfor -%}
-  </select>
-{%- endcall -%}
+<div class="control-group {% if errors[field.field_name] %}error{% endif %}">
+  <label class="control-label" for="field-{{ field.field_name }}">
+    {{ h.scheming_language_text(field.label) }}
+    {% if h.scheming_field_required(field) %} *{% endif %}
+    {%- snippet 'scheming/form_snippets/dge_help_popover.html', field=field -%}
+  </label>
 
+  <div class="controls">
+    <select multiple
+        size="{{ ([field.get('select_size', 1), choices|length]|sort)[0] }}"
+        id="field-{{ field.field_name }}"
+        name="{{ field.field_name }}"
+        {{ form.attributes(dict(
+          {"class": "form-control"}, **field.get('form_select_attrs', {}))) }}>
+
+      {%- for val, label in choices -%}
+        <option id="field-{{ field.field_name }}-{{ val }}"
+                value="{{ val }}"
+                {% if val in selected_choices %}selected{% endif %}>
+          {{ label }}
+        </option>
+      {%- endfor -%}
+    </select>
+
+    {%- snippet 'scheming/form_snippets/help_text.html', field=field -%}
+  </div>
+</div>

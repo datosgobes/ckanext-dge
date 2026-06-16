@@ -12,7 +12,7 @@ Example:
     resources=pkg.resources, dataset_type=dataset_type, schema=schema %}
 
 #}
-<section id="dataset-resources" class="resources" style="display: block;">
+<section id="dataset-resources" class="resources resources-main resources-primary" style="display: block;">
   {% set sorted_pkg_resources = h.dge_sort_alphabetically_resources(pkg.resources, False) %}
   {% set sorted_pkg_samples = h.dge_sort_alphabetically_resources(pkg.resources, True) %}
   {% if pkg.served_by_dataservice %}

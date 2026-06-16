@@ -1,0 +1,113 @@
+/*
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.fluent-multilang-field {
+  .fluent-extra.is-hidden {
+    display: none;
+  }
+
+  .fluent-vertical {
+    .control-label {
+      float: none !important;
+      width: auto !important;
+      text-align: left !important;
+      display: block;
+      margin: 0 0 6px 0 !important;
+    }
+    .controls {
+      margin-left: 0 !important;
+      display: block !important;
+    }
+  }
+
+  .fluent-header-2col {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+  }
+  .fluent-header-left {
+    flex: 1 1 auto;
+  }
+  .fluent-header-right {
+    flex: 0 0 auto;
+    padding-bottom: 0px;
+  }
+
+  .fluent-add-row {
+    display: flex;
+    gap: 60px;
+    align-items: flex-end;
+
+    .fluent-col-name {
+      flex: 0 0 60%;
+    }
+    .fluent-col-lang {
+      flex: 0 0 20%;
+    }
+    .fluent-col-btn {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    label {
+      display: block;
+      float: none !important;
+      width: auto !important;
+      margin: 0 0 6px 0 !important;
+      text-align: left !important;
+    }
+
+    textarea,
+    input,
+    select {
+      width: 100%;
+    }
+  }
+
+  .fluent-actions {
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .fluent-header-2col {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .fluent-header-right {
+      padding-bottom: 0;
+    }
+
+    .fluent-add-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+
+      .fluent-col-name,
+      .fluent-col-lang,
+      .fluent-col-btn {
+        flex: 1 1 auto;
+      }
+
+      .fluent-col-btn {
+        justify-content: stretch;
+      }
+    }
+  }
+}

@@ -1,52 +1,71 @@
-{#
-Inserts a stepped progress indicator for the new package form. Each stage can
-have one of three states, "uncomplete", "complete" and "active".
+{# Inserts a stepped progress indicator for the new package form. Each stage can
+have one of three states, "uncomplete", "complete" and "active". stages - A list
+of states for each of the three stages. Missing stages default to "uncomplete".
+Example: {% snippet 'package/snippets/stages.html', stages=['active'] %} {%
+snippet 'package/snippets/stages.html', stages=['complete', 'active'] %} {%
+snippet 'package/snippets/stages.html', stages=['active', 'complete'] %} #} {%
+set s1 = stages[0] or 'active' %} {% set s2 = stages[1] or 'uncomplete' %} {% if
+s1 != 'uncomplete' %}{% set class = 'stage-1' %}{% endif %} {% if s2 !=
+'uncomplete' %}{% set class = 'stage-2' %}{% endif %}
 
-stages - A list of states for each of the three stages. Missing stages default
-         to "uncomplete".
+<div class="form-img-header">
+<div class="intro-text">
+    <p>
+    {{ _("If you wish to submit open datasets or services to the National Catalogue and the European Data Portal, please use the following form.") }}
+  </p>
+  <p>
+    {{ _("This manual cataloging process for datasets and services collects the minimum required metadata. To provide more detailed information, you will need to use the automatic federation process.") }}
+  </p>
+</div>
+  <img
+    class="pull-right header-img"
+    src="/images/PNG/illustration-section.png"
+    alt="{{ _('Create Datasource') }}"
+  />
+</div>
 
-Example:
-
-    {% snippet 'package/snippets/stages.html', stages=['active'] %}
-    {% snippet 'package/snippets/stages.html', stages=['complete', 'active'] %}
-    {% snippet 'package/snippets/stages.html', stages=['active', 'complete'] %}
-
-#}
-{% set s1 = stages[0] or 'active' %}
-{% set s2 = stages[1] or 'uncomplete' %}
-{% if s1 != 'uncomplete' %}{% set class = 'stage-1' %}{% endif %}
-{% if s2 != 'uncomplete' %}{% set class = 'stage-2' %}{% endif %}
+<div class="section-links flex-justify-start">
+  <div class="section-links__item" style="max-width: 300px">
+    <a
+      title=""
+      target="_blank"
+      href="https://datos.gob.es/sites/default/files/documentacion/files/datosgob_manual_organismo.pdf"
+      ><img src="/images/SVG/book.svg" alt="" />{{ _("Guide for organizations")
+      }}</a
+    >
+  </div>
+  <div class="section-links__item" style="max-width: 400px">
+    <a
+      title=""
+      target="_blank"
+      href="https://datosgobes.github.io/DCAT-AP-ES/"
+      ><img src="/images/SVG/book.svg" alt="" />{{ _("Technical guide on DCAT-AP-ES") }}</a
+    >
+  </div>
+</div>
 
 <ol class="stages {{ class }}">
   <li class="first {{ s1 }}">
     {% if s1 != 'complete' %}
-      <div class="stage-round add_dataset"></div>
-      <span class="highlight">{{ _('Create dataset') }}</span>
-      <div class="item-arrow">
-        <div class="arrow-body"></div>
-        <div class="arrow-head"></div>
-      </div>
+    <div class="stage-round add_dataset"></div>
+    <span class="highlight">{{ _('Dataset') }}</span>
+
     {% else %}
-      <div class="stage-round add_dataset"></div>
-      <a class="highlight" name="save" value="go-dataset" type="submit">{{ _('Create dataset') }}</a>
-      <div class="item-arrow">
-        <div class="arrow-body"></div>
-        <div class="arrow-head"></div>
-      </div>
+    <div class="stage-round add_dataset"></div>
+    <a class="highlight" name="save" value="go-dataset" type="submit"
+      >{{ _('Dataset') }}</a
+    >
+
     {% endif %}
   </li>
   <li class="last {{ s2 }}">
     {% if s2 != 'complete' %}
     <div class="stage-round add_data"></div>
-      <span class="highlight">{{ _('Add data') }}</span>
-    {% else %}
-      {% if s1 == 'active' %}
-        {# stage 1 #}
-        <div class="stage-round add_data"></div>
-          <span class="highlight">{{ _('Add data') }}</span>
-      {% else %}
-        {% link_for _('Add data'), named_route='dataset.new', class_="highlight" %}
-      {% endif %}
-    {% endif %}
+    <span class="highlight">{{ _('Distributions') }}</span>
+    {% else %} {% if s1 == 'active' %} {# stage 1 #}
+    <div class="stage-round add_data"></div>
+    <span class="highlight">{{ _('Distributions') }}</span>
+    {% else %} {% link_for _('Distributions'), named_route='dataset.new',
+    class_="highlight" %} {% endif %} {% endif %}
   </li>
 </ol>

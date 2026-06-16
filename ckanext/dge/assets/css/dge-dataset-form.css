@@ -1,0 +1,1875 @@
+/*
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+body:has(#dataset-edit),
+body:has(#resource-form) {
+  /* ----- DATASET EDIT ----- */
+  /* ----- RESOURCE FORM ----- */ }
+  body:has(#dataset-edit) *,
+  body:has(#resource-form) * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+  body:has(#dataset-edit) .btn-outline-primary,
+  body:has(#dataset-edit) .btn-secondary,
+  body:has(#dataset-edit) .btn-danger,
+  body:has(#dataset-edit) .fluent-add-btn,
+  body:has(#resource-form) .btn-outline-primary,
+  body:has(#resource-form) .btn-secondary,
+  body:has(#resource-form) .btn-danger,
+  body:has(#resource-form) .fluent-add-btn {
+    margin: 0;
+    margin-bottom: 0;
+    width: 100%;
+    min-height: 50px;
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8125rem;
+    font-weight: 600; }
+  body:has(#dataset-edit) .fa,
+  body:has(#resource-form) .fa {
+    font-size: 1.4rem; }
+  body:has(#dataset-edit) .section-links,
+  body:has(#resource-form) .section-links {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid black; }
+  body:has(#dataset-edit) .select2-container,
+  body:has(#resource-form) .select2-container {
+    width: 100%;
+    border: 1px solid #dadee2;
+    border-radius: 0.625rem; }
+    body:has(#dataset-edit) .select2-container .select2-choice,
+    body:has(#resource-form) .select2-container .select2-choice {
+      width: 100%;
+      height: auto;
+      background-color: #fff;
+      color: #676767;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 0 0.938rem;
+      -webkit-transition: 0.3s;
+      -o-transition: 0.3s;
+      transition: 0.3s;
+      outline: 0;
+      min-height: 3.125rem;
+      white-space: wrap;
+      -webkit-box-shadow: none;
+      box-shadow: none; }
+    body:has(#dataset-edit) .select2-container .select2-choice > .select2-chosen,
+    body:has(#resource-form) .select2-container .select2-choice > .select2-chosen {
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+      white-space: inherit; }
+  body:has(#dataset-edit) .fluent-multilang-field .fluent-header-right,
+  body:has(#resource-form) .fluent-multilang-field .fluent-header-right {
+    padding: 0 0 0 0; }
+  body:has(#dataset-edit) .new-dist-block-1,
+  body:has(#resource-form) .new-dist-block-1 {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem; }
+    body:has(#dataset-edit) .new-dist-block-1 .center-p,
+    body:has(#resource-form) .new-dist-block-1 .center-p {
+      width: 100%;
+      text-align: center; }
+  body:has(#dataset-edit) .important-dist,
+  body:has(#resource-form) .important-dist {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border); }
+    body:has(#dataset-edit) .important-dist p,
+    body:has(#resource-form) .important-dist p {
+      margin: 0; }
+  body:has(#dataset-edit) .section-links__item,
+  body:has(#resource-form) .section-links__item {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem; }
+    body:has(#dataset-edit) .section-links__item a,
+    body:has(#resource-form) .section-links__item a {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap; }
+    body:has(#dataset-edit) .section-links__item img,
+    body:has(#resource-form) .section-links__item img {
+      width: 24px;
+      height: 24px; }
+  body:has(#dataset-edit) .form-img-header,
+  body:has(#resource-form) .form-img-header {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    justify-content: space-between;
+    align-items: flex-end; }
+    body:has(#dataset-edit) .form-img-header .header-img,
+    body:has(#resource-form) .form-img-header .header-img {
+      float: none;
+      width: 136px; }
+  body:has(#dataset-edit) .form-actions,
+  body:has(#resource-form) .form-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center !important;
+    align-items: center;
+    gap: 0.5625rem; }
+    body:has(#dataset-edit) .form-actions .btn,
+    body:has(#resource-form) .form-actions .btn {
+      width: auto;
+      height: 50px;
+      font-size: 1rem;
+      font-weight: 400; }
+    body:has(#dataset-edit) .form-actions:before,
+    body:has(#resource-form) .form-actions:before {
+      content: none; }
+    @media (max-width: 632px) {
+      body:has(#dataset-edit) .form-actions,
+      body:has(#resource-form) .form-actions {
+        display: flex;
+        flex-direction: column; } }
+    body:has(#dataset-edit) .form-actions #form-btn-save,
+    body:has(#resource-form) .form-actions #form-btn-save {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      margin: 0 0 0 0;
+      border-radius: 0.375rem;
+      grid-column: 3/5; }
+      @media (max-width: 980px) {
+        body:has(#dataset-edit) .form-actions #form-btn-save,
+        body:has(#resource-form) .form-actions #form-btn-save {
+          grid-column: 2/3; } }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .form-actions #form-btn-save,
+        body:has(#resource-form) .form-actions #form-btn-save {
+          grid-column: 1/-1; } }
+    body:has(#dataset-edit) .form-actions #form-btn-next,
+    body:has(#resource-form) .form-actions #form-btn-next {
+      width: auto;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-column: 3/5; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .form-actions #form-btn-next,
+        body:has(#resource-form) .form-actions #form-btn-next {
+          grid-column: 1/-1; } }
+    body:has(#dataset-edit) .form-actions a[href="/es/catalogo/edit/i00000121-http-dfgs-com"],
+    body:has(#resource-form) .form-actions a[href="/es/catalogo/edit/i00000121-http-dfgs-com"] {
+      width: auto;
+      grid-column: 1/1; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .form-actions a[href="/es/catalogo/edit/i00000121-http-dfgs-com"],
+        body:has(#resource-form) .form-actions a[href="/es/catalogo/edit/i00000121-http-dfgs-com"] {
+          grid-column: 1/-1; } }
+    body:has(#dataset-edit) .form-actions .btn-save-resource,
+    body:has(#resource-form) .form-actions .btn-save-resource {
+      width: auto;
+      height: 50px;
+      grid-column: 6/6;
+      margin: 0 0 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      @media (max-width: 980px) {
+        body:has(#dataset-edit) .form-actions .btn-save-resource,
+        body:has(#resource-form) .form-actions .btn-save-resource {
+          grid-column: 2/2; } }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .form-actions .btn-save-resource,
+        body:has(#resource-form) .form-actions .btn-save-resource {
+          grid-column: 1/-1; } }
+    body:has(#dataset-edit) .form-actions a[href^="/es/catalogo/delete/"],
+    body:has(#resource-form) .form-actions a[href^="/es/catalogo/delete/"] {
+      background-color: var(--secondary-500); }
+  body:has(#dataset-edit) .select-distribution-container,
+  body:has(#resource-form) .select-distribution-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "title title title" "select actions ." "asigned asigned nueva";
+    row-gap: 0.5rem;
+    column-gap: 1.12rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--border); }
+    body:has(#dataset-edit) .select-distribution-container .select-dist-title,
+    body:has(#resource-form) .select-distribution-container .select-dist-title {
+      width: 100%;
+      grid-column: 1/-1;
+      grid-area: title; }
+    body:has(#dataset-edit) .select-distribution-container #select-distribution-form,
+    body:has(#resource-form) .select-distribution-container #select-distribution-form {
+      grid-area: select; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .select-distribution-container #select-distribution-form,
+        body:has(#resource-form) .select-distribution-container #select-distribution-form {
+          grid-column: 1/3; } }
+      body:has(#dataset-edit) .select-distribution-container #select-distribution-form #other_resources,
+      body:has(#resource-form) .select-distribution-container #select-distribution-form #other_resources {
+        width: 100%;
+        height: 50px;
+        border-radius: 0.625rem;
+        border: 1px solid #dadee2; }
+        body:has(#dataset-edit) .select-distribution-container #select-distribution-form #other_resources:hover,
+        body:has(#resource-form) .select-distribution-container #select-distribution-form #other_resources:hover {
+          border: 1px solid var(--primary-700); }
+    body:has(#dataset-edit) .select-distribution-container .select-distribution-actions,
+    body:has(#resource-form) .select-distribution-container .select-distribution-actions {
+      grid-area: actions;
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .select-distribution-container .select-distribution-actions,
+        body:has(#resource-form) .select-distribution-container .select-distribution-actions {
+          grid-column: 3/3; } }
+      body:has(#dataset-edit) .select-distribution-container .select-distribution-actions .btn-grey-lite,
+      body:has(#resource-form) .select-distribution-container .select-distribution-actions .btn-grey-lite {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: #e6ebef;
+        border-radius: var(--border-radius); }
+        body:has(#dataset-edit) .select-distribution-container .select-distribution-actions .btn-grey-lite:hover,
+        body:has(#resource-form) .select-distribution-container .select-distribution-actions .btn-grey-lite:hover {
+          background-color: #bcc7d1; }
+    body:has(#dataset-edit) .select-distribution-container .new-dist-block-2,
+    body:has(#resource-form) .select-distribution-container .new-dist-block-2 {
+      grid-area: nueva;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      gap: 0.5rem;
+      grid-row: 1/-1; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .select-distribution-container .new-dist-block-2,
+        body:has(#resource-form) .select-distribution-container .new-dist-block-2 {
+          justify-content: flex-stat;
+          align-items: flex-start;
+          grid-column: 1/-1;
+          grid-row: auto; } }
+      body:has(#dataset-edit) .select-distribution-container .new-dist-block-2 .center-p,
+      body:has(#resource-form) .select-distribution-container .new-dist-block-2 .center-p {
+        text-align: right; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) .select-distribution-container .new-dist-block-2 .center-p,
+          body:has(#resource-form) .select-distribution-container .new-dist-block-2 .center-p {
+            text-align: left; } }
+    body:has(#dataset-edit) .select-distribution-container .asignate-resources,
+    body:has(#resource-form) .select-distribution-container .asignate-resources {
+      grid-area: asigned;
+      margin: 0 0 0 0;
+      grid-column: 1/-1; }
+  body:has(#dataset-edit) #block-search-form .block__content #search-block-form .container-inline .form-actions,
+  body:has(#resource-form) #block-search-form .block__content #search-block-form .container-inline .form-actions {
+    width: unset;
+    display: unset; }
+  body:has(#dataset-edit) #dataset-edit,
+  body:has(#resource-form) #dataset-edit {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1.125rem;
+    row-gap: 2rem;
+    min-width: fit-content;
+    align-items: flex-end; }
+    @media (max-width: 632px) {
+      body:has(#dataset-edit) #dataset-edit,
+      body:has(#resource-form) #dataset-edit {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: 2.5rem; } }
+    body:has(#dataset-edit) #dataset-edit > *,
+    body:has(#resource-form) #dataset-edit > * {
+      grid-column: 1/-1; }
+    body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"],
+    body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] {
+      width: 100%; }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col,
+      body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: flex-end;
+        column-gap: 1.125rem;
+        row-gap: 0.5rem; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left,
+        body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left {
+          grid-column: 1/2; }
+          @media (max-width: 980px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left {
+              grid-column: 1/3; } }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left {
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .controls,
+          body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .controls {
+            width: 100%; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .controls input,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .controls input {
+              width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-right,
+        body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-right {
+          grid-column: 2/2;
+          padding-bottom: 0; }
+          @media (max-width: 980px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-right,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-right {
+              grid-column: 3/3; } }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-right,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-header-2col .fluent-header-right {
+              grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-translations-list,
+      body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-translations-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem; }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra,
+      body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item,
+        body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          align-items: flex-end; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item {
+              display: flex;
+              flex-direction: row; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group,
+          body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group {
+            width: 100%;
+            grid-column: 1/2; }
+            @media (max-width: 980px) {
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group,
+              body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group {
+                grid-column: 1/3; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions,
+          body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions {
+            grid-column: 2/2; }
+            @media (max-width: 980px) {
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions,
+              body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions {
+                grid-column: 3/3; } }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions button,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions button {
+              width: 50px;
+              min-width: unset; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row,
+        body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          align-items: flex-end; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row {
+              display: flex;
+              flex-direction: column; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name,
+          body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name {
+            width: 100%;
+            height: 100%;
+            grid-column: auto; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang,
+          body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang {
+            width: 100%;
+            height: 100%;
+            grid-column: auto;
+            display: flex;
+            flex-direction: column; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn,
+          body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn {
+            width: 100%;
+            height: unset;
+            grid-column: auto; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn .fluent-remove-translation,
+            body:has(#resource-form) #dataset-edit div[data-field-name="title_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn .fluent-remove-translation {
+              width: 100%; }
+    body:has(#dataset-edit) #dataset-edit div[data-field-name="description"],
+    body:has(#resource-form) #dataset-edit div[data-field-name="description"] {
+      width: 100%; }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-header-2col,
+      body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-header-2col {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left,
+        body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left {
+          grid-column: 1 / -1; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical,
+          body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical {
+            margin-bottom: 0; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor,
+            body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor {
+              width: 100%; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor .editor-info-block,
+              body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor .editor-info-block {
+                padding-top: 0.5rem; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-right,
+        body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-right {
+          grid-column: 1/2; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-right,
+            body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-header-2col .fluent-header-right {
+              grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra,
+      body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra {
+        display: flex;
+        flex-direction: column;
+        column-gap: 1.125rem;
+        row-gap: 0.5rem;
+        justify-content: flex-end; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list,
+        body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list {
+          display: flex;
+          flex-direction: column;
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          justify-content: flex-end; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item,
+          body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item {
+            display: flex;
+            flex-direction: row;
+            column-gap: 1.125rem;
+            row-gap: 0.5rem;
+            align-items: flex-end; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group,
+            body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group {
+              width: 100%; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group .dge-md-wrap .form-control,
+              body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group .dge-md-wrap .form-control {
+                width: 100%; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions .fluent-remove-translation,
+            body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions .fluent-remove-translation {
+              width: 50px;
+              min-width: unset; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row,
+        body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          grid-template-areas: "text text languaje" "text text button"; }
+          @media (max-width: 980px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row,
+            body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row {
+              grid-template-areas: "text text text" "languaje button ."; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name,
+              body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name {
+                grid-column: 1/-1 !important;
+                grid-row: auto !important; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn,
+              body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn {
+                align-items: flex-end !important; } }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row,
+            body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row {
+              display: flex;
+              flex-direction: column; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name,
+          body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name {
+            width: 100%;
+            height: 100%;
+            grid-row: 1/-1;
+            grid-column: 1/3; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang,
+          body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang {
+            width: 100%;
+            height: 100%;
+            grid-area: languaje;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn,
+          body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn {
+            width: 100%;
+            height: 100%;
+            grid-area: button;
+            justify-content: flex-start;
+            align-items: flex-start; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn button,
+            body:has(#resource-form) #dataset-edit div[data-field-name="description"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn button {
+              width: 100%; }
+    body:has(#dataset-edit) #dataset-edit div:has(label[for="field-owner_org"]),
+    body:has(#resource-form) #dataset-edit div:has(label[for="field-owner_org"]) {
+      grid-column: auto;
+      width: 100%; }
+      @media (max-width: 980px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-owner_org"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-owner_org"]) {
+          grid-column: 1/3; } }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-owner_org"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-owner_org"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-owner_org"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-owner_org"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-owner_org"]) .controls div,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-owner_org"]) .controls div {
+          width: 100%; }
+          body:has(#dataset-edit) #dataset-edit div:has(label[for="field-owner_org"]) .controls div .select2-container,
+          body:has(#resource-form) #dataset-edit div:has(label[for="field-owner_org"]) .controls div .select2-container {
+            width: 100% !important; }
+    body:has(#dataset-edit) #dataset-edit div[data-module="dataset-visibility"],
+    body:has(#resource-form) #dataset-edit div[data-module="dataset-visibility"] {
+      width: 100%;
+      grid-column: auto; }
+      @media (max-width: 980px) {
+        body:has(#dataset-edit) #dataset-edit div[data-module="dataset-visibility"],
+        body:has(#resource-form) #dataset-edit div[data-module="dataset-visibility"] {
+          grid-column: 1/3; } }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div[data-module="dataset-visibility"],
+        body:has(#resource-form) #dataset-edit div[data-module="dataset-visibility"] {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div[data-module="dataset-visibility"] .control-group .controls,
+      body:has(#resource-form) #dataset-edit div[data-module="dataset-visibility"] .control-group .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div[data-module="dataset-visibility"] .control-group .controls div,
+        body:has(#resource-form) #dataset-edit div[data-module="dataset-visibility"] .control-group .controls div {
+          width: 100%; }
+          body:has(#dataset-edit) #dataset-edit div[data-module="dataset-visibility"] .control-group .controls div .select2-container,
+          body:has(#resource-form) #dataset-edit div[data-module="dataset-visibility"] .control-group .controls div .select2-container {
+            width: 100% !important; }
+    body:has(#dataset-edit) #dataset-edit div:has(label[for="field-visibilidad"]),
+    body:has(#resource-form) #dataset-edit div:has(label[for="field-visibilidad"]) {
+      width: 100%;
+      grid-column: auto; }
+      @media (max-width: 980px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-visibilidad"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-visibilidad"]) {
+          grid-column: 1/3; } }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-visibilidad"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-visibilidad"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-visibilidad"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-visibilidad"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-visibilidad"]) .controls select,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-visibilidad"]) .controls select {
+          width: 100%; }
+    body:has(#dataset-edit) #dataset-edit div:has(label[for="field-theme"]),
+    body:has(#resource-form) #dataset-edit div:has(label[for="field-theme"]) {
+      width: 100%;
+      grid-column: 1/3; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-theme"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-theme"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-theme"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-theme"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-theme"]) .controls select,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-theme"]) .controls select {
+          width: 100%;
+          height: 42px; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-theme"]) .controls .info-block,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-theme"]) .controls .info-block {
+          margin-top: 0.5rem; }
+    body:has(#dataset-edit) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]),
+    body:has(#resource-form) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]) {
+      width: 100%;
+      grid-column: 1/3; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]),
+        body:has(#resource-form) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]) .controls .input-group input,
+        body:has(#resource-form) #dataset-edit div:has(.controls .input-group input[data-module="dge-slug-preview-slug"]) .controls .input-group input {
+          width: 100%;
+          margin: 0.5rem 0; }
+    body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier,
+    body:has(#resource-form) #dataset-edit #multiple-identifier-identifier {
+      width: 100%; }
+      body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier .controls,
+      body:has(#resource-form) #dataset-edit #multiple-identifier-identifier .controls {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem;
+        row-gap: 0.5rem;
+        align-items: flex-end; }
+        body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list,
+        body:has(#resource-form) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list {
+          grid-column: 1/3;
+          display: flex;
+          flex-direction: column;
+          row-gap: 0.5rem; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list,
+            body:has(#resource-form) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list {
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list .multiple-identifier-row,
+          body:has(#resource-form) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list .multiple-identifier-row {
+            width: 100%;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: row;
+            column-gap: 1.125rem; }
+            body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list .multiple-identifier-row input,
+            body:has(#resource-form) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list .multiple-identifier-row input {
+              width: 100%; }
+            body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list .multiple-identifier-row button,
+            body:has(#resource-form) #dataset-edit #multiple-identifier-identifier .controls .js-multiple-identifier-list .multiple-identifier-row button {
+              min-width: unset;
+              width: 50px; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #dataset-edit #multiple-identifier-identifier .controls .js-add-identifier,
+          body:has(#resource-form) #dataset-edit #multiple-identifier-identifier .controls .js-add-identifier {
+            grid-column: 1/-1; } }
+    body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to,
+    body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.125rem;
+      row-gap: 0.5rem;
+      align-items: flex-end; }
+      body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to .control-label,
+      body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to .control-label {
+        margin: 0 0 0 0;
+        width: 100%;
+        grid-column: 1/-1;
+        margin-bottom: 5px; }
+      body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper,
+      body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper {
+        width: 100%;
+        grid-column: 1/3;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 0.5rem; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper,
+          body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper .control-medium,
+        body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper .control-medium {
+          width: 100%; }
+        body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper .btn-remove-field,
+        body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to .url-field-wrapper .btn-remove-field {
+          min-width: unset;
+          width: 50px; }
+      body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link,
+      body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link {
+        padding-left: 0;
+        grid-column: auto; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link,
+          body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link .help-text-container,
+        body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link .help-text-container {
+          margin: 0.5rem 0; }
+        body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link .controls,
+        body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link .controls {
+          width: 100% !important;
+          justify-content: flex-start; }
+          body:has(#dataset-edit) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link .controls .btn,
+          body:has(#resource-form) #dataset-edit .multi-new-value-conforms_to #multi-value-conforms_to-link .controls .btn {
+            margin: 0 0 0 0; }
+    body:has(#dataset-edit) #dataset-edit #div-issued_date,
+    body:has(#resource-form) #dataset-edit #div-issued_date {
+      grid-column: 1/2;
+      width: 100%; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit #div-issued_date,
+        body:has(#resource-form) #dataset-edit #div-issued_date {
+          display: unset;
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit #div-issued_date .div-date,
+      body:has(#resource-form) #dataset-edit #div-issued_date .div-date {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 0.5rem;
+        row-gap: 0.5rem; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #dataset-edit #div-issued_date .div-date,
+          body:has(#resource-form) #dataset-edit #div-issued_date .div-date {
+            display: flex;
+            flex-direction: column; } }
+        body:has(#dataset-edit) #dataset-edit #div-issued_date .div-date #field-issued_date-date,
+        body:has(#resource-form) #dataset-edit #div-issued_date .div-date #field-issued_date-date {
+          width: 100%;
+          margin: 0 0 0 0;
+          align-items: center;
+          grid-column: 1/3; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit #div-issued_date .div-date #field-issued_date-date,
+            body:has(#resource-form) #dataset-edit #div-issued_date .div-date #field-issued_date-date {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit #div-issued_date .div-date #field-issued_date-time,
+        body:has(#resource-form) #dataset-edit #div-issued_date .div-date #field-issued_date-time {
+          width: 100%;
+          margin: 0 0 0 0;
+          align-items: center;
+          grid-column: 3/3; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit #div-issued_date .div-date #field-issued_date-time,
+            body:has(#resource-form) #dataset-edit #div-issued_date .div-date #field-issued_date-time {
+              grid-column: 1/-1; } }
+    body:has(#dataset-edit) #dataset-edit #div-modified_date,
+    body:has(#resource-form) #dataset-edit #div-modified_date {
+      grid-column: 2/2;
+      width: 100%; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit #div-modified_date,
+        body:has(#resource-form) #dataset-edit #div-modified_date {
+          display: unset;
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit #div-modified_date .div-date,
+      body:has(#resource-form) #dataset-edit #div-modified_date .div-date {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 0.5rem;
+        row-gap: 0.5rem; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #dataset-edit #div-modified_date .div-date,
+          body:has(#resource-form) #dataset-edit #div-modified_date .div-date {
+            display: flex;
+            flex-direction: column; } }
+        body:has(#dataset-edit) #dataset-edit #div-modified_date .div-date #field-modified_date-date,
+        body:has(#resource-form) #dataset-edit #div-modified_date .div-date #field-modified_date-date {
+          width: 100%;
+          margin: 0 0 0 0;
+          align-items: center;
+          grid-column: 1/3; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit #div-modified_date .div-date #field-modified_date-date,
+            body:has(#resource-form) #dataset-edit #div-modified_date .div-date #field-modified_date-date {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit #div-modified_date .div-date #field-modified_date-time,
+        body:has(#resource-form) #dataset-edit #div-modified_date .div-date #field-modified_date-time {
+          width: 100%;
+          margin: 0 0 0 0;
+          align-items: center;
+          grid-column: 3/3; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit #div-modified_date .div-date #field-modified_date-time,
+            body:has(#resource-form) #dataset-edit #div-modified_date .div-date #field-modified_date-time {
+              grid-column: 1/-1; } }
+    body:has(#dataset-edit) #dataset-edit div:has(label[for="field-language"]),
+    body:has(#resource-form) #dataset-edit div:has(label[for="field-language"]) {
+      width: 100%;
+      grid-column: 1/3; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-language"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-language"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-language"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-language"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-language"]) .controls select,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-language"]) .controls select {
+          width: 100%;
+          height: 42px; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-language"]) .controls .info-block,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-language"]) .controls .info-block {
+          margin-top: 0.5rem; }
+    body:has(#dataset-edit) #dataset-edit .date-frequency-frequency,
+    body:has(#resource-form) #dataset-edit .date-frequency-frequency {
+      position: relative;
+      width: 100%;
+      grid-column: 1/3; }
+      body:has(#dataset-edit) #dataset-edit .date-frequency-frequency .label-container,
+      body:has(#resource-form) #dataset-edit .date-frequency-frequency .label-container {
+        font-weight: 600; }
+      body:has(#dataset-edit) #dataset-edit .date-frequency-frequency .div-date-frequency-identifier,
+      body:has(#resource-form) #dataset-edit .date-frequency-frequency .div-date-frequency-identifier {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit .date-frequency-frequency .div-date-frequency-identifier .control-label,
+        body:has(#resource-form) #dataset-edit .date-frequency-frequency .div-date-frequency-identifier .control-label {
+          width: 100%;
+          grid-column: 1/-1;
+          display: none; }
+        body:has(#dataset-edit) #dataset-edit .date-frequency-frequency .div-date-frequency-identifier .controls,
+        body:has(#resource-form) #dataset-edit .date-frequency-frequency .div-date-frequency-identifier .controls {
+          width: 100%; }
+      body:has(#dataset-edit) #dataset-edit .date-frequency-frequency .dge-help-wrapper,
+      body:has(#resource-form) #dataset-edit .date-frequency-frequency .dge-help-wrapper {
+        margin-top: 0.5rem; }
+    body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"],
+    body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] {
+      width: 100%;
+      grid-column: 1/-1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem; }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field,
+      body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem;
+        row-gap: 0.5rem;
+        align-items: flex-end; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .form-group,
+        body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .form-group {
+          grid-column: 1/3; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .form-group,
+            body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .form-group {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .btn-add-translation,
+        body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .btn-add-translation {
+          width: 100%;
+          height: 50px;
+          grid-column: 3/3;
+          display: flex;
+          justify-content: center;
+          align-items: center; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .btn-add-translation,
+            body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-main-field .btn-add-translation {
+              grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container,
+      body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem;
+        row-gap: 0.5rem;
+        align-items: flex-end; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row,
+        body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row {
+          grid-column: 1/3;
+          display: flex;
+          flex-direction: row;
+          gap: 0.5rem;
+          align-items: flex-end; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row,
+            body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row {
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row .translation-field-col,
+          body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row .translation-field-col {
+            width: 100%; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row .translation-actions-col,
+          body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row .translation-actions-col {
+            width: 50px; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row .translation-actions-col button,
+            body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-translations-container .translation-row .translation-actions-col button {
+              min-width: unset;
+              width: 100%;
+              height: 50px; }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new,
+      body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem;
+        row-gap: 0.5rem;
+        align-items: flex-start; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-input-col,
+        body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-input-col {
+          grid-column: 1; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-input-col,
+            body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-input-col {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-select-col,
+        body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-select-col {
+          grid-column: 2; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-select-col,
+            body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-select-col {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col,
+        body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col {
+          grid-column: 3;
+          margin-top: 22.28px; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col,
+            body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col {
+              margin-top: 0;
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col .control-group .control-label,
+          body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col .control-group .control-label {
+            display: none; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col .control-group .fluent-buttons-wrapper,
+          body:has(#resource-form) #dataset-edit div[data-field-name="multilingual_tags"] .fluent-add-form .translation-new .translation-buttons-col .control-group .fluent-buttons-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem; }
+    body:has(#dataset-edit) #dataset-edit .date-period-container,
+    body:has(#resource-form) #dataset-edit .date-period-container {
+      width: 100%; }
+      body:has(#dataset-edit) #dataset-edit .date-period-container .label-container,
+      body:has(#resource-form) #dataset-edit .date-period-container .label-container {
+        font-weight: 600; }
+      body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new,
+      body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new {
+        grid-column: 1/-1;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem;
+        row-gap: 0.5rem;
+        align-items: flex-end; }
+        body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new,
+        body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new {
+          margin-bottom: 0;
+          grid-column: 1/3;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          align-items: flex-end; }
+          @media (max-width: 980px) {
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new {
+              grid-column: 1/-1 !important; } }
+          body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date,
+          body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date {
+            grid-column: auto;
+            width: 100%; }
+            @media (max-width: 632px) {
+              body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date,
+              body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date {
+                grid-column: 1/-1 !important; } }
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .date-label,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .date-label {
+              font-size: 0.9375rem;
+              color: #1e3553;
+              font-weight: 600; }
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new label[for^="field-coverage_new-date-from"],
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new label[for^="field-coverage_new-date-from"] {
+              display: none; }
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls {
+              width: 100%;
+              display: grid !important;
+              grid-template-columns: repeat(3, 1fr);
+              column-gap: 0.5rem;
+              row-gap: 0.5rem; }
+              body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-date-from"],
+              body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-date-from"] {
+                width: 100% !important;
+                grid-column: 1/3 !important; }
+                @media (max-width: 632px) {
+                  body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-date-from"],
+                  body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-date-from"] {
+                    grid-column: 1/-1; } }
+              body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-time-from"],
+              body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-time-from"] {
+                width: 100% !important;
+                grid-column: 3/3 !important; }
+                @media (max-width: 632px) {
+                  body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-time-from"],
+                  body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-date .div-field-coverage_new .controls [id^="field-coverage_new-time-from"] {
+                    grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time,
+          body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time {
+            grid-column: auto;
+            width: 100%; }
+            @media (max-width: 632px) {
+              body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time,
+              body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time {
+                grid-column: 1/-1; } }
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .date-label,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .date-label {
+              font-size: 0.9375rem;
+              color: #1e3553;
+              font-weight: 600; }
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new label[for^="field-coverage_new-date-to"],
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new label[for^="field-coverage_new-date-to"] {
+              display: none; }
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls {
+              width: 100%;
+              display: grid !important;
+              grid-template-columns: repeat(3, 1fr);
+              column-gap: 0.5rem;
+              row-gap: 0.5rem; }
+              body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-date-to"],
+              body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-date-to"] {
+                width: 100% !important;
+                grid-column: 1/3 !important; }
+                @media (max-width: 632px) {
+                  body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-date-to"],
+                  body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-date-to"] {
+                    grid-column: 1/-1; } }
+              body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-time-to"],
+              body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-time-to"] {
+                width: 100% !important;
+                grid-column: 3/3 !important; }
+                @media (max-width: 632px) {
+                  body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-time-to"],
+                  body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .div-coverage_new .div-time .div-field-coverage_new .controls [id^="field-coverage_new-time-to"] {
+                    grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field,
+        body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field {
+          width: 100%;
+          grid-column: 3/3;
+          padding: 0;
+          padding-left: 0; }
+          @media (max-width: 980px) {
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field {
+              grid-column: 1/3; } }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field {
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .info-block,
+          body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .info-block {
+            grid-column: 1/-1; }
+          body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .controls,
+          body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .controls {
+            width: 100% !important;
+            grid-column: auto;
+            justify-content: flex-start; }
+            @media (max-width: 632px) {
+              body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .controls,
+              body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .controls {
+                grid-column: 1/-1; } }
+            body:has(#dataset-edit) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .controls button,
+            body:has(#resource-form) #dataset-edit .date-period-container #multi-value-coverage_new .multi-add-field .controls button {
+              width: 100%;
+              margin: 0 0 0 0; }
+    body:has(#dataset-edit) #dataset-edit div:has(label[for="field-spatial"]),
+    body:has(#resource-form) #dataset-edit div:has(label[for="field-spatial"]) {
+      grid-column: 1/3;
+      width: 100%; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-spatial"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-spatial"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-spatial"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-spatial"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-spatial"]) .controls .multi-select,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-spatial"]) .controls .multi-select {
+          width: 100%; }
+          body:has(#dataset-edit) #dataset-edit div:has(label[for="field-spatial"]) .controls .multi-select .multi-select__option:hover,
+          body:has(#resource-form) #dataset-edit div:has(label[for="field-spatial"]) .controls .multi-select .multi-select__option:hover {
+            background-color: var(--primary-300); }
+          body:has(#dataset-edit) #dataset-edit div:has(label[for="field-spatial"]) .controls .multi-select .multi-select__chip,
+          body:has(#resource-form) #dataset-edit div:has(label[for="field-spatial"]) .controls .multi-select .multi-select__chip {
+            background-color: var(--primary-300); }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-spatial"]) .controls .info-block,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-spatial"]) .controls .info-block {
+          margin-top: 0.5rem; }
+    body:has(#dataset-edit) #dataset-edit #div-valid,
+    body:has(#resource-form) #dataset-edit #div-valid {
+      width: 100%; }
+      body:has(#dataset-edit) #dataset-edit #div-valid .control-label-wrapper,
+      body:has(#resource-form) #dataset-edit #div-valid .control-label-wrapper {
+        width: 100%;
+        margin-bottom: 4px; }
+      body:has(#dataset-edit) #dataset-edit #div-valid .controls,
+      body:has(#resource-form) #dataset-edit #div-valid .controls {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem;
+        row-gap: 0.5rem; }
+        @media (max-width: 980px) {
+          body:has(#dataset-edit) #dataset-edit #div-valid .controls,
+          body:has(#resource-form) #dataset-edit #div-valid .controls {
+            grid-template-columns: repeat(2, 1fr); } }
+        body:has(#dataset-edit) #dataset-edit #div-valid .controls .dateTime-combo,
+        body:has(#resource-form) #dataset-edit #div-valid .controls .dateTime-combo {
+          grid-column: auto;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 0.5rem;
+          row-gap: 0.5rem; }
+          @media (max-width: 623px) {
+            body:has(#dataset-edit) #dataset-edit #div-valid .controls .dateTime-combo,
+            body:has(#resource-form) #dataset-edit #div-valid .controls .dateTime-combo {
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-date,
+          body:has(#resource-form) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-date {
+            width: 100%;
+            grid-column: 1/3;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center; }
+            @media (max-width: 632px) {
+              body:has(#dataset-edit) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-date,
+              body:has(#resource-form) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-date {
+                grid-column: 1/-1; } }
+          body:has(#dataset-edit) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-time,
+          body:has(#resource-form) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-time {
+            width: 100%;
+            grid-column: 3/3;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center; }
+            @media (max-width: 632px) {
+              body:has(#dataset-edit) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-time,
+              body:has(#resource-form) #dataset-edit #div-valid .controls .dateTime-combo #field-valid-time {
+                grid-column: 1/-1; } }
+    body:has(#dataset-edit) #dataset-edit #multi-value-reference,
+    body:has(#resource-form) #dataset-edit #multi-value-reference {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.125rem;
+      row-gap: 0.5rem;
+      align-items: flex-start; }
+      body:has(#dataset-edit) #dataset-edit #multi-value-reference .control-label,
+      body:has(#resource-form) #dataset-edit #multi-value-reference .control-label {
+        margin: 0 0 0 0;
+        width: 100%;
+        grid-column: 1/-1; }
+      body:has(#dataset-edit) #dataset-edit #multi-value-reference .url-field-wrapper,
+      body:has(#resource-form) #dataset-edit #multi-value-reference .url-field-wrapper {
+        width: 100%;
+        grid-column: 1/3;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.5rem; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #dataset-edit #multi-value-reference .url-field-wrapper,
+          body:has(#resource-form) #dataset-edit #multi-value-reference .url-field-wrapper {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit #multi-value-reference .url-field-wrapper .control-medium,
+        body:has(#resource-form) #dataset-edit #multi-value-reference .url-field-wrapper .control-medium {
+          width: 100%; }
+        body:has(#dataset-edit) #dataset-edit #multi-value-reference .url-field-wrapper .btn-remove-field,
+        body:has(#resource-form) #dataset-edit #multi-value-reference .url-field-wrapper .btn-remove-field {
+          min-width: unset;
+          width: 50px; }
+      body:has(#dataset-edit) #dataset-edit #multi-value-reference #multi-value-reference-link,
+      body:has(#resource-form) #dataset-edit #multi-value-reference #multi-value-reference-link {
+        width: 100%;
+        padding-left: 0;
+        grid-column: auto; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #dataset-edit #multi-value-reference #multi-value-reference-link,
+          body:has(#resource-form) #dataset-edit #multi-value-reference #multi-value-reference-link {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #dataset-edit #multi-value-reference #multi-value-reference-link .help-text-container,
+        body:has(#resource-form) #dataset-edit #multi-value-reference #multi-value-reference-link .help-text-container {
+          margin: 0.5rem 0; }
+        body:has(#dataset-edit) #dataset-edit #multi-value-reference #multi-value-reference-link .controls,
+        body:has(#resource-form) #dataset-edit #multi-value-reference #multi-value-reference-link .controls {
+          width: 100% !important;
+          justify-content: flex-start; }
+          body:has(#dataset-edit) #dataset-edit #multi-value-reference #multi-value-reference-link .controls .btn,
+          body:has(#resource-form) #dataset-edit #multi-value-reference #multi-value-reference-link .controls .btn {
+            margin: 0 0 0 0; }
+    body:has(#dataset-edit) #dataset-edit div:has(label[for="field-license_id"]),
+    body:has(#resource-form) #dataset-edit div:has(label[for="field-license_id"]) {
+      width: 100%;
+      grid-column: 1/3; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-license_id"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-license_id"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-license_id"]) .control-label,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-license_id"]) .control-label {
+        width: 100%; }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-license_id"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-license_id"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-license_id"]) .controls input,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-license_id"]) .controls input {
+          width: 100%;
+          margin-bottom: 0.5rem; }
+    body:has(#dataset-edit) #dataset-edit div:has(label[for="field-rate"]),
+    body:has(#resource-form) #dataset-edit div:has(label[for="field-rate"]) {
+      width: 100%;
+      grid-column: 1/2; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-rate"]),
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-rate"]) {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div:has(label[for="field-rate"]) .controls,
+      body:has(#resource-form) #dataset-edit div:has(label[for="field-rate"]) .controls {
+        width: 100%; }
+        body:has(#dataset-edit) #dataset-edit div:has(label[for="field-rate"]) .controls select,
+        body:has(#resource-form) #dataset-edit div:has(label[for="field-rate"]) .controls select {
+          width: 100%; }
+    body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"],
+    body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] {
+      width: 100%; }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col,
+      body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1.125rem;
+        row-gap: 0.5rem; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left,
+        body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left {
+          grid-column: 1 / -1; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical,
+          body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical {
+            margin-bottom: 0; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor,
+            body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor {
+              width: 100%; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor textarea,
+              body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls.editor textarea {
+                margin-bottom: 0.5rem; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-right,
+        body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-right {
+          grid-column: 1/2; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-right,
+            body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-header-2col .fluent-header-right {
+              grid-column: 1/-1; } }
+      body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra,
+      body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra {
+        display: flex;
+        flex-direction: column;
+        column-gap: 1.125rem;
+        row-gap: 0.5rem;
+        justify-content: flex-end; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list,
+        body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list {
+          display: flex;
+          flex-direction: column;
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          justify-content: flex-end; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item,
+          body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item {
+            display: flex;
+            flex-direction: row;
+            column-gap: 1.125rem;
+            row-gap: 0.5rem;
+            align-items: flex-end; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group,
+            body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group {
+              width: 100%; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group .dge-md-wrap .form-control,
+              body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group .dge-md-wrap .form-control {
+                width: 100%; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions .fluent-remove-translation,
+            body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions .fluent-remove-translation {
+              width: 50px;
+              min-width: unset; }
+        body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row,
+        body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          grid-template-areas: "text text languaje" "text text button"; }
+          @media (max-width: 980px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row,
+            body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row {
+              grid-template-areas: "text text text" "languaje button ."; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name,
+              body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name {
+                grid-column: 1/-1 !important;
+                grid-row: auto !important; }
+              body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn,
+              body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn {
+                align-items: flex-end !important; } }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row,
+            body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row {
+              display: flex;
+              flex-direction: column; } }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name,
+          body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name {
+            width: 100%;
+            height: 100%;
+            grid-row: 1/-1;
+            grid-column: 1/3; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang,
+          body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang {
+            width: 100%;
+            height: 100%;
+            grid-area: languaje;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start; }
+          body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn,
+          body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn {
+            width: 100%;
+            height: 100%;
+            grid-area: button;
+            justify-content: flex-start;
+            align-items: flex-start; }
+            body:has(#dataset-edit) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn button,
+            body:has(#resource-form) #dataset-edit div[data-field-name="rate_info"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn button {
+              width: 100%; }
+  body:has(#dataset-edit) #resource-edit,
+  body:has(#resource-form) #resource-edit {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1.125rem;
+    row-gap: 2rem;
+    min-width: fit-content; }
+    @media (max-width: 632px) {
+      body:has(#dataset-edit) #resource-edit,
+      body:has(#resource-form) #resource-edit {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        gap: 2.5rem; } }
+    body:has(#dataset-edit) #resource-edit > *,
+    body:has(#resource-form) #resource-edit > * {
+      grid-column: 1/-1; }
+    body:has(#dataset-edit) #resource-edit #multi-value-access_url,
+    body:has(#resource-form) #resource-edit #multi-value-access_url {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.125rem;
+      row-gap: 0.5rem;
+      align-items: flex-start; }
+      body:has(#dataset-edit) #resource-edit #multi-value-access_url .url-field-wrapper,
+      body:has(#resource-form) #resource-edit #multi-value-access_url .url-field-wrapper {
+        grid-column: 1/3;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.5rem; }
+        body:has(#dataset-edit) #resource-edit #multi-value-access_url .url-field-wrapper .control-medium,
+        body:has(#resource-form) #resource-edit #multi-value-access_url .url-field-wrapper .control-medium {
+          width: 100%; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #resource-edit #multi-value-access_url .url-field-wrapper .control-medium,
+            body:has(#resource-form) #resource-edit #multi-value-access_url .url-field-wrapper .control-medium {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit #multi-value-access_url .url-field-wrapper .btn-remove-field,
+        body:has(#resource-form) #resource-edit #multi-value-access_url .url-field-wrapper .btn-remove-field {
+          min-width: unset;
+          width: 50px; }
+      body:has(#dataset-edit) #resource-edit #multi-value-access_url .multi-add-field,
+      body:has(#resource-form) #resource-edit #multi-value-access_url .multi-add-field {
+        padding-left: 0;
+        grid-column: auto; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit #multi-value-access_url .multi-add-field,
+          body:has(#resource-form) #resource-edit #multi-value-access_url .multi-add-field {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit #multi-value-access_url .multi-add-field .help-text-container,
+        body:has(#resource-form) #resource-edit #multi-value-access_url .multi-add-field .help-text-container {
+          margin: 0.5rem 0; }
+        body:has(#dataset-edit) #resource-edit #multi-value-access_url .multi-add-field .controls,
+        body:has(#resource-form) #resource-edit #multi-value-access_url .multi-add-field .controls {
+          width: 100% !important;
+          justify-content: flex-start; }
+    body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"],
+    body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] {
+      width: 100%; }
+      body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col,
+      body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: flex-end;
+        column-gap: 1.125rem;
+        row-gap: 0.5rem; }
+        body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left,
+        body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left {
+          grid-column: 1/3; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left {
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls,
+          body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls {
+            width: 100%;
+            display: flex !important;
+            flex-direction: column;
+            gap: 0.5rem; }
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls textarea,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-left .control-group.fluent-vertical .dge-md-wrap .form-group .controls textarea {
+              width: 100%;
+              height: 50px; }
+        body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right,
+        body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right {
+          grid-column: 3/3;
+          padding-bottom: 0; }
+          @media (max-width: 980px) {
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right {
+              grid-column: 3/3; } }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right {
+              grid-column: 1/-1; } }
+          body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right button,
+          body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-header-2col .fluent-header-right button {
+            margin-bottom: 23px; }
+      body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra,
+      body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem; }
+        body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list,
+        body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem; }
+          body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item,
+          body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 1.125rem;
+            row-gap: 0.5rem;
+            align-items: flex-end; }
+            @media (max-width: 632px) {
+              body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item,
+              body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item {
+                display: flex;
+                flex-direction: row; } }
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group {
+              width: 100%;
+              grid-column: 1/3; }
+              @media (max-width: 980px) {
+                body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group,
+                body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group {
+                  grid-column: 1/3; } }
+              body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group textarea,
+              body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .control-group textarea {
+                width: 100%;
+                height: 50px; }
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions {
+              grid-column: 3/3; }
+              @media (max-width: 980px) {
+                body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions,
+                body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions {
+                  grid-column: 3/3; } }
+              body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions button,
+              body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-translations-list .fluent-translation-item .fluent-actions button {
+                width: 50px;
+                min-width: unset; }
+        body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row,
+        body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          column-gap: 1.125rem;
+          row-gap: 0.5rem;
+          align-items: flex-end; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row {
+              display: flex;
+              flex-direction: column; } }
+          body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name,
+          body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name {
+            width: 100%;
+            height: 100%;
+            grid-column: auto; }
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name textarea,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-name textarea {
+              height: 50px; }
+          body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang,
+          body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-lang {
+            width: 100%;
+            height: 100%;
+            grid-column: auto;
+            display: flex;
+            flex-direction: column; }
+          body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn,
+          body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn {
+            width: 100%;
+            height: unset;
+            grid-column: auto; }
+            body:has(#dataset-edit) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn .fluent-remove-translation,
+            body:has(#resource-form) #resource-edit div[data-field-name="name_translated"] .fluent-extra .fluent-add-translation .fluent-add-row .fluent-col-btn .fluent-remove-translation {
+              width: 100%; }
+    body:has(#dataset-edit) #resource-edit .multi-new-value-download_url,
+    body:has(#resource-form) #resource-edit .multi-new-value-download_url {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.125rem;
+      row-gap: 0.5rem;
+      align-items: flex-start; }
+      body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .url-field-wrapper,
+      body:has(#resource-form) #resource-edit .multi-new-value-download_url .url-field-wrapper {
+        grid-column: 1/3;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.5rem; }
+        body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .url-field-wrapper .control-medium,
+        body:has(#resource-form) #resource-edit .multi-new-value-download_url .url-field-wrapper .control-medium {
+          width: 100%; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .url-field-wrapper .control-medium,
+            body:has(#resource-form) #resource-edit .multi-new-value-download_url .url-field-wrapper .control-medium {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .url-field-wrapper .btn-remove-field,
+        body:has(#resource-form) #resource-edit .multi-new-value-download_url .url-field-wrapper .btn-remove-field {
+          min-width: unset;
+          width: 50px; }
+      body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .multi-add-field,
+      body:has(#resource-form) #resource-edit .multi-new-value-download_url .multi-add-field {
+        padding-left: 0;
+        grid-column: auto; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .multi-add-field,
+          body:has(#resource-form) #resource-edit .multi-new-value-download_url .multi-add-field {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .multi-add-field .help-text-container,
+        body:has(#resource-form) #resource-edit .multi-new-value-download_url .multi-add-field .help-text-container {
+          margin: 0.5rem 0; }
+        body:has(#dataset-edit) #resource-edit .multi-new-value-download_url .multi-add-field .controls,
+        body:has(#resource-form) #resource-edit .multi-new-value-download_url .multi-add-field .controls {
+          width: 100% !important;
+          justify-content: flex-start; }
+    body:has(#dataset-edit) #resource-edit div:has([for="field-byte_size"]),
+    body:has(#resource-form) #resource-edit div:has([for="field-byte_size"]) {
+      width: 100%;
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 0.5rem;
+      column-gap: 1.125rem;
+      align-items: flex-end; }
+      body:has(#dataset-edit) #resource-edit div:has([for="field-byte_size"]) .control-label,
+      body:has(#resource-form) #resource-edit div:has([for="field-byte_size"]) .control-label {
+        grid-column: 1/-1;
+        width: 100%; }
+      body:has(#dataset-edit) #resource-edit div:has([for="field-byte_size"]) .controls,
+      body:has(#resource-form) #resource-edit div:has([for="field-byte_size"]) .controls {
+        width: 100%;
+        grid-column: 1/2; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit div:has([for="field-byte_size"]) .controls,
+          body:has(#resource-form) #resource-edit div:has([for="field-byte_size"]) .controls {
+            grid-column: 1/-1; } }
+    body:has(#dataset-edit) #resource-edit div:has([for="field-resource_identifier"]),
+    body:has(#resource-form) #resource-edit div:has([for="field-resource_identifier"]) {
+      width: 100%;
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 0.5rem;
+      column-gap: 1.125rem;
+      align-items: flex-end; }
+      body:has(#dataset-edit) #resource-edit div:has([for="field-resource_identifier"]) .control-label,
+      body:has(#resource-form) #resource-edit div:has([for="field-resource_identifier"]) .control-label {
+        grid-column: 1/-1;
+        width: 100%; }
+      body:has(#dataset-edit) #resource-edit div:has([for="field-resource_identifier"]) .controls,
+      body:has(#resource-form) #resource-edit div:has([for="field-resource_identifier"]) .controls {
+        width: 100%;
+        grid-column: 1/3; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit div:has([for="field-resource_identifier"]) .controls,
+          body:has(#resource-form) #resource-edit div:has([for="field-resource_identifier"]) .controls {
+            grid-column: 1/-1; } }
+    body:has(#dataset-edit) #resource-edit div:has([for="field-format"]),
+    body:has(#resource-form) #resource-edit div:has([for="field-format"]) {
+      width: 100%;
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 0.5rem;
+      column-gap: 1.125rem;
+      align-items: flex-end; }
+      body:has(#dataset-edit) #resource-edit div:has([for="field-format"]) .control-label,
+      body:has(#resource-form) #resource-edit div:has([for="field-format"]) .control-label {
+        grid-column: 1/-1;
+        width: 100%; }
+      body:has(#dataset-edit) #resource-edit div:has([for="field-format"]) .controls,
+      body:has(#resource-form) #resource-edit div:has([for="field-format"]) .controls {
+        width: 100%;
+        grid-column: 1/2; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit div:has([for="field-format"]) .controls,
+          body:has(#resource-form) #resource-edit div:has([for="field-format"]) .controls {
+            grid-column: 1/-1; } }
+    body:has(#dataset-edit) #resource-edit #multi-value-resource_relation,
+    body:has(#resource-form) #resource-edit #multi-value-resource_relation {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.125rem;
+      row-gap: 0.5rem;
+      align-items: flex-start; }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .label-container,
+      body:has(#resource-form) #resource-edit #multi-value-resource_relation .label-container {
+        grid-column: 1/-1;
+        width: 100%;
+        font-weight: 600;
+        margin: 0 0 0 0; }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .multi-uri-field-container,
+      body:has(#resource-form) #resource-edit #multi-value-resource_relation .multi-uri-field-container {
+        grid-column: 1/3; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .multi-uri-field-container,
+          body:has(#resource-form) #resource-edit #multi-value-resource_relation .multi-uri-field-container {
+            grid-column: 1/-1; } }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper,
+      body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper {
+        grid-column: 1/3;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-end;
+        gap: 0.5rem; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper,
+          body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper .form-group,
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper .control-group,
+        body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper .form-group,
+        body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper .control-group {
+          width: 100%; }
+          body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper .form-group .controls,
+          body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper .control-group .controls,
+          body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper .form-group .controls,
+          body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper .control-group .controls {
+            width: 100%; }
+            body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper .form-group .controls input,
+            body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper .control-group .controls input,
+            body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper .form-group .controls input,
+            body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper .control-group .controls input {
+              width: 100%; }
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .url-field-wrapper .btn-remove-field,
+        body:has(#resource-form) #resource-edit #multi-value-resource_relation .url-field-wrapper .btn-remove-field {
+          width: 50px;
+          min-width: unset; }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .multi-add-field,
+      body:has(#resource-form) #resource-edit #multi-value-resource_relation .multi-add-field {
+        width: 100%;
+        grid-column: 3/3; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit #multi-value-resource_relation .multi-add-field,
+          body:has(#resource-form) #resource-edit #multi-value-resource_relation .multi-add-field {
+            grid-column: 1/-1; } }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_relation #multi-value-resource_relation-link,
+      body:has(#resource-form) #resource-edit #multi-value-resource_relation #multi-value-resource_relation-link {
+        width: 100%; }
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_relation #multi-value-resource_relation-link .controls,
+        body:has(#resource-form) #resource-edit #multi-value-resource_relation #multi-value-resource_relation-link .controls {
+          width: 100%; }
+    body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation,
+    body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation {
+      width: 100%;
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.125rem;
+      row-gap: 0.5rem;
+      align-items: flex-start; }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .control-label,
+      body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .control-label {
+        width: 100%;
+        grid-column: 1/-1; }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper,
+      body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper {
+        grid-column: 1/3;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.5rem; }
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper .control-medium,
+        body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper .control-medium {
+          width: 100%; }
+          @media (max-width: 632px) {
+            body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper .control-medium,
+            body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper .control-medium {
+              grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper .btn-remove-field,
+        body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .url-field-wrapper .btn-remove-field {
+          min-width: unset;
+          width: 50px; }
+      body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field,
+      body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field {
+        padding-left: 0;
+        grid-column: auto; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field,
+          body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field .help-text-container,
+        body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field .help-text-container {
+          margin: 0.5rem 0; }
+        body:has(#dataset-edit) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field .controls,
+        body:has(#resource-form) #resource-edit #multi-value-resource_hvd_applicable_legislation .multi-add-field .controls {
+          width: 100% !important;
+          justify-content: flex-start; }
+    body:has(#dataset-edit) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]),
+    body:has(#resource-form) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) {
+      width: 100%;
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 0.5rem;
+      column-gap: 1.125rem;
+      align-items: flex-end; }
+      body:has(#dataset-edit) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .control-label,
+      body:has(#resource-form) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .control-label {
+        grid-column: 1/-1;
+        width: 100%;
+        display: none; }
+      body:has(#dataset-edit) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .controls,
+      body:has(#resource-form) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .controls {
+        width: 100%;
+        grid-column: 1/3; }
+        @media (max-width: 632px) {
+          body:has(#dataset-edit) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .controls,
+          body:has(#resource-form) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .controls {
+            grid-column: 1/-1; } }
+        body:has(#dataset-edit) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .controls .label-container,
+        body:has(#resource-form) #resource-edit .dge-uri-text-container div:has([for="field-license_id"]) .controls .label-container {
+          font-weight: 600; }
+  body:has(#dataset-edit) .multi-new-value-endpoint_url,
+  body:has(#resource-form) .multi-new-value-endpoint_url {
+    width: 100%;
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 0.5rem;
+    column-gap: 1.125rem;
+    align-items: flex-end; }
+    body:has(#dataset-edit) .multi-new-value-endpoint_url .field-title,
+    body:has(#resource-form) .multi-new-value-endpoint_url .field-title {
+      width: 100%;
+      grid-column: 1/-1;
+      gap: 4px; }
+    body:has(#dataset-edit) .multi-new-value-endpoint_url .div-endpoint_url,
+    body:has(#resource-form) .multi-new-value-endpoint_url .div-endpoint_url {
+      grid-column: 1/3; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) .multi-new-value-endpoint_url .div-endpoint_url,
+        body:has(#resource-form) .multi-new-value-endpoint_url .div-endpoint_url {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) .multi-new-value-endpoint_url .div-endpoint_url .control-label,
+      body:has(#resource-form) .multi-new-value-endpoint_url .div-endpoint_url .control-label {
+        display: none; }
+      body:has(#dataset-edit) .multi-new-value-endpoint_url .div-endpoint_url .controls input,
+      body:has(#resource-form) .multi-new-value-endpoint_url .div-endpoint_url .controls input {
+        width: 100%; }
+  body:has(#dataset-edit) #multi-value-endpoint_url,
+  body:has(#resource-form) #multi-value-endpoint_url {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1.125rem;
+    row-gap: 0.5rem;
+    align-items: flex-start; }
+    body:has(#dataset-edit) #multi-value-endpoint_url .field-title,
+    body:has(#resource-form) #multi-value-endpoint_url .field-title {
+      margin: 0 0 0 0;
+      width: 100%;
+      grid-column: 1/-1; }
+    body:has(#dataset-edit) #multi-value-endpoint_url .url-field-wrapper,
+    body:has(#resource-form) #multi-value-endpoint_url .url-field-wrapper {
+      width: 100%;
+      grid-column: 1/3;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0.5rem; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #multi-value-endpoint_url .url-field-wrapper,
+        body:has(#resource-form) #multi-value-endpoint_url .url-field-wrapper {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #multi-value-endpoint_url .url-field-wrapper .control-medium,
+      body:has(#resource-form) #multi-value-endpoint_url .url-field-wrapper .control-medium {
+        width: 100%; }
+      body:has(#dataset-edit) #multi-value-endpoint_url .url-field-wrapper .btn-remove-field,
+      body:has(#resource-form) #multi-value-endpoint_url .url-field-wrapper .btn-remove-field {
+        min-width: unset;
+        width: 50px; }
+    body:has(#dataset-edit) #multi-value-endpoint_url #multi-value-endpoint_url-link,
+    body:has(#resource-form) #multi-value-endpoint_url #multi-value-endpoint_url-link {
+      padding-left: 0;
+      grid-column: auto; }
+      @media (max-width: 632px) {
+        body:has(#dataset-edit) #multi-value-endpoint_url #multi-value-endpoint_url-link,
+        body:has(#resource-form) #multi-value-endpoint_url #multi-value-endpoint_url-link {
+          grid-column: 1/-1; } }
+      body:has(#dataset-edit) #multi-value-endpoint_url #multi-value-endpoint_url-link .help-text-container,
+      body:has(#resource-form) #multi-value-endpoint_url #multi-value-endpoint_url-link .help-text-container {
+        margin: 0.5rem 0; }
+      body:has(#dataset-edit) #multi-value-endpoint_url #multi-value-endpoint_url-link .controls,
+      body:has(#resource-form) #multi-value-endpoint_url #multi-value-endpoint_url-link .controls {
+        width: 100% !important;
+        justify-content: flex-start; }
+        body:has(#dataset-edit) #multi-value-endpoint_url #multi-value-endpoint_url-link .controls .btn,
+        body:has(#resource-form) #multi-value-endpoint_url #multi-value-endpoint_url-link .controls .btn {
+          margin: 0 0 0 0; }
+
+.control-group:has(label[for="field-resource_format"]) {
+  grid-column: 1/2; }
+  @media (max-width: 980px) {
+    .control-group:has(label[for="field-resource_format"]) {
+      grid-column: 1/3; } }
+  @media (max-width: 632px) {
+    .control-group:has(label[for="field-resource_format"]) {
+      grid-column: 1/-1; } }
+.dge-uri-text-container:has(
+.form-group:has(label[for="field-resource_license"])
+) {
+  grid-column: 1/3; }
+  @media (max-width: 632px) {
+    .dge-uri-text-container:has(
+.form-group:has(label[for="field-resource_license"])
+) {
+      grid-column: 1/-1; } }
+#confirm-dataset-delete-form,
+#confirm-resource-delete-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; }
+  #confirm-dataset-delete-form button[name="delete"],
+  #confirm-resource-delete-form button[name="delete"] {
+    background-color: var(--secondary-500); }

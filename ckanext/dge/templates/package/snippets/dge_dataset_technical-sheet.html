@@ -1,12 +1,25 @@
 <section id="dataset-technical-sheet" style="display: none;">
   <div class="additional-info__content relative flex-display w--100 flex-column">
       {% block package_technical_sheet %}
-        <div class="read-more read-more--md">
+        <div class="read-more read-more--md module-bg-gray">
           <div class="table-container">
             <table class="custom-table">
 
               {% block package_identification %}
-                {% if (pkg_dict.identifier and dict_fields[inc_dict.identifier]) or
+                {% set identifier_values = pkg_dict.get('identifier', []) %}
+                {% set identifier_state = namespace(has_value=false) %}
+                {% if identifier_values is string %}
+                  {% if identifier_values|trim not in ['', '[]'] %}
+                    {% set identifier_state.has_value = true %}
+                  {% endif %}
+                {% elif identifier_values is iterable %}
+                  {% for value in identifier_values %}
+                    {% if value and value|string|trim not in ['', '[]', '{}'] %}
+                      {% set identifier_state.has_value = true %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {% if (identifier_state.has_value and dict_fields[inc_dict.identifier]) or
                 (pkg_dict.another_identifier and dict_fields[inc_dict.another_identifier]) or 
                 (pkg_dict.issued_date and dict_fields[inc_dict.issued_date]) or 
                 (pkg_dict.modified_date and dict_fields[inc_dict.modified_date]) %}
@@ -14,7 +27,7 @@
                     <tr>
                       <th colspan="2">{{_('Identification')}}</th>
                     </tr>
-                    {% if pkg_dict.identifier and dict_fields[inc_dict.identifier] %}
+                    {% if identifier_state.has_value and dict_fields[inc_dict.identifier] %}
                       <tr>
                         <th class="large text--color-primary-dark">
                           {{ h.scheming_language_text(dict_fields[inc_dict.identifier].label) }}

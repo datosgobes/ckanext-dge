@@ -103,12 +103,15 @@
 {% block content_primary_nav %} {# Supress tabs #}{% endblock %}
 
 {% block content_action %}
-  {% if not is_activity_archive %}
-    {% if h.check_access('package_update', {'id':pkg.id }) %}
-      {% set prefix_endpoint = 'package.dataset_' if pkg.type == 'dataset' else pkg.type ~ '.' %}
-      {% link_for _('Manage'), named_route=prefix_endpoint ~ 'edit', id=pkg.name, class_='btn btn-default', icon='wrench' %}
+  {% if not is_activity_archive %}      {% if h.check_access('package_update', {'id':pkg.id }) %}
+    {% if dataset_type == 'dataservice' %}
+        {% link_for _('Manage'), named_route='dgeDataservice.edit_dataservice', id=pkg.id, class_='btn btn-default', icon='wrench' %}
+    {% else %}
+        {% set prefix_endpoint = 'package.dataset_' if pkg.type == 'dataset' else pkg.type ~ '.' %}
+        {% link_for _('Manage'), named_route=prefix_endpoint ~ 'edit', id=pkg.name, class_='btn btn-default', icon='wrench' %}
+
     {% endif %}
-  {% endif %}
+  {% endif %}{% endif %}
 {% endblock %}
 
 {% block package_revision_info %}

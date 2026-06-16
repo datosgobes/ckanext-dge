@@ -1,0 +1,227 @@
+<!-- {# Banner de cookies compartido con Drupal (cookiesjsr) #}-->
+<div id="cookiesjsr" class="cookiesjsr--app">
+
+    <!-- BANNER -->
+    <div id="cookies-banner"
+        class="cookiesjsr-banner hidden"
+        role="dialog"
+        aria-live="assertive"
+        aria-label="Cookies">
+
+        <div class="cookiesjsr-banner--info">
+            <span class="cookiesjsr-banner--text">
+                {{_("This website portal only uses its own cookies for technical purposes, and does not collect or share personal data about users without their knowledge. However, it contains links to third-party websites with privacy policies separate from this site, which you can decide whether to accept or not when you access them.")}}
+            </span>
+
+            <ul class="cookiesjsr-links cookiesjsr-banner--links links--row-var">
+                <li>
+                    {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] %}
+                        <a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] }}" target="_blank">
+                            {{_("Cookies policy")}}
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+
+        <div class="cookiesjsr-banner--action">
+            <button id="cookies-settings"
+                    class="cookiesjsr-btn cookiesjsr-settings"
+                    aria-controls="cookiesjsr-layer">
+                {{_("Cookie settings")}}
+            </button>
+
+            <button id="cookies-reject"
+                    class="cookiesjsr-btn important denyAll">
+                {{_("Deny all")}}
+            </button>
+
+            <button id="cookies-accept"
+                    class="cookiesjsr-btn important allowAll">
+                {{_("Accept all")}}
+            </button>
+        </div>
+
+    </div>
+
+    <!-- CAPA DE CONFIGURACIÓN -->
+    <div id="cookiesjsr-layer-wrapper"
+    class="cookiesjsr-layer--wrapper hidden">
+
+        <div class="cookiesjsr-layer--overlay"></div>
+
+        <div class="cookiesjsr-layer"
+            id="cookiesjsr-layer"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cookiesjsrLabel">
+
+            <header class="cookiesjsr-layer--header">
+                <span id="cookiesjsrLabel"
+                    class="cookiesjsr-layer--title">
+                {{_("Cookie settings")}}
+                </span>
+
+                <button type="button"
+                        class="cookiesjsr-layer--close"
+                        id="cookies-layer-close">
+                {{_("Close")}}
+                </button>
+            </header>
+
+            <div class="cookiesjsr-layer--body">
+
+                <ul class="cookiesjsr-service-groups" role="tablist">
+
+                    <!-- FUNCIONALES -->
+                    <li class="cookiesjsr-service-group active">
+                        <button class="cookiesjsr-service-group--tab"
+                                role="tab"
+                                aria-selected="true">
+                        {{_("Funtional")}}
+                        </button>
+
+                        <div class="cookiesjsr-service-group--content">
+
+                            <div class="cookiesjsr-service-group--intro">
+                                {{_("Cookies are small text files that are placed by your browser on your device in order to store certain information. Using the information that is stored and returned, a website can recognize that you have previously accessed and visited it using the browser on your end device. We use this information to arrange and display the website optimally in accordance with your preferences. Within this process, only the cookie itself is identified on your device. Personal data is only stored following your express consent or where this is absolutely necessary to enable use the service provided by us and accessed by you.")}}
+                            </div>
+
+                            <ul class="cookiesjsr-service-group--services">
+                                <li class="cookiesjsr-service">
+                                    <div class="cookiesjsr-service--description">
+                                        <h3>{{_("Required functional")}}</h3>
+                                        <ul class="cookiesjsr-links cookiesjsr-service--links links--row">
+                                             {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] %}
+                                                <li><a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] }}#functional" target="_blank">{{_("Cookies policy")}}</a></li>   
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="cookiesjsr-service--action">
+                                        <div class="cookiesjsr-service--always-on">
+                                            <span>{{_("Always active")}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="cookiesjsr-service">
+                                    <div class="cookiesjsr-service--description">
+                                        <h3>{{_("Power BI reports")}}</h3>
+                                        <ul class="cookiesjsr-links cookiesjsr-service--links links--row">
+                                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] %}
+                                                <li><a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] }}#powerbi_embed" target="_blank">{{_("Cookies policy")}}</a></li>   
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="cookiesjsr-service--action">
+                                        <div class="cookiesjsr-service--always-on">
+                                            <span>{{_("Always active")}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </li>
+
+                    <!-- OPCIONALES -->
+                    <li class="cookiesjsr-service-group">
+                        <button class="cookiesjsr-service-group--tab"
+                                role="tab"
+                                aria-selected="false">
+                        {{_("Optional")}}
+                        </button>
+
+                        <div class="cookiesjsr-service-group--content">
+
+                            <div class="cookiesjsr-service-group--intro">
+                                {{_("These cookies allow you to activate optional functionalities that enrich your experience on the site. This includes viewing embedded media content (such as YouTube/Vimeo videos). By accepting them, you enable these components provided by third parties, which may collect data about your interaction for their operation and possible anonymous analysis.")}}
+                            </div>
+
+                            <ul class="cookiesjsr-service-group--services">
+
+                                <li class="cookiesjsr-service">
+                                    <div class="cookiesjsr-service--description">
+                                        <h3>{{ _("Analytics cookies") }}</h3>
+                                        <ul class="cookiesjsr-links cookiesjsr-service--links links--row">
+                                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] %}
+                                                <li><a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] }}#analytics" target="_blank">{{_("Cookies policy")}}</a></li>   
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="cookiesjsr-service--action">
+                                    <label class="cookiesjsr-switch">
+                                        <input type="checkbox"
+                                            class="consent-slider"
+                                            data-service="analytics">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    </div>
+                                </li>
+
+                                <li class="cookiesjsr-service">
+                                    <div class="cookiesjsr-service--description">
+                                        <h3>{{ _("Video provided by Vimeo") }}</h3>
+                                        <ul class="cookiesjsr-links cookiesjsr-service--links links--row">
+                                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] %}
+                                                <li><a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] }}#vimeo_video" target="_blank">{{_("Cookies policy")}}</a></li>   
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="cookiesjsr-service--action">
+                                    <label class="cookiesjsr-switch">
+                                        <input type="checkbox"
+                                            class="consent-slider"
+                                            data-service="vimeo_video">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    </div>
+                                </li>
+
+                                <li class="cookiesjsr-service">
+                                    <div class="cookiesjsr-service--description">
+                                        <h3>{{ _("Video provided by YouTube") }}</h3>
+                                        <ul class="cookiesjsr-links cookiesjsr-service--links links--row">
+                                            {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] %}
+                                                <li><a href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] }}#youtube_video" target="_blank">{{_("Cookies policy")}}</a></li>   
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="cookiesjsr-service--action">
+                                    <label class="cookiesjsr-switch">
+                                        <input type="checkbox"
+                                            class="consent-slider"
+                                            data-service="youtube_video">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <footer class="cookiesjsr-layer--footer">
+                <div class="cookiesjsr-layer--label-all">{{_("Settings for all services")}}</div>
+                <div class="cookiesjsr-layer--actions">
+                <button class="cookiesjsr-btn invert denyAll"
+                        id="cookies-layer-reject">
+                    {{_("Deny all")}}
+                </button>
+
+                <button class="cookiesjsr-btn invert allowAll"
+                        id="cookies-layer-accept">
+                    {{_("Accept all")}}
+                </button>
+
+                <button class="cookiesjsr-btn invert important"
+                        id="cookies-layer-save">
+                    {{_("Save")}}
+                </button>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>

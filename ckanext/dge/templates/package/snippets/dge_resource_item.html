@@ -2,7 +2,7 @@
   {%- set resource_format_label = h.scheming_choices_label(dict_format_fields['format'].choices, res.format) -%}
 {% endif %}
 <div class="accordion-item{{' samples' if is_sample else ''}}">
-  <div class="accordion-header" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop_index }}" aria-expanded="false" aria-controls="collapse-{{ loop_index }}">
+  <div class="accordion-header accordion-products" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop_index }}" aria-expanded="false" aria-controls="collapse-{{ loop_index }}">
     <button class="accordion-button">
 
       <div class="flex flex-column flex-gap-05">

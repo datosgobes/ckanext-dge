@@ -197,6 +197,7 @@ html {
 
 body {
   font-family: 'montserrat';
+  overflow-x: hidden !important;
 
   b,
   strong,
@@ -387,7 +388,7 @@ strong em{
   box-shadow: var(--box-shadow);
   padding: 1.5rem 1rem;
   border-radius: 0.625rem;
-  background-color: var(--background-light-gray);
+  background-color: var(--white);
   &--highlight {
     background-color: var(--primary-300);
     box-shadow: none;

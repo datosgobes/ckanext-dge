@@ -4,17 +4,20 @@
   {% snippet 'package/snippets/dge_package_breadcrumb_content.html', pkg=pkg %}
 {% endblock %}
 {% block page_title_content %}
-  {% if pkg %}
-  {{ _('Edit') }} {{ pkg.title or pkg.name }}
-  {% if pkg.state.startswith('draft') %}
-          [{{ _('Draft') }}]
-        {% endif %}
-        {% if pkg.state == 'deleted' %}
-          [{{ _('Deleted') }}]
-        {% endif %}
-       {% else %}
-{{ _('Create Dataset') }} 
-{% endif %}
+  {% set pkg_obj = pkg if pkg is defined and pkg else (pkg_dict if pkg_dict is defined and pkg_dict else none) %}
+  {% if not pkg_obj or not pkg_obj.id or pkg_obj.state.startswith('draft') %}
+    {{ _('Create Dataset') }}
+  {% elif pkg_obj %}
+    {{ _('Edit') }} {{ pkg_obj.title or pkg_obj.name }}
+    {% if pkg_obj.state.startswith('draft') %}
+      [{{ _('Draft') }}]
+    {% endif %}
+    {% if pkg_obj.state == 'deleted' %}
+      [{{ _('Deleted') }}]
+    {% endif %}
+  {% else %}
+    {{ _('Create Dataset') }}
+  {% endif %}
 {% endblock %}
 
 {% block page_header %}

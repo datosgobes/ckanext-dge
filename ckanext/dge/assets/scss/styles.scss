@@ -547,7 +547,16 @@ Generic styles
   float: right;
   margin-top: -4rem;
 }
+.group-nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
 
+.group-nav {
+  margin-left: auto;
+}
 /*----------------------------------------*/
 /* START - MEDIA QUERIES */
 /*----------------------------------------*/
@@ -561,6 +570,13 @@ Generic styles
         margin-bottom: auto !important;
       }
     }
+  }
+   .group-nav-wrapper {
+    flex-direction: column;
+  }
+
+  .group-nav {
+    margin-left: 0;
   }
 }
 
@@ -589,6 +605,13 @@ Generic styles
     &+.layout-content {
       width: calc(100%);
     }
+  }
+   .group-nav-wrapper {
+    flex-direction: column;
+  }
+
+  .group-nav {
+    margin-left: 0;
   }
 }
 /*----------------------------------------*/

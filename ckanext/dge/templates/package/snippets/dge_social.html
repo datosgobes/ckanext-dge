@@ -7,15 +7,15 @@
     {% block social_nav %}
     <div class="dialog-container" role="dialog">
         <div class="dialog-close">
-          <button aria-label="Cerrar" type="button">
-          <span><img src="/images/close.svg" alt="Close icon"></img></span>
+          <button type="button" aria-label="Cerrar" aria-controls="dialog-id">
+          <span><img src="/images/close.svg" alt="" aria-hidden="true"></img></span>
           </button>
         </div>
         <h3>{{ _('Share this content') }}</h3>
         <ul class="nav nav-simple">
           <li class="nav-item"><a id="copy-link" href="#" data-url="{{ current_url }}" target="_blank" title="{{ _('Copy link') }}"><i class="icon-copy-sign"></i> {{ _('Copy link') }}</a></li>
           <li class="nav-item"><a href="http://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}" target="_blank" title="{{ _('LinkendIn') }}"><i class="icon-linkedin-sign"></i> {{ _('LinkendIn') }}</a></li>
-          <li class="nav-item"><a href="https://twitter.com/share?url={{ current_url }}" target="_blank" title="{{ _('X') }}"><i class="icon-x-sign"></i> {{ _('X') }}</a></li>
+          <li class="nav-item"><a href="https://x.com/intent/tweet?url={{ current_url }}" target="_blank" title="{{ _('X') }}"><i class="icon-x-sign"></i> {{ _('X') }}</a></li>
           <li class="nav-item"><a href="https://wa.me/?text={{ current_url }}" target="_blank" title="Whatsapp"><i class="icon-whatsapp-sign"></i> Whatsapp</a></li>
           <li class="nav-item"><a href="mailto:?subject={{ current_url }}&body=Check out this site {{ current_url }}" target="_blank" title="{{ _('Email') }}"><i class="icon-email-sign"></i> {{ _('Email') }}</a></li>
         </ul>

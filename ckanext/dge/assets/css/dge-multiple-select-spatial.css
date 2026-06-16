@@ -1,0 +1,132 @@
+/*
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+.multiple-select-spatial .multi-select {
+  position: relative;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  color: #676767;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; }
+  .multiple-select-spatial .multi-select.has-selection .multi-select__placeholder {
+    opacity: 0; }
+  .multiple-select-spatial .multi-select.is-open .multi-select__trigger {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid transparent; }
+  .multiple-select-spatial .multi-select.is-open .arrow-down {
+    opacity: 0; }
+  .multiple-select-spatial .multi-select.is-open .arrow-up {
+    opacity: 1; }
+  .multiple-select-spatial .multi-select.is-open .multi-select__dropdown {
+    opacity: 1;
+    overflow-y: auto; }
+
+.multiple-select-spatial .multi-select__trigger {
+  width: 100%;
+  height: auto;
+  min-height: 3.125rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding: 0 0.938rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border: 1px solid #dadee2;
+  border-radius: 0.625rem;
+  background: white;
+  position: relative;
+  cursor: pointer; }
+
+.multiple-select-spatial.error .multi-select__trigger {
+  border-color: var(--alert-danger-color);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+
+.multiple-select-spatial .multi-select__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: calc(100% - 20px); }
+
+.multiple-select-spatial .multi-select__chip {
+  display: flex;
+  align-items: center;
+  background: #e6f2ff;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer; }
+  .multiple-select-spatial .multi-select__chip .remove-chip {
+    margin-left: 4px;
+    font-weight: 500; }
+  .multiple-select-spatial .multi-select__chip:hover {
+    background: #a0c9f6; }
+
+.multiple-select-spatial .multi-select__placeholder {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #676767;
+  pointer-events: none; }
+
+.multiple-select-spatial .multi-select__arrow {
+  position: relative;
+  width: 16px;
+  height: 16px; }
+  .multiple-select-spatial .multi-select__arrow span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.25s; }
+  .multiple-select-spatial .multi-select__arrow .arrow-up {
+    opacity: 0; }
+
+.multiple-select-spatial .multi-select__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  background: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow-y: hidden;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+  z-index: 10; }
+
+.multiple-select-spatial .multi-select__option {
+  padding: 10px 14px;
+  cursor: pointer; }
+  .multiple-select-spatial .multi-select__option:hover {
+    background: #f2f4f7; }
+  .multiple-select-spatial .multi-select__option.is-selected {
+    background: #e6f2ff;
+    font-weight: 500; }
+
+.multiple-select-spatial .multi-select__native {
+  display: none !important; }

@@ -3,9 +3,13 @@
 {% block breadcrumb_content %}
   {% snippet 'package/snippets/dge_package_breadcrumb_content.html', pkg=pkg %}
 {% endblock %}
+
 {% block page_title_content %}
 {{ _('New resource') }} 
 {% endblock %}
 {% block catalog_downloads %}{% endblock %}
 
 {% block content_primary_nav %}{% endblock %}
+
+
+{% block form %}{% snippet resource_form_snippet, data=data, errors=errors, error_summary=error_summary, include_metadata=false, pkg_name=pkg_name, stage=stage, dataset_type=dataset_type, other_resources=other_resources, pkg=pkg, draft=false %}{% endblock %}

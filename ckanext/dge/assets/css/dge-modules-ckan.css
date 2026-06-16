@@ -695,13 +695,17 @@ footer.site-footer {
   background-color: var(--background-light-gray);
   box-shadow: var(--box-shadow); }
 
-.dge-dataset-detail .module-content .resources {
-  padding: 0 !important; }
-
 .dge-dataset-detail .module-content .description,
 .dge-dataset-detail .module-content .resources {
   position: relative;
-  margin: 2rem 0 0 0; }
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background-color: var(--background-light-gray); }
+  .dge-dataset-detail .module-content .description .resources-main,
+  .dge-dataset-detail .module-content .resources .resources-main {
+    background-color: var(--background-light-gray);
+    padding: 1rem !important;
+    margin: 0 !important; }
   .dge-dataset-detail .module-content .description .section-title,
   .dge-dataset-detail .module-content .resources .section-title {
     margin: 0;
@@ -784,12 +788,21 @@ footer.site-footer {
     .dge-dataset-detail .module-content .resources .resource-list .resource-item .btn-group .icon-stack {
       display: none; }
 
+.dge-dataset-detail .module-content .resources-primary {
+  position: relative;
+  padding: 1rem !important;
+  margin: 0;
+  background-color: var(--background-light-gray); }
+
+.dge-dataset-detail .module-content .publisher-group {
+  flex-direction: row; }
+
 .dge-dataset-detail .module-content .publisher,
 .dge-dataset-detail .module-content .license {
   display: inline-flex;
   align-items: center;
   flex-flow: wrap;
-  width: calc(100% - 16rem); }
+  width: 70%; }
   .dge-dataset-detail .module-content .publisher .dataset-metadata,
   .dge-dataset-detail .module-content .license .dataset-metadata {
     display: flex;
@@ -807,6 +820,9 @@ footer.site-footer {
 
 .dge-dataset-detail .module-content .license {
   margin-top: 2rem; }
+
+.dge-dataset-detail .module-content .publisher-end {
+  width: 30%; }
 
 .page-header:has(.content_action .btn.btn-default .fa.fa-arrow-left) {
   float: unset;
@@ -829,9 +845,9 @@ footer.site-footer {
   #resource-edit .multi-new-value-resource_relation + .form-actions .btn.btn-danger {
     background-color: var(--secondary-500); }
 
-.edition-package-block + #dataset-edit .form-actions {
+.edition-package-block + #dataset-edit .form-actions, .edit-dataservice-content #dataset-edit .form-actions {
   justify-content: flex-end; }
-  .edition-package-block + #dataset-edit .form-actions .btn.btn-danger {
+  .edition-package-block + #dataset-edit .form-actions .btn.btn-danger, .edit-dataservice-content #dataset-edit .form-actions .btn.btn-danger {
     background-color: var(--secondary-500); }
 
 @media (max-width: 1200px) {
@@ -1078,11 +1094,15 @@ footer.site-footer {
 
 .export-dataset {
   display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  flex-direction: column;
+  background-color: var(--background-light-gray);
+  padding: 0.85rem;
+  border-radius: 0.625rem;
+  margin-left: auto; }
   .export-dataset a {
     display: flex;
-    width: 2.5rem;
+    width: 2rem;
     text-transform: uppercase;
     text-decoration: none;
     filter: unset;
@@ -1092,6 +1112,40 @@ footer.site-footer {
     .export-dataset a:hover {
       filter: brightness(0.8);
       text-decoration: none; }
+
+.metadata-box {
+  display: flex;
+  flex-direction: column; }
+  .metadata-box h4 {
+    margin-top: 0; }
+
+.metadata-icons {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap; }
+  .metadata-icons [class^="export-datase-"] {
+    opacity: 0.6; }
+    .metadata-icons [class^="export-datase-"]:hover {
+      opacity: 1; }
+
+@media screen and (max-width: 59.75rem) {
+  .export-dataset {
+    margin-left: 0;
+    margin-right: 2rem;
+    opacity: 1; }
+  .resources-primary {
+    margin: 1.5rem 0 0 0 !important; }
+  [class^="export-datase-"] {
+    opacity: 1 !important; }
+  .resources {
+    position: relative;
+    margin: 1.5rem 0 0 0;
+    padding: 0 !important;
+    background-color: var(--background-light-gray); }
+  .publisher-group {
+    display: block !important; }
+  .publisher-end {
+    width: auto !important; } }
 
 /* icons categories */
 .filters .sector-publico a, .filters .sociedad-bienestar a, .filters .demografia a, .filters .salud a, .filters .educacion a,

@@ -218,6 +218,24 @@ ol {
     .accordion-container .accordion-item .accordion-header.flex .accordion-button .accordion-arrow img {
       transform: rotate(-90deg); }
 
+.accordion-container .accordion-item .accordion-products {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  transition: background-color 0.3s ease;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  margin: 0; }
+  .accordion-container .accordion-item .accordion-products:hover, .accordion-container .accordion-item .accordion-products:focus {
+    background-color: var(--background-light-gray);
+    border: 1px solid var(--primary-500); }
+
 .accordion-container .accordion-item .accordion-collapse {
   height: 0;
   overflow: hidden;
@@ -262,7 +280,7 @@ ol {
       --gradient-color: #fff; }
       .read-more__bottom--blue:hover {
         background-size: 100%;
-        --gradient-color: #f2f8ff; }
+        --gradient-color: #ffffff; }
     .read-more__bottom__description {
       width: calc(100% - 2rem); }
     .read-more__bottom__accordeon {
@@ -271,7 +289,8 @@ ol {
       margin-bottom: -1rem; }
     .read-more__bottom button {
       border: none;
-      background-color: transparent;
+      background-color: var(--primary-100);
+      border-radius: 0.5rem;
       display: inline-flex;
       flex-direction: row;
       align-items: center;
@@ -291,18 +310,26 @@ ol {
         cursor: pointer; }
       .read-more__bottom button:active {
         border-radius: 6px;
-        background-color: var(--primary-400);
+        background-color: var(--white);
         color: var(--primary-700);
         cursor: pointer; }
   .read-more.expand + .read-more__bottom {
     position: relative;
     background-image: none;
+    --gradient-color: #fff;
     padding-top: 10px;
     height: inherit;
     top: 25px; }
+    .read-more.expand + .read-more__bottom:hover {
+      background-size: 100%;
+      --gradient-color: #ffffff; }
   .read-more--md.expand + .read-more__bottom {
     top: 15px;
-    margin-bottom: 0rem !important; }
+    margin-bottom: 0rem !important;
+    --gradient-color: #fff; }
+    .read-more--md.expand + .read-more__bottom:hover {
+      background-size: 100%;
+      --gradient-color: #ffffff; }
 
 button#toggle-tags {
   border: none;

@@ -1,5 +1,6 @@
 {% if pkg_dict.publisher or (pkg_dict.license_id and not is_dcatapes) %}
   {% set publisher = h.dge_get_dataset_publisher(pkg_dict.publisher) %}
+  <div class="publisher-group flex-display flex-center flex-row">
   <section class="publisher">
     {% if publisher %}
       {% set publisher_title = publisher.get('NAME') %}
@@ -7,7 +8,7 @@
       {% set administration_level = publisher.get('AL') %}
       
         
-        <div class="flex-display flex-center flex-row mb-4">
+        <div class="flex-display flex-center flex-row mb-3">
           <span class="b-l mb-0"></span>
           <div class="dataset-metadata">
                 <strong>{{ _("Publisher") }}</strong>
@@ -21,7 +22,7 @@
         </div>
 
           {% if administration_level %}
-            <div class="flex-display flex-center flex-row mb-4">
+            <div class="flex-display flex-center flex-row mb-3">
               <span class="b-l mb-0"></span>
               <div class="dataset-metadata">
                 <strong>{{ _("Administration level") }}</strong>
@@ -29,7 +30,7 @@
               </div> 
             </div> 
 
-            <div class="flex-display flex-center flex-row mb-4">
+            <div class="flex-display flex-center flex-row mb-3">
               <span class="b-l mb-0"></span>
               <div class="dataset-metadata">
                 <strong>{{ _('Entity') }}</strong>
@@ -47,7 +48,7 @@
           {% endif %}
     {% endif %}
     {% if (not is_dcatapes or dataset_type == 'dataservice') and pkg_dict.license_id %}
-      <div class="flex-display flex-center flex-row mb-4">
+      <div class="flex-display flex-center flex-row mb-3">
         <span class="b-l mb-0"></span>
         <div class="dataset-metadata">
           <strong>{{ _("License") }}</strong>
@@ -56,4 +57,10 @@
       </div>
     {% endif %}
   </section>
+  <div class="publisher-end flex-display flex-center flex-row">
+    {% block export_links %}
+      {% snippet "package/snippets/dge_export_links.html", pkg=pkg_dict %}
+    {% endblock %} 
+    </div>
+    </div>
 {% endif %}
