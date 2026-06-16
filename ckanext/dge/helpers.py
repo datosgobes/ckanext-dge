@@ -29,13 +29,21 @@ import ast
 from ckan import logic
 from ckan.common import (_, g, c, request, json)
 from operator import itemgetter
+from bleach import clean
+from six import text_type
+from markdown import markdown
 import ckan.model as model
 from ckanext.harvest.helpers import get_harvest_source
 from ckanext.dge_harvest.helpers import dge_harvest_get_vocabulary_element_label_dict
+from ckanext.dge_harvest.vocabulary_utils import (dge_harvest_get_vocabulary_elements_without_labels,
+                                                    dge_harvest_insert_format_element_labels,
+                                                    dge_harvest_get_format_uris_and_labels)
+from ckanext.dge_harvest.harvester_config_reader import HarvesterConfigReader
 from ckan.lib.i18n import get_available_locales
 import requests
 from ckantoolkit import h as tkh
 from sqlalchemy import create_engine, text
+from jinja2.runtime import Undefined
 
 import io
 import csv
@@ -43,7 +51,6 @@ from flask import Response
 import logging
 
 
-FACET_OPERATOR_PARAM_NAME = '_facet_operator'
 FACET_SORT_PARAM_NAME = '_%s_sort'
 DATASET_ALLOWED_FACETS = [
     'is_hvd',
@@ -464,6 +471,24 @@ def dge_resource_format_label(res_format=None):
             if res_format_label:
                 return res_format_label
     return res_format
+
+def dge_resource_format_value(res_format_label=None):
+    '''
+    Given an format label, get its value
+
+    :param res_format_label: format label
+    :type string
+
+    :rtype string
+    '''
+    if not res_format_label:
+        return None
+    dataset = sh.scheming_get_schema('dataset', 'dataset')
+    formats = sh.scheming_field_by_name(dataset.get('resource_fields'), 'format')
+    for choice in formats['choices']:
+        if choice['label'].lower() == res_format_label.lower():
+            return choice['value']
+    return None
 
 def dge_theme_id(theme=None):
     '''
@@ -1121,7 +1146,7 @@ def dge_get_show_sort_facet(facet_name):
     '''
     return dge_facet_property_default_value('ckanext.dge.facet.default.show_sort', facet_name, False)
 
-def dge_get_facet_items_dict(facet, limit=None, exclude_active=False, default_sort=True):
+def dge_get_facet_items_dict(facet, limit=None, exclude_active=False, default_sort=False):
     '''Return the list of unselected facet items for the given facet, sorted
     by count or by index.
 
@@ -1178,16 +1203,6 @@ def dge_get_facet_items_dict(facet, limit=None, exclude_active=False, default_so
         return facets[:limit]
     return facets
 
-def dge_default_facet_search_operator():
-    '''Returns the default facet search operator: AND/OR
-    '''
-    facet_operator = config.get('ckanext.dge.facet.default.search.operator', 'AND')
-    if facet_operator and (facet_operator.upper() == 'AND' or facet_operator.upper() == 'OR'):
-        facet_operator = facet_operator.upper()
-    else:
-        facet_operator = 'AND'
-    return facet_operator
-
 def dge_default_facet_sort_by_facet(facet):
     ''' Returns the default facet sort. Content by default '''
     return dge_facet_property_default_value('ckanext.dge.facet.default.sort', facet, 'content')
@@ -1227,9 +1242,9 @@ def dge_get_facet_without_lang(facet):
         return facet
 
 def dge_add_additional_facet_fields(fields, facets):
-    ''' Add fields liked to facet sort or conjunction/disjunction
+    ''' Add fields liked to facet sort 
     '''
-    param_keys = [FACET_OPERATOR_PARAM_NAME]
+    param_keys = []
     if facets:
         for facet in facets:
             param_keys.append(FACET_SORT_PARAM_NAME % facet)
@@ -1449,7 +1464,7 @@ def getTabsFromApiDrupal(lang=None,search_query=None):
     url = config.get('ckan.site_url_ip')+'/'+lang+'/v1/search?text='+search_query
 
     try:
-        cert_path = config.get('requests.verify.ca_cert.path', '')
+        cert_path = config.get('requests.verify.ca_cert.path', '/etc/ssl/certs/ca-certificates.crt')
         response = requests.get(url, verify=cert_path)
         response.raise_for_status()
         data = response.json()
@@ -1870,6 +1885,22 @@ def dge_load_json(value):
     except ValueError:
         return {}
 
+def dge_load_json_list(value):
+    """
+    Return stored json representation as a list, if
+    value is already a list just pass it through.
+    """
+    if isinstance(value, list):
+        return value
+    if value is None or isinstance(value, Undefined):
+        return []
+    try:
+        return json.loads(value)
+    except ValueError:
+        return [value]
+    except TypeError:
+        return []
+
 def dge_dump_json(value):
     """
     Return a list or dict as json
@@ -1919,15 +1950,18 @@ def dge_is_dcatapes(pkg_dict):
     '''
     :param pkg_dict: Package dict
     
-    Return True if application profile is dcatapes. False otherwise
+    Return True if package has not GUID or has dcatapes application profile. False otherwise
     '''
-    if pkg_dict:
-        extras = pkg_dict['extras'] if ('extras' in pkg_dict and pkg_dict['extras']) else None
-        if extras:
-            for extra in extras:
-                if extra['key'] == constants.KEY_EXTRA_DATASET_APPLICATION_PROFILE:
-                    return True if extra['value'] == constants.VALUE_APPLICATION_PROFILE_DCATAPES else False
-    return False
+    if not pkg_dict:
+        return False
+    if not dge_has_guid(pkg_dict):
+        return True
+    else:
+        return any(
+            extra.get('key') == constants.KEY_EXTRA_DATASET_APPLICATION_PROFILE and
+            extra.get('value') == constants.VALUE_APPLICATION_PROFILE_DCATAPES
+            for extra in pkg_dict.get('extras', [])
+        )
 
 def dge_is_hvd(pkg_dict):
     '''
@@ -1942,6 +1976,56 @@ def dge_is_hvd(pkg_dict):
                 if extra['key'] == constants.KEY_EXTRA_DATASET_HVD:
                     return json.loads(extra['value'])
     return False
+
+def dge_get_all_distribution_format_labels():
+    '''    
+    Return all distribution format labels
+    '''
+    format_vocabulary_uri = dge_get_distribution_format_vocabulary_uri()
+    if not format_vocabulary_uri:
+        return None
+    distribution_format_terms = _dge_get_distribution_format_terms(format_vocabulary_uri)
+    return distribution_format_terms
+
+def dge_get_distribution_format_vocabulary_uri():
+    '''    
+    Return associated allowed vocabulary uri for distribution format metadata
+    '''
+    FORMAT_METADATA = config.get('ckanext.dge_harvest.distribution_format_metadata', 'http://purl.org/dc/terms/format')
+    DEFAULT_CONFIG_FILEPATH = config.get('ckanext.dge_harvest.dcat_ap_es_1_0_0.config.filepath', '')
+    config_reader = HarvesterConfigReader(DEFAULT_CONFIG_FILEPATH)
+    config_property_list_dict = config_reader.get_section_property_as_a_list_dict('distribution', 'distribution.metadata.vocabularies', None, '|')
+    for key, value in config_property_list_dict.items():
+        for metadata in value:
+            if metadata == FORMAT_METADATA:
+                return key
+    return None
+
+def _dge_get_distribution_format_terms(format_vocabulary_uri):
+    '''    
+    :param format_vocabulary_uri: Distribution format vocabulary uri
+    
+    Return distribution format terms uris from virtuoso
+    '''
+    # Checking if there are format terms without labels in Virtuoso
+    terms_without_label = _dge_get_distribution_format_terms_without_label(format_vocabulary_uri)
+    if terms_without_label:
+        # Retrieving labels from vocabulary and inserting them in Virtuoso
+        for term_uri in terms_without_label:
+            labels = dge_harvest_insert_format_element_labels(term_uri)
+
+    # Retrieving format URI and labels elements from Virtuoso
+    format_uris_labels = dge_harvest_get_format_uris_and_labels(format_vocabulary_uri)
+
+    return format_uris_labels
+
+def _dge_get_distribution_format_terms_without_label(format_vocabulary_uri):
+    '''    
+    :param format_vocabulary_uri: Distribution format vocabulary uri
+
+    Return distribution format terms in virtuoso without label
+    '''
+    return dge_harvest_get_vocabulary_elements_without_labels(format_vocabulary_uri)
 
 def dge_get_format_from_vocabulary_uri(format_value):
     '''
@@ -1961,7 +2045,7 @@ def dge_get_format_from_vocabulary_uri(format_value):
             format_str, xml_lang = dge_get_vocabularies_uri_label(format_value, 'en')
             return format_str, True
         return dge_resource_format_label(format_value), False
-    return format_str
+    return format_str, False
 
 def dge_get_include_fields(entity_type):
     '''
@@ -2058,40 +2142,86 @@ def dge_get_served_by_dataservice(dataservices_uris):
         sorted_dataservices = sorted(dataservices_list, key=itemgetter('title'), reverse=False)
     return sorted_dataservices
 
-def dge_get_datasets_served_by_dataservice(dataservice_id):
+def _dge_get_dataservice_uri(dataservice_id, dataservice_name=None):
+    if not dataservice_id:
+        return None
+
+    dataservice_uri = model.Session.query(model.PackageExtra.value)\
+                    .filter_by(key='ckan_uri')\
+                    .filter_by(package_id=dataservice_id)\
+                    .scalar()
+    if not dataservice_uri and dataservice_name:
+        dataservice_uri = h.url_for('package.dataset_read', id=dataservice_name, qualified=True, locale='default')
+    return dataservice_uri
+
+
+def _dge_get_dataset_ids_served_by_dataservice_uri(dataservice_uri):
+    if not dataservice_uri:
+        return []
+
+    query = '''
+            select pe.package_id
+            from public.package_extra pe
+            join public.package p on p.id = pe.package_id and p."type" = 'dataset' and p.state = 'active'
+            where pe.key = 'served_by_dataservice'
+            and '{p0}' = any (select json_array_elements_text(pe.value::json));
+            '''.format(p0=dataservice_uri)
+    return [item[0] for item in model.Session.execute(query).fetchall()]
+
+
+def dge_get_datasets_served_by_dataservice(dataservice_id, dataservice_name=None):
     '''
     :param dataservice_id: Dataservice id
     
     Return a sorted list of all datasets served by the dataservice in the view.
     '''
     sorted_datasets = []
-    if dataservice_id:
-        dataservice_uri = model.Session.query(model.PackageExtra.value)\
-                        .filter_by(key='ckan_uri')\
-                        .filter_by(package_id=dataservice_id)\
-                        .scalar()
-        if dataservice_uri:
-            datasets_ids = []
-            query = '''
-                    select pe.package_id
-                    from public.package_extra pe
-                    where pe.key = 'served_by_dataservice'
-                    and '{p0}' = any (select json_array_elements_text(pe.value::json));
-                    '''.format(p0=dataservice_uri)
-            datasets_ids = [item[0] for item in model.Session.execute(query).fetchall()]
-            if datasets_ids:
-                datasets_info = model.Session.query(model.Package.title, model.Package.name)\
-                                .filter(model.Package.id.in_(datasets_ids))\
-                                .all()
-                if datasets_info:
-                    datasets_list = []
-                    for dataset_info in datasets_info:
-                        dataset_dict = {}
-                        dataset_dict['title'] = dataset_info[0]
-                        dataset_dict['name'] = dataset_info[1]
-                        datasets_list.append(dataset_dict)
-                    sorted_datasets = sorted(datasets_list, key=itemgetter('title'), reverse=False)
+    dataservice_uri = _dge_get_dataservice_uri(dataservice_id, dataservice_name)
+    datasets_ids = _dge_get_dataset_ids_served_by_dataservice_uri(dataservice_uri)
+    if datasets_ids:
+        datasets_info = model.Session.query(model.Package.title, model.Package.name)\
+                        .filter(model.Package.id.in_(datasets_ids))\
+                        .all()
+        if datasets_info:
+            datasets_list = []
+            for dataset_info in datasets_info:
+                dataset_dict = {}
+                dataset_dict['title'] = dataset_info[0]
+                dataset_dict['name'] = dataset_info[1]
+                datasets_list.append(dataset_dict)
+            sorted_datasets = sorted(datasets_list, key=itemgetter('title'), reverse=False)
     return sorted_datasets
+
+
+def dge_has_datasets_served_by_dataservice(dataservice_id, dataservice_name=None):
+    '''
+    :param dataservice_id: Dataservice id
+    
+    Check if the Dataservice has datasets associated, and return True (has) of False(not has), this is called from delete Dataservice function.
+    '''
+    dataservice_uri = _dge_get_dataservice_uri(dataservice_id, dataservice_name)
+    datasets_ids = _dge_get_dataset_ids_served_by_dataservice_uri(dataservice_uri)
+    return True if datasets_ids else False
+
+def dge_has_dataservices_by_resource(resource_id):
+    '''
+    :param resource_id: Resource id
+
+    Check if the Resource (Distribution in front) has Dataservices associated and return True (has) of False(not has), this is called from delete Resource function.
+    '''
+    resources_ids = []
+    query = '''
+            select r.id, r.extras::json->'access_service'#>>'{{}}' from public.resource r
+            where r.extras::json->'access_service'#>>'{{}}' is not null
+            and r.extras::json->'access_service'#>>'{{}}' != '[]' 
+            and r.id='{p0}';
+            '''.format(p0=resource_id)
+    resources_ids = [item[0] for item in model.Session.execute(query).fetchall()]
+    if resources_ids == []:
+        return False 
+    else:
+        return True
+
 
 def dge_count_served_by_dataservice(dataservices_list):
     '''
@@ -2193,10 +2323,21 @@ def dge_has_dataset_technical_sheet_info(dataset_dict, dict_fields, is_dcatapes)
     Return True if there is, at least, value for one of the
     technical sheet info fields. Return False otherwise
     '''
+    def _has_meaningful_value(value):
+        if value is None or isinstance(value, Undefined):
+            return False
+        if isinstance(value, str):
+            return value.strip() not in ('', '[]', '{}')
+        if isinstance(value, dict):
+            return any(_has_meaningful_value(v) for v in value.values())
+        if isinstance(value, (list, tuple, set)):
+            return any(_has_meaningful_value(v) for v in value)
+        return bool(value)
+
     for item in dataset_dict:
-        if not is_dcatapes and item == 'reference' and dataset_dict[item] and dict_fields[item]:
+        if not is_dcatapes and item == 'reference' and _has_meaningful_value(dataset_dict[item]) and dict_fields[item]:
             return True
-        if item in constants.DATASET_TECHNICAL_SHEET_INFO_FIELDS and dataset_dict[item] and dict_fields[item]:
+        if item in constants.DATASET_TECHNICAL_SHEET_INFO_FIELDS and _has_meaningful_value(dataset_dict[item]) and dict_fields[item]:
             return True
     return False
 
@@ -2267,7 +2408,7 @@ def dge_get_search_package_count(package_type, search_query=None, org_id=None):
     fq = ''
     search_extras = {}
     for (param, value) in request.params.items(multi=True):
-        if param not in ['q', 'page', 'sort', FACET_OPERATOR_PARAM_NAME] \
+        if param not in ['q', 'page', 'sort'] \
                 and len(value) and not param.startswith('_'):
             if not param.startswith('ext_'):
                 c.fields.append((param, value))
@@ -2295,28 +2436,23 @@ def dge_get_search_package_count(package_type, search_query=None, org_id=None):
     result = logic.get_action('package_search')(context, data_dict)
     return result['count'] if result and 'count' in result else 0
 
-def dge_has_guid(package_dict):
+def dge_has_guid(pkg_dict):
     '''
-    :param package_dict: package dict
+    :param pkg_dict: package dict
     
-    Return True if package has guid. False otherwise
+    Return True if the package has a GUID in its extras; otherwise, return False.
     '''
-    if package_dict:
-        extras = package_dict['extras'] if ('extras' in package_dict and package_dict['extras']) else None
-        if extras:
-            for extra in extras:
-                if extra['key'] == constants.KEY_EXTRA_DATASET_GUID:
-                    return True
-    return False
+    extras = (pkg_dict or {}).get('extras') or []
+    return any(isinstance(extra, dict) and extra.get('key') == constants.KEY_EXTRA_DATASET_GUID for extra in extras)
 
 def dge_is_editable(package_dict):
     '''
     :param package_dict: Package dict
     
-    Return True if the package could be editable, False otherwise
+    Return True if the package is editable (only manually created datasets and data services qualify); otherwise, return False.
     '''
     if package_dict:
-        return False if dge_is_dcatapes(package_dict) else True
+        return False if dge_has_guid(package_dict) else True
     return False
 
 def dge_get_nti_field_uri_label(field, value):
@@ -2343,9 +2479,6 @@ def dge_get_request_params_for_text_search(request_params, facet_titles):
     if not request_params or not facet_titles:
         return {}
     request_params_dict = {}
-    facet_operator_values = request_params.getlist('_facet_operator') if '_facet_operator' in request_params else []
-    if facet_operator_values:
-        request_params_dict['_facet_operator'] = facet_operator_values if isinstance(facet_operator_values, list) else [facet_operator_values]
     for facet_title in facet_titles:
         param_values = request_params.getlist(facet_title) if facet_title in request_params else []
         if param_values:
@@ -2432,3 +2565,69 @@ def get_dir3(organization_id):
     except:
         return None
     return result
+
+def dge_get_distribution_available_dataservices(dataset_id, lang):
+    '''
+    :param dataset_id: Dataset id or name
+    :param lang: Language
+
+    :return: A list of dictionaries with 'id' and 'title' keys, where 'title'
+            is returned in the requested language or falls back to Spanish ('es')
+    :rtype: list[dict[str, str]]
+    '''
+    dataservices_dict_list = []
+    # Retrieving dataset and onwer organization associated with the ID
+    context = {'model': model, 'session': model.Session,
+               'user': c.user, 'auth_user_obj': c.userobj}
+    dataset = get_action('package_show')(context, {'id': dataset_id})
+    org_id = dataset.get('owner_org')
+    if not org_id:
+        return dataservices_dict_list
+
+    # Retrieving dataservices associated with the dataset owner organization
+    search_dict = {
+        'q': '',
+        'fq': f'+dataset_type:dataservice +owner_org:({org_id}) -guid:*',
+        'rows': 1000,
+        'sort': 'title_string_sort asc',
+        'include_drafts': False,
+        'include_private': False
+    }
+    site_url = config.get('ckan.site_url', '')
+    search_results = get_action('package_search')(context, search_dict)
+    dataservices_list = search_results.get('results', [])
+    for dataservice in dataservices_list:
+        title_translated = dataservice.get('title_translated', {}) or {}
+        title = (
+            title_translated.get(lang)
+            or title_translated.get('es')
+            or dataservice.get('title', '')
+            or dataservice.get('name', '')
+        )
+            
+        dataservices_dict_list.append({
+            'value': f'{site_url}/catalogo/{dataservice.get("name")}',
+            'title': title
+        })
+    return dataservices_dict_list
+    
+def dge_markdown_extract(text, extract_length=190):
+    ''' Return a plain text representation of Markdown input, stripping all HTML tags.
+    Unlike the default implementation, this version removes all HTML tags instead
+    of allowing a safe subset. If extract_length is 0, the text will not be truncated.'''
+    if not text:
+        return ''
+    plain = clean(markdown(text), tags=[], attributes={}, strip=True)
+    if not extract_length or len(plain) < extract_length:
+        return h.literal(plain)
+
+    return h.literal(
+        text_type(
+            h.truncate(
+                plain,
+                length=extract_length,
+                indicator='...',
+                whole_word=True
+            )
+        )
+    )

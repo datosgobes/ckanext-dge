@@ -50,7 +50,7 @@
   <div class="harvest-types control-group">
     <label class="control-label">{{ _('Source type') }}</label>
     <div class="controls">
-      {% for harvester in h.harvesters_info() %}
+      {% for harvester in h.dge_harvesters_info() %}
         {% set checked = False %}
         {# select first option if nothing in data #}
         {% if data.source_type == harvester['name'] or (not data.source_type and loop.first) %}
@@ -121,11 +121,7 @@
       <a id="harvester_delete_clear" href="{{ h.url_for('dgeHarvester.delete', id=data.name) }}?clear=True" class="btn btn--secondary btn-danger pull-left mr-4" data-module="confirm-action" data-module-i18n="{{ locale_clear }}" title="{{ _('It deletes the federation source and related datasets') }}" data-success-message="{{ success_clear_message }}">
         <img src="/images/trash-can.svg" alt="remove icon">
         {{ _('Delete source and datasets') }}
-    </a>
-    <a id="harvester_delete" class="btn btn--secondary btn-danger pull-left ml-0" href="{{ h.url_for('dgeHarvester.delete', id=data.name) }}" data-module="confirm-action" data-module-i18n="{{ locale_delete }}" title="{{ _('Delete source and keep datasets') }}"  data-success-message="{{ success_deactivation_message }}">
-      <img src="/images/trash-can.svg" alt="remove icon">
-      {{ _('Delete source and keep datasets') }}
-    </a>
+      </a>
       {% endif %}
     {% endblock %}
     <input id="save" name="save" value="{{ _('Save') }}" type="submit" class="btn btn-primary">

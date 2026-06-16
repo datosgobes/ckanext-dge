@@ -1,0 +1,84 @@
+/*
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+#block-dge-basic-dge-basic-user-info-block * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 300ms ease-out;
+  -moz-transition: all 300ms ease-out;
+  -ms-transition: all 300ms ease-out;
+  -o-transition: all 300ms ease-out;
+  transition: all 300ms ease-out; }
+
+.user-name-info-name {
+  cursor: pointer;
+  height: 43px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-left: 21.5px;
+  padding-right: 10px;
+  text-decoration: none !important; }
+  .user-name-info-name .user-login-bg {
+    width: 43px;
+    height: 43px;
+    aspect-ratio: 1/1;
+    padding: 2px;
+    margin-left: -21.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: conic-gradient(from -180deg, #faebd7 0%, #3068ae 18%, #90f8ff 33%, #154481 50%, #e0c100 69%, #f9ce3f 83%, #faebd7 100%);
+    transition: --angle 300ms ease-out;
+    border-radius: 100%; }
+    .user-name-info-name .user-login-bg .user-name-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      aspect-ratio: 1/1;
+      background-color: var(--primary-500);
+      border-radius: 100%; }
+      .user-name-info-name .user-login-bg .user-name-info img {
+        height: 1.875rem;
+        width: auto; }
+  .user-name-info-name.big {
+    color: var(--white);
+    border: 0.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 3px 2px rgba(255, 255, 255, 0.25) inset;
+    background-color: var(--primary-500); }
+    .user-name-info-name.big:hover {
+      background-color: var(--primary-700); }
+      .user-name-info-name.big:hover .user-login-bg .user-name-info {
+        background-color: var(--primary-700); }
+  .user-name-info-name.small {
+    color: var(--primary-500);
+    text-transform: none; }
+    .user-name-info-name.small:hover {
+      color: var(--primary-700); }
+      .user-name-info-name.small:hover .user-login-bg .user-name-info {
+        background-color: var(--primary-700); }
+  .user-name-info-name .username {
+    width: 100%;
+    white-space: nowrap;
+    font-size: 1rem;
+    font-weight: 500; }

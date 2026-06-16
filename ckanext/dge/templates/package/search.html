@@ -211,7 +211,7 @@
 {% block package_search_results_api %}{% endblock %}
 
 {% block secondary_content %}
-<aside class="secondary span3">
+<aside class="secondary span3" id="filter-container">
 
   <div class="flex-display flex-row flex-justify-between flex-baseline flex-gap-05">
 
@@ -254,7 +254,6 @@
 
   <div class="filters">
     <div>
-      {{ h.snippet('snippets/dge_facet_search_operator.html', title= _('Search configuration')) }}
       {% for facet in c.facet_titles %}
         {% if facet == 'is_hvd' and c.search_facets[facet]['items']|length > 0 %}
           {{ h.snippet('snippets/dge_facet_is_hvd.html', title=c.facet_titles[facet], name=facet, show_sort_facet=false) }}

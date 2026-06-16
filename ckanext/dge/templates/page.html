@@ -1,6 +1,12 @@
 {% ckan_extends %}
 
 {%- block page -%}
+   <div
+        data-module="dge-cookies"
+        data-module-hostname="{{ config.get('ckanext.dge.cookies_hostname') }}"
+        data-module-domain="{{ config.get('ckanext.dge.cookies_domain') }}"
+        data-module-protocol="{{ config.get('ckanext.dge.cookies_protocol') }}">
+    </div>
 
   {% block skip %}
     <div id="skip-link" class="skip-link">

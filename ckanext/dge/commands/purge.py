@@ -14,12 +14,14 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+import logging
 from configparser import ConfigParser
 
 from purgers import DataSetPurger, DistributionsPurger, FederationsPurger
 from report import Report
 from sender import EmailSender
+
+log = logging.getLogger('ckan.logic')
 
 if __name__ == '__main__':
     production_config = ConfigParser()
@@ -40,6 +42,9 @@ if __name__ == '__main__':
     federations_purger = FederationsPurger(production_config)
     federations_purger.purge()
 
-    default_report_text = '<p class="mb10">Se ha ejecutado el purgado, no existen elementos a purgar.</p>'
-    full_report = report.get_report(default_report_text)
-    email_sender.send(full_report)
+    if email_sender.smtp_enabled:
+        default_report_text = '<p class="mb10">Se ha ejecutado el purgado, no existen elementos a purgar.</p>'
+        full_report = report.get_report(default_report_text)
+        email_sender.send(full_report)
+    else:
+        log.warning(f'INFO: SMTP is disabled, so the purge report will not be sent')

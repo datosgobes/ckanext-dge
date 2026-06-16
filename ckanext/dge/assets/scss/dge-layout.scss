@@ -187,6 +187,7 @@ DGE Detail: 1col 100%
 .social {
     width: fit-content;
     float: right;
+	margin-top: 1em;
 	.section-title {
 		margin: 0 !important;
 		padding: 0 !important;
@@ -700,6 +701,9 @@ div[data-module="comments-thread"]:has(.comments-thread) {
 					}
 				}
 			}
+		}
+		.control-label {
+			gap: 8px;
 		}
 		.comment-consent {
 			.checkbox,

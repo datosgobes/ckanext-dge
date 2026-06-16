@@ -718,13 +718,17 @@ a {
 			background-color: var(--background-light-gray);
 			box-shadow: var(--box-shadow);
 		}
-		.resources{
-    		padding: 0 !important;
-		}
 		.description,
 		.resources {
 			position: relative;
-			margin: 2rem 0 0 0;
+			margin: 0;
+			padding: 0.85rem 1rem;
+			background-color: var(--background-light-gray);
+			.resources-main {
+				background-color: var(--background-light-gray);
+				padding: 1rem !important;
+				margin: 0 !important;
+			}
 			.section-title {
 				margin: 0;
 				font-family: montserrat-medium;
@@ -811,12 +815,21 @@ a {
 				}
 			}
 		}
+		.resources-primary {
+			position: relative;
+			padding: 1rem!important;
+			margin: 0;
+			background-color: var(--background-light-gray);
+		}
+		.publisher-group {
+			flex-direction: row;
+		}
 		.publisher,
 		.license {
 			display: inline-flex;
 			align-items: center;
 			flex-flow: wrap;
-			width: calc(100% - 16rem);
+			width: 70%;
 			.dataset-metadata {
 				display: flex;
 				flex-direction: column;
@@ -838,6 +851,9 @@ a {
 		}
 		.license {
 			margin-top: 2rem;
+		}
+		.publisher-end {
+			width: 30%;
 		}
 	}
 }
@@ -865,7 +881,7 @@ a {
 		background-color: var(--secondary-500);
 	}
 }
-.edition-package-block + #dataset-edit .form-actions {
+.edition-package-block + #dataset-edit .form-actions, .edit-dataservice-content #dataset-edit .form-actions {
 	justify-content: flex-end;
 	.btn.btn-danger {
 		background-color: var(--secondary-500);
@@ -1203,13 +1219,17 @@ a {
 	}
 }
 
-.export-dataset{
+.export-dataset {
 	display: flex;
-    gap: 0.75rem;
 	flex-wrap: wrap;
+	flex-direction: column;
+	background-color: var(--background-light-gray);
+	padding: 0.85rem;
+	border-radius: 0.625rem;
+	margin-left: auto;
 	a{
 		display: flex;
-		width: 2.5rem;
+		width: 2rem;
 		text-transform:uppercase;
 		text-decoration:none;
 		img{
@@ -1223,7 +1243,53 @@ a {
 		}
 	}
 }
+.metadata-box {
+	display: flex;
+	flex-direction: column;
 
+	h4 {
+		margin-top: 0;
+	}
+}
+
+.metadata-icons {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+
+	[class^="export-datase-"] {
+		opacity: 0.6;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
+@media screen and (max-width: 59.75rem) {
+	.export-dataset {
+		margin-left: 0;
+		margin-right: 2rem;
+		opacity: 1;
+	}
+	.resources-primary {
+		margin: 1.5rem 0 0 0!important;
+	}
+	[class^="export-datase-"] {
+		opacity: 1!important;
+	}
+	.resources {
+		position: relative;
+		margin: 1.5rem 0 0 0;
+		padding: 0!important;
+		background-color: var(--background-light-gray);
+	}
+	.publisher-group {
+		display: block!important;
+	}
+	.publisher-end {
+		width: auto!important;
+	}
+}
 /* icons categories */
 .filters .sector-publico a, .filters .sociedad-bienestar a, .filters .demografia a, .filters .salud a, .filters .educacion a,
 .filters .turismo a, .filters .medio-rural-pesca a, .filters .ciencia-tecnologia a, .filters .comercio a, .filters .deporte a,

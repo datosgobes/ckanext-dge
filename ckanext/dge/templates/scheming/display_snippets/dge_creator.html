@@ -4,39 +4,56 @@
 {% set subfields = h.dge_field_display_subfields(field.field_name, schema.dataset_fields) %}
 {% set creators = data[field.field_name] %}
 {% for creator in creators %}
-   <div class="contact_point container-cols container-cols-3 bt-nth2">
-   {% if creator.creator_name_translated %}
-      {% set language, value = h.dge_dataset_field_value(creator.creator_name_translated) %}
-      {% if (value) %}
-         <ul>
-            <li>
-               {{ h.scheming_language_text(subfields[creator_name_translated].label) }}
-            </li>
-            {% if (language) %}
-               <li><span lang='{{language}}' xml:lang='{{language}}'>{{ h.render_markdown(value) }}</span></li>
-            {% elif value %}
-               <li>{{ h.render_markdown(value) }}</li>
-            {% endif %}
-         </ul>
+   
+   {% set display_name = '' %}
+   {% set display_identifier = '' %}
+   {% set display_type = '' %}
+   {% set display_language = '' %}
+   {% if creator.creator_organization_id %}
+      {% set organization = h.dge_get_organization(creator.creator_organization_id) %}
+      {% set display_name = organization.title or '' %}
+      {% set extras = organization.extras or [] %}
+      {% set display_identifier = (extras | selectattr('key', 'equalto', 'C_ID_UD_ORGANICA') | map(attribute='value') | list | first) or '' %}
+    {% else %}
+      {% if creator.creator_name_translated %}
+        {% set language, value = h.dge_dataset_field_value(creator.creator_name_translated) %}
+        {% set display_language = language %}
+        {% set display_name = value %}
       {% endif %}
+      {% set display_identifier = creator.creator_identifier or '' %}
+      {% set display_type = creator.creator_type or '' %}
+    {% endif %}
+
+   <div class="contact_point container-cols container-cols-3 bt-nth2">
+   {% if (display_name) %}
+      <ul>
+         <li>
+            {{ h.scheming_language_text(subfields[creator_name_translated].label) }}
+         </li>
+         {% if (display_language) %}
+            <li><span lang='{{display_language}}' xml:lang='{{display_language}}'>{{ h.render_markdown(display_name) }}</span></li>
+         {% elif display_name %}
+            <li>{{ h.render_markdown(display_name) }}</li>
+         {% endif %}
+      </ul>
    {% endif %}
-   {% if creator.creator_identifier %}
+   {% if display_identifier %}
       <ul>
          <li>
             {{ h.scheming_language_text(subfields[creator_identifier].label) }}
          </li>
          <li>
-            {{ creator.creator_identifier }}
+            {{ display_identifier }}
           </li>
       </ul>
    {% endif %}
-   {% if creator.creator_type %}
+   {% if display_type %}
       <ul>
          <li>
             {{ h.scheming_language_text(subfields[creator_type].label) }}
          </li>
          <li>
-            <a href="{{ creator.creator_type }}" target="_blank">{{ creator.creator_type }}</a>
+            <a href="{{ display_type }}" target="_blank">{{ display_type }}</a>
          </li>
       </ul>
    {% endif %}

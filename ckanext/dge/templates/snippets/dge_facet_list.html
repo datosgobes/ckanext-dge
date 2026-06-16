@@ -78,7 +78,7 @@ search_facets
               <input type="text" class="filter-input" placeholder="{{ ns.placeholder }}">
               {%- if lang -%}</span>{%- endif -%}
             {% else %}
-              <input type="text" class="filter-input" placeholder="Seleccionar...">
+              <input type="text" class="filter-input" placeholder="{{ _('Select...') }}">
             {% endif %}
             <span class="custom_select-arrow">
               <img src="{{ h.url_for_static('/images/blue-arrow.svg') }}" alt="Blue arrow icon">

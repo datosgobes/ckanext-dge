@@ -1,0 +1,28 @@
+{% ckan_extends %}
+
+{% block subtitle %}{{ _("Confirm Delete") }}{% endblock %}
+
+{% block maintag %}<div class="row" role="main">{% endblock %}
+
+{% block main_content %}
+  <section class="module col-md-6 col-md-offset-3">
+    <div class="module-content">
+      {% block form %}
+        {% set has_dataservices_by_resource = h.dge_has_dataservices_by_resource(resource_dict.id) %}
+        {% if has_dataservices_by_resource %}
+          {{ _('The distribution cannot be deleted, it is currently linked to a data service in the portal.') }}
+        {% else %}
+          <p>{{ _('Are you sure you want to delete resource - {name}?').format(name=h.resource_display_name(resource_dict)) }}</p>
+        {% endif %}
+        <p class="form-actions">
+          <form id='confirm-resource-delete-form' action="{% url_for 'package.resource_delete', resource_id=resource_dict.id, id=pkg_id %}" method="post">
+            <button class="btn btn-danger" type="submit" name="cancel" >{{ _('Cancel') }}</button>
+            {% if not has_dataservices_by_resource %}
+              <button class="btn btn-primary btn--secondary" type="submit" name="delete" >{{ _('Confirm Delete') }}</button>
+            {% endif %}
+          </form>
+        </p>
+      {% endblock %}
+    </div>
+  </section>
+{% endblock %}

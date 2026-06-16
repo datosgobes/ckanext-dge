@@ -314,6 +314,12 @@
 .responsive-md-show{
     display: none !important;
 }
+// Background colors
+.container-style-gray {
+    background-color: var(--light-gray);
+}
+
+
 // Small devices (landscape phones, less than 768px)
 @media screen and (max-width: 48rem) {
     .responsive-md{

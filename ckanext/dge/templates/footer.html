@@ -96,7 +96,7 @@
     <div class="footer-info">
         <div class="footer-info__container">
             <div class="region region-footer-left">
-                <nav role="navigation" aria-labelledby="block-dge-theme-piedepagina-menu"
+                <nav role="navigation" aria-labelledby="block-dge-theme-piedepagina"
                     id="block-dge-theme-piedepagina" class="block block-menu navigation menu--footer">
 
                     <ul class="menu">
@@ -143,6 +143,12 @@
                                         href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.accesibility'] }}">{{
                                         _('Accessibility') }}</a></li>
                                 {% endif %}
+
+                                {% if drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] %}
+                                <li class="menu-item"><a
+                                        href="{{ drupal_menu_endpoints['ckanext.dge.drupal_menu.cookies_policy'] }}">{{
+                                        _('Cookies policy') }}</a></li>
+                                {% endif %}
                             </ul>
 
                         </li>
@@ -153,9 +159,9 @@
                 <div class="certificaciones field__items">
                     <div class="field__item">
                         <div class="paragraph paragraph--type--imagen-enlace paragraph--view-mode--default">
-                            <a href="{{ h.url_for_static('/sites/default/files/2025-03/Certificado_ENS.pdf') }} "target="_blank" rel="noopener noreferrer">
+                            <a href="{{ config.get('ckanext.dge.certified.url.ENS') }} "target="_blank" rel="noopener noreferrer">
 
-                                <img  height="40" width="40" src="{{ h.url_for_static('/sites/default/files/2025-03/logo_ENS.png') }}"
+                                <img  height="40" width="40" src="{{ h.url_for_static(config.get('ckanext.dge.certified.image.ENS')) }}"
                                     alt="{{ _('Certificado de conformidad con el Esquema Nacional de Seguridad') }}"
                                     title="{{ _('Certificado de conformidad con el Esquema Nacional de Seguridad') }}">
                             </a>                   
@@ -165,7 +171,7 @@
                         <div class="paragraph paragraph--type--imagen-enlace paragraph--view-mode--default">
                             <a href="{{ h.url_for_static('/es/iqnet') }} "target="_blank" rel="noopener noreferrer">
 
-                                <img height="40" width="40" src="{{ h.url_for_static('/sites/default/files/2025-03/logo_IQnet.jpg') }}"
+                                <img height="40" width="40" src="{{ h.url_for_static(config.get('ckanext.dge.certified.image.IQNet')) }}"
                                     alt="{{ _('Certificado IQNet') }}"
                                     title="{{ _('Certificado IQNet') }}">
                             </a>
@@ -173,9 +179,9 @@
                     </div>
                     <div class="field__item">
                         <div class="paragraph paragraph--type--imagen-enlace paragraph--view-mode--default">
-                            <a href="{{ h.url_for_static('/sites/default/files/2025-03/Certificado_ISO_9001.pdf') }} "target="_blank" rel="noopener noreferrer">
+                            <a href="{{ config.get('ckanext.dge.certified.url.9001') }} "target="_blank" rel="noopener noreferrer">
 
-                                <img height="40" width="40" src="{{ h.url_for_static('/sites/default/files/2025-03/9001INF.jpg') }}"
+                                <img height="40" width="40" src="{{ h.url_for_static(config.get('ckanext.dge.certified.image.9001')) }}"
                                     alt="{{ _('Certificado de calidad ISO-9001:2015') }}"
                                     title="{{ _('Certificado de calidad ISO-9001:2015') }}">
                             </a>
@@ -183,11 +189,21 @@
                     </div>
                     <div class="field__item">
                         <div class="paragraph paragraph--type--imagen-enlace paragraph--view-mode--default">
-                            <a href="{{ h.url_for_static('/sites/default/files/2025-03/Certificado_ISO_27001.pdf') }} "target="_blank" rel="noopener noreferrer">
+                            <a href="{{ config.get('ckanext.dge.certified.url.27001') }} "target="_blank" rel="noopener noreferrer">
 
-                                <img  height="40" width="40" src="{{ h.url_for_static('/sites/default/files/2025-03/Segur_Info_27001_INF.jpg') }}"
+                                <img  height="40" width="40" src="{{  h.url_for_static(config.get('ckanext.dge.certified.image.27001')) }}"
                                     alt="{{ _('Certificado de calidad UNE-ISO/IEC 27001:2014') }}"
                                     title="{{ _('Certificado de calidad UNE-ISO/IEC 27001:2014') }}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="field__item">
+                        <div class="paragraph paragraph--type--imagen-enlace paragraph--view-mode--default">
+                            <a href="{{ config.get('ckanext.dge.certified.url.selloiaresponsable') }} "target="_blank" rel="noopener noreferrer">
+
+                                <img  height="40" width="40" src="{{ h.url_for_static(config.get('ckanext.dge.certified.image.selloiaresponsable')) }}"
+                                    alt="{{ _('Compromiso con la IA responsable') }}"
+                                    title="{{ _('Compromiso con la IA responsable') }}">
                             </a>
                         </div>
                     </div>
@@ -346,6 +362,14 @@
         </div>
 
     </div>
+  
+    {% block footer_banner_cookies %}
+        {% set current_lang = request.environ.CKAN_LANG %}
+        {% set drupal_menu_endpoints = h.dge_get_endpoints_menu([], current_lang, False, True) %}
+
+        {{ h.snippet('snippets/dge_banner_cookies.html', drupal_menu_endpoints=drupal_menu_endpoints) }}
+    {% endblock %} 
+    
 </footer>
 
 {% endblock %}

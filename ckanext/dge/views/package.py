@@ -18,7 +18,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from flask import Blueprint, redirect, request
-from ckan.views.dataset import CreateView, DeleteView, EditView, resources, search
+from ckan.views.dataset import CreateView, DeleteView, EditView, resources, search,  _get_pkg_template
 from ckan.views.dataset import read as readDataset
 import ckan.logic as logic
 from ckan.common import _, request, c
@@ -34,6 +34,7 @@ from ckan.lib.plugins import lookup_package_plugin
 from ckan.views import LazyView
 import ckan.plugins.toolkit as tk
 from ckanext.dge.views.util import dge_download_csv
+import ckan.lib.navl.dictization_functions as dict_fns
 
 log = logging.getLogger(__name__)
 
@@ -192,9 +193,13 @@ def resource_delete(id, resource_id, package_type):
     resource_dict = None
     try:
         if request.method == 'POST':
+            if u'cancel' in request.form:
+                return h.redirect_to('package.resource_edit', resource_id=resource_id, id=id)
+            
             get_action('resource_delete')(context, {'id': resource_id})
             h.flash_notice(_('Resource has been deleted.'))
-            return h.redirect_to('package.dataset_read', id=id)
+            return h.redirect_to('package.dataset_resources', package_type=package_type, id=id)
+            
         c.resource_dict = resource_dict = get_action('resource_show')(
             context, {'id': resource_id})
         c.pkg_id = pkg_id = id
@@ -274,16 +279,243 @@ package.add_url_rule('/search', view_func=search)
 package.add_url_rule('/read/<id>/<revision>', view_func=read_ajax)
 package.add_url_rule('/edit/<id>/<revision>', view_func=read_ajax)
 
+'''
+   Prepare and Display Resource Form
+'''
+def resource_new(id, package_type='dataset', resource_id=None, data=None, errors=None, error_summary=None):
+
+    context = {'model': model, 'session': model.Session,'user': c.user or c.author,'auth_user_obj': c.userobj}
+    errors = errors or {}
+    error_summary = error_summary or {}
+    save_action = request.form.get(u'save')
+
+    if save_action: 
+        data = clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(request.form))))
+        data.update(clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(request.files)))))
+        del data[u'save']
+        resource_id = data.pop(u'id')
+        data[u'package_id'] = id
+        pkg_dict = get_action(u'package_show')(context, {u'id': id})
+        
+        if 'resources' not in pkg_dict:pkg_dict['resources'] = []
+
+        pkg_dict = get_action(u'package_show')(context, {u'id': id})
+        
+        try:
+            if resource_id:
+                data[u'id'] = resource_id
+                get_action(u'resource_update')(context, data)
+            else:
+                get_action(u'resource_create')(context, data)
+            # After Saving action performed, redirect accordingly
+            if save_action == u'go-metadata':
+                # XXX race condition if another user edits/deletes
+                data_dict = get_action(u'package_show')(context, {u'id': id})
+                get_action(u'package_update')(dict(context, allow_state_change=True),dict(data_dict, state=u'active'))
+                return h.redirect_to(u'{}.read'.format(package_type), id=id)
+            elif save_action == u'go-dataset':
+                return h.redirect_to(u'{}.edit'.format(package_type), id=id)
+            elif save_action == u'go-dataset-complete':
+                return h.redirect_to(u'{}.read'.format(package_type), id=id)
+            else:
+                return h.redirect_to(u'{}_resource.new'.format(package_type),id=id)
+           
+        except ValidationError as e:
+            errors = e.error_dict
+            error_summary = e.error_summary
+            if len(errors) == 0:
+                errors['error_data'] = " Error Saving Resource"
+                error_summary['error_data'] = "Error Saving Resource"
+
+            if data.get(u'url_type') == u'upload' and data.get(u'url'):
+                data[u'url'] = u''
+                data[u'url_type'] = u''
+                data[u'previous_upload'] = True
+
+        except NotAuthorized:
+             raise Exception(u'Unauthorized to create a resource')
+        except NotFound:
+                raise Exception( _(u'The dataset {id} could not be found.').format(id=id))
+    else: 
+        if resource_id:
+            data = get_action(u'resource_show')(context, { u'id': resource_id })
+
+    try:
+        pkg_dict = get_action(u'package_show')(context, {u'id': id})
+    except NotFound:
+        return base.abort(404, _(u'The dataset {id} could not be found.').format(id=id))
+    try:
+        check_access(u'resource_create', context, {u"package_id": pkg_dict["id"]})
+    except NotAuthorized:
+            return base.abort( 403, _(u'Unauthorized to create a resource for this package'))
+
+    # Retrieve the others Resouces of the dataset package, for print in the new resource form page
+    c.package = toolkit.get_action('package_show')(context, {u'id': id})
+    resources = []
+    for resource in c.package.get('resources', resources):
+        resources.append(resource)
+
+    extra_vars = {
+            u'data': data,
+            u'errors': errors,
+            u'error_summary': error_summary,
+            u'action': u'new',
+            u'resource_form_snippet': _get_pkg_template(
+                u'resource_form', package_type
+            ),
+            u'dataset_type': package_type,
+            u'pkg_name': id,
+            u'pkg_dict': pkg_dict,
+            u'other_resources': resources
+        }
+    
+    template = u'package/new_resource_not_draft.html'
+    if pkg_dict[u'state'].startswith(u'draft'):
+            extra_vars[u'stage'] = ['complete', u'active']
+            template = u'package/new_resource.html'
+
+    return base.render(template, extra_vars)
+
+
+'''
+   Prepare and Display edit Resource Form
+'''
+def resource_edit(package_type, id, resource_id, data=None, errors=None, error_summary=None):
+
+    context = { u'model': model, u'session': model.Session,  u'api_version': 3, u'for_edit': True, u'user':c.user, u'auth_user_obj': c.userobj }
+    errors = errors or {}
+    error_summary = error_summary or {}
+    save_action = request.form.get(u'save')
+
+    if save_action: 
+        data = clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(request.form))))
+        data.update(clean_dict(dict_fns.unflatten(tuplize_dict(parse_params(request.files)))))
+        del data[u'save']
+        resource_id = data.pop(u'id')
+        data[u'package_id'] = id
+        try:
+            if resource_id:
+                data[u'id'] = resource_id
+                get_action(u'resource_update')(context, data)
+            else:
+                get_action(u'resource_create')(context, data)
+
+            # After Saving action performed, redirect accordingly
+            if save_action == u'go-metadata':
+                # XXX race condition if another user edits/deletes
+                data_dict = get_action(u'package_show')(context, {u'id': id})
+                get_action(u'package_update')(dict(context, allow_state_change=True),dict(data_dict, state=u'active'))
+                return h.redirect_to(u'{}.read'.format(package_type), id=id)
+            else:
+                return h.redirect_to(u'{}_resource.new'.format(package_type),id=id)
+                
+        except ValidationError as e:
+            errors = e.error_dict
+            error_summary = e.error_summary
+            if len(errors) == 0:
+                errors['error_data'] = " Error Saving Resource"
+                error_summary['error_data'] = "Error Saving Resource"
+            if data.get(u'url_type') == u'upload' and data.get(u'url'):
+                    data[u'url'] = u''
+                    data[u'url_type'] = u''
+                    data[u'previous_upload'] = True
+        except NotAuthorized:
+             raise Exception(u'Unauthorized to create a resource')
+        except NotFound:
+                raise Exception( _(u'The dataset {id} could not be found.').format(id=id))
+    else: 
+        if resource_id:
+            data = get_action(u'resource_show')(context, { u'id': resource_id })
+    try:
+        check_access(u'package_update', context, {u'id': id})
+    except NotAuthorized:
+        return base.abort(403, _(u'User %r not authorized to edit %s') % (c.user, id))
+    pkg_dict = get_action(u'package_show')(context, {u'id': id})
+
+    try:
+        resource_dict = get_action(u'resource_show')(context, { u'id': resource_id })
+    except NotFound:
+        return base.abort(404, _(u'Resource not found'))
+
+    if pkg_dict[u'state'].startswith(u'draft'):
+        return h.redirect_to(u'{}_resource.new'.format(package_type),id=id)
+
+    resource = resource_dict
+    if package_type == 'dataset':
+            form_action = h.url_for(u'package.resource_edit',resource_id=resource_id, id=id)
+    else: form_action = h.url_for(u'{}_resource.edit'.format(package_type),resource_id=resource_id, id=id)
+    
+    if not data:
+        data = resource_dict
+    package_type = pkg_dict[u'type'] or package_type
+
+    # Retrieve the others Resouces of the dataset, for print in the edit resource form page
+    c.package =  toolkit.get_action('package_show')(context, {u'id': id})
+    resources = []
+    for resource in c.package.get('resources', resources):
+        resources.append(resource)
+
+    errors = errors or {}
+    error_summary = error_summary or {}
+    extra_vars = {
+            u'data': data,
+            u'errors': errors,
+            u'error_summary': error_summary,
+            u'action': u'edit',
+            u'resource_form_snippet': _get_pkg_template(
+                u'resource_form', package_type
+            ),
+            u'dataset_type': package_type,
+            u'resource': resource,
+            u'pkg_dict': pkg_dict,
+            u'form_action': form_action,
+            u'other_resources': resources
+        }
+    return base.render(u'package/resource_edit.html', extra_vars)
+
+def package_delete(package_type, id):
+    context = {'model': model, 'session': model.Session ,'user': c.user ,'auth_user_obj': c.userobj}
+
+    if request.method == 'POST':
+        if u'cancel' in request.form:
+            return h.redirect_to(u'package.dataset_edit'.format(package_type), id=id)
+        try:
+            get_action(u'package_delete')(context, {u'id': id})
+        except NotFound:
+            return base.abort(404, _(u'Dataset not found'))
+        except NotAuthorized:
+            return base.abort(
+                403,
+                _(u'Unauthorized to delete package %s') % u''
+            )
+
+        h.flash_notice(_(u'Dataset has been deleted.'))
+        return h.redirect_to(package_type + u'.search')
+
+    try:
+        pkg_dict = get_action(u'package_show')(context, {u'id': id})
+    except NotFound:
+        return base.abort(404, _(u'Dataset not found'))
+    except NotAuthorized:
+        return base.abort( 403,  _(u'Unauthorized to delete package %s') % u'')
+
+    dataset_type = pkg_dict[u'type'] or package_type
+    pkg_name = pkg_dict[u'name']
+    pkg_id = id
+
+    return base.render( u'package/confirm_delete.html', { u'pkg_dict': pkg_dict, u'dataset_type': dataset_type, u'pkg_name': pkg_name, u'pkg_id': pkg_id})
+
+
 package_add_resource_view = LazyView(u'ckan.views.resource.CreateView', str(u'new_resource'))
 package_add_resource_view = dge_has_edit_view(package_add_resource_view)
-package.add_url_rule('/new_resource/<id>', 'new_resource', view_func=package_add_resource_view, methods=['GET', 'POST'])
+package.add_url_rule('/new_resource/<id>', 'new_resource', view_func=resource_new, methods=['GET', 'POST'])
+package.add_url_rule('/<id>/resource_edit_draft/<resource_id>', 'resource_edit_draft', view_func=resource_new, methods=['GET', 'POST'])
 
 package.add_url_rule('/read_ajax/<id>', 'read_ajax', view_func=read_ajax)
 
 
-package_delete_view = DeleteView.as_view(str(u'delete'))
-package_delete_view = dge_has_edit_view(package_delete_view)
-package.add_url_rule('/delete/<id>', 'delete', view_func=package_delete_view)
+
+package.add_url_rule('/delete/<id>', 'delete', view_func=dge_has_edit_view(package_delete), methods=['GET', 'POST'])
 
 package_edit_view = EditView.as_view(str(u'edit'))
 package_edit_view = dge_has_edit_view(package_edit_view)
@@ -300,7 +532,7 @@ package.add_url_rule('/<id>/resource_delete/<resource_id>', 'resource_delete', v
 
 package_resource_edit_view = LazyView(u'ckan.views.resource.EditView', str(u'edit_resource') )
 package_resource_edit_view = dge_has_edit_view(package_resource_edit_view)
-package.add_url_rule('/<id>/resource_edit/<resource_id>', 'resource_edit', view_func=package_resource_edit_view)
+package.add_url_rule('/<id>/resource_edit/<resource_id>', 'resource_edit', view_func=resource_edit, methods=['GET', 'POST'])
 
 package.add_url_rule('/<id>/resource/<resource_id>/download', view_func=resource_download)
 package.add_url_rule('/<id>/resource/<resource_id>/download/<filename>', view_func=resource_download)

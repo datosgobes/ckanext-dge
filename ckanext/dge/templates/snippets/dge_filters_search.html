@@ -3,7 +3,7 @@
   <form {% if form_id %}id="{{ form_id }}" {% endif %}class="module-content search-form" method="get" data-module="select-switch">
     <h2>{{ _("Search") }}</h2>
     <div >
-      <button class="btn-searcher" type="submit" aria-labelledby="{{ _('Buscar') }}">
+      <button class="btn-searcher" type="submit" aria-label="{{ _('Buscar') }}" aria-labelledby="{{ _('Buscar') }}">
       </button>
       <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}"
         id="field-main-search" type="text" class="form-control" name="q" value="{{ query }}" autocomplete="off"

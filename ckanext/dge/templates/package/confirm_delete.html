@@ -1,0 +1,40 @@
+{% ckan_extends %}
+
+{% block subtitle %}{{ _("Confirm Delete") }}{% endblock %}
+
+{% block maintag %}<div class="row" role="main">{% endblock %}
+
+{% block main_content %}
+  <section class="module col-md-6 col-md-offset-3">
+    <div class="module-content">
+      {% block form %}
+        {% set has_served_datasets = false %}
+        {% set is_served_by_dataservice = false %}
+
+        {% if dataset_type == 'dataservice' %}
+          {% set has_served_datasets = h.dge_has_datasets_served_by_dataservice(pkg_id, pkg_name) %}
+        {% else %}
+        {% set is_served_by_dataservice = pkg_dict.served_by_dataservice %}
+
+        {% endif %}
+        {% set dataset = h.dataset_display_name(pkg_dict) %}
+        {% if has_served_datasets %}
+          {{ _('Cannot delete the dataservice because it is currently serving datasets on the portal.') }}
+        {% elif is_served_by_dataservice %}
+          {{ _('Cannot delete the dataset because it is currently linked to a data service in the portal.') }}
+
+        {% else %}
+          {{ _('Are you sure you want to delete ' ~ dataset_type ~ ' - {name}?').format(name=dataset) }}
+        {% endif %}
+        <p class="form-actions">
+          <form id='confirm-dataset-delete-form' action="{% url_for 'package.delete', id=pkg_dict.name %}" method="post">
+            <button class="btn btn-danger" type="submit" name="cancel" >{{ _('Cancel') }}</button>
+            {% if not has_served_datasets and not is_served_by_dataservice %}
+              <button class="btn btn-primary btn--secondary" type="submit" name="delete" >{{ _('Confirm Delete') }}</button>
+            {% endif %}
+          </form>
+        </p>
+      {% endblock %}
+    </div>
+  </section>
+{% endblock %}

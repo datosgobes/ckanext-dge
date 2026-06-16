@@ -53,17 +53,42 @@
               </div>
             </div> 
             {% if not user_logged %}
-              <a class="user-login" href="#" title="{{ _('Publisher') }}">{{ _('Publisher') }}</a>
-              <div class="submenu-children-login">
-                <a href="/user/login">{{ _('Log in') }}</a>
+              <div class="user-icon flex-center">
+                <div>
+                  <span class="user-login" title="{{ _('Publisher') }}">
+                  </span>
+                </div>
+                <button class="user-login-name hidden" href="#" title="{{ _('Publisher') }}">
+                  {{ _('Publisher') }}
+                </button>
+
+                <div class="submenu-children-login">
+                  <a href="/user/login">{{ _('Log in') }}</a>
+                </div>
               </div>
             {% endif %}
 
             {% if user_logged %}
             <div id="block-dge-basic-dge-basic-user-info-block" class="block block-dge-basic contextual-links-region">
               <div class="block__content content">
-                <a href="#">
-                  <span class="user-name-info">{{ c.userobj.fullname or c.userobj.name }}</span>
+                <a href="#" title="{{ _('Publisher') }}">
+                  <span class="user-name-info-name big">
+                    <span class="user-login-bg">
+                      <span class="user-name-info"><img src="/images/user-profile.svg" alt=""></span>
+                    </span>
+                    <span class="username">
+                      {% set username = c.userobj.fullname or c.userobj.name %}
+                      {% if username and username|length > 10 %}
+                      {{username[:10] ~ '...'}}
+                      {% else %}
+                        {{username}}
+                      {% endif %}
+                    </span>
+
+                    <span class="b-l mb-0 line"></span>
+                    <span class="menu-arrow-user"><img src="/images/white-arrow.svg" alt=""></span>
+                  </span>
+                  
                 </a>
               </div>
               <div class="submenu-children">
@@ -277,11 +302,33 @@
                     </div>
                     <div class="block-login-mobile">
                       {% if not user_logged %}
-                        <a class="btn btn-primary" href="/user/login">{{ _('Log in') }}</a>
+                        <a class="btn btn-login" href="/user/login">{{ _('Log in') }}</a>
                       {% endif %}
                       {% if user_logged %}
                         <div id="block-dge-basic-dge-basic-user-info-block" class="block-login-mobile-autentified">
                             <ul>
+                              <li class="user-user-info">
+                                
+                                
+                                <span class="user-name-info-name small">
+                                  <span class="user-login-bg">
+                                    <span class="user-name-info">
+                                      <img src="/images/user-profile.svg" alt="">
+                                    </span>
+                                  </span>
+                                  <span class="username">
+                                    {% set username = c.userobj.fullname or c.userobj.name %}
+                                    {% if username and username|length > 10 %}
+                                      {{username[:10] ~ '...'}}
+                                    {% else %}
+                                      {{username}}
+                                    {% endif %}
+                                  </span>
+                                </span>
+                              
+
+                              </li>
+                              <div class="menu-mobile-separator"></div>
                               {% if c.userobj.sysadmin %}
                               <li>
                                 <a href="/organization">Organizaciones</a>
@@ -379,7 +426,7 @@
                         </div>
                       
                         <div class="form-actions form-wrapper" id="search-actions">
-                          <input type="submit" id="search-submit--2" title="{{ _('Search') }}" name="op" value="" class="form-submit">
+                          <input type="submit" id="search-submit--2" aria-label="{{ _('Search') }}" name="op" value="" class="form-submit">
                         </div>
                         <input type="hidden" name="form_id" value="search_block_form">
                         <input type="hidden" name="url" value=/>

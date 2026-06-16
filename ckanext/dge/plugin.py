@@ -30,7 +30,6 @@ from ckan.plugins.toolkit import config
 from ckanext.dge import helpers
 from ckanext.dge.helpers import TRANSLATED_UNITS as TRANSLATED_UNITS
 from ckanext.dge.helpers import DEFAULT_UNIT as DEFAULT_UNIT
-from ckanext.dge.helpers import FACET_OPERATOR_PARAM_NAME as FACET_OPERATOR_PARAM_NAME
 from ckanext.dge.helpers import FACET_SORT_PARAM_NAME as FACET_SORT_PARAM_NAME
 import ckanext.dge.constants as dc
 from collections import OrderedDict
@@ -248,6 +247,7 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
             'dge_api_swagger_url': helpers.dge_api_swagger_url,
             'dge_sparql_yasgui_endpoint': helpers.dge_sparql_yasgui_endpoint,
             'dge_resource_format_label': helpers.dge_resource_format_label,
+            'dge_resource_format_value': helpers.dge_resource_format_value,
             'dge_exported_catalog_files': helpers.dge_exported_catalog_files,
             'dge_get_endpoints_menu': helpers.dge_get_endpoints_menu,
             'dge_sort_alphabetically_resources': helpers.dge_sort_alphabetically_resources,
@@ -257,7 +257,6 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
             'dge_harvest_frequencies': helpers.dge_harvest_frequencies,
             'dge_get_facet_items_dict': helpers.dge_get_facet_items_dict,
             'dge_get_show_sort_facet': helpers.dge_get_show_sort_facet,
-            'dge_default_facet_search_operator': helpers.dge_default_facet_search_operator,
             'dge_default_facet_sort_by_facet': helpers.dge_default_facet_sort_by_facet,
             'dge_add_additional_facet_fields': helpers.dge_add_additional_facet_fields,
             'dge_tag_link': helpers.dge_tag_link,
@@ -272,12 +271,15 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
             'dge_get_selected_fields': helpers.dge_get_selected_fields,
             'dge_is_frontend': helpers.dge_is_frontend,
             'dge_load_json': helpers.dge_load_json,
+            'dge_load_json_list': helpers.dge_load_json_list,
             'dge_dump_json': helpers.dge_dump_json,
             'dge_field_display_subfields': helpers.dge_field_display_subfields,
             'dge_get_telephone_from_iri': helpers.dge_get_telephone_from_iri,
             'dge_get_email_from_iri': helpers.dge_get_email_from_iri,
             'dge_is_dcatapes': helpers.dge_is_dcatapes,
             'dge_is_hvd': helpers.dge_is_hvd,
+            'dge_get_all_distribution_format_labels': helpers.dge_get_all_distribution_format_labels,
+            'dge_get_distribution_format_vocabulary_uri': helpers.dge_get_distribution_format_vocabulary_uri,
             'dge_get_format_from_vocabulary_uri': helpers.dge_get_format_from_vocabulary_uri,
             'dge_get_include_fields': helpers.dge_get_include_fields,
             'dge_is_datosgobes_spatial_uri': helpers.dge_is_datosgobes_spatial_uri,
@@ -286,6 +288,8 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
             'dge_get_vocabularies_uri_label': helpers.dge_get_vocabularies_uri_label,
             'dge_get_served_by_dataservice': helpers.dge_get_served_by_dataservice,
             'dge_get_datasets_served_by_dataservice': helpers.dge_get_datasets_served_by_dataservice,
+            'dge_has_datasets_served_by_dataservice': helpers.dge_has_datasets_served_by_dataservice,
+            'dge_has_dataservices_by_resource': helpers.dge_has_dataservices_by_resource,
             'dge_count_served_by_dataservice': helpers.dge_count_served_by_dataservice,
             'dge_has_resource_identification_info': helpers.dge_has_resource_identification_info,
             'dge_has_resource_interoperability_info': helpers.dge_has_resource_interoperability_info,
@@ -304,7 +308,9 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
             'dge_url_for_broken_links': helpers.dge_url_for_broken_links,
             'dge_get_display_byte_size': helpers.dge_get_display_byte_size,
             'dge_display_dataservice_data': helpers.dge_display_dataservice_data,
-            'get_dir3': helpers.get_dir3
+            'get_dir3': helpers.get_dir3,
+            'dge_get_distribution_available_dataservices': helpers.dge_get_distribution_available_dataservices,
+            'dge_markdown_extract': helpers.dge_markdown_extract
         }
 
 
@@ -434,62 +440,6 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         return frequency_return
     
-    def _facet_search_operator(self, fq, facet_field):
-        new_fq = fq
-        new_fq_list = []
-        new_facet_field = facet_field
-
-        try:
-            default_facet_operator = helpers.dge_default_facet_search_operator()
-            facet_operator = default_facet_operator
-            try:
-                if request is not None and request.params and list(request.params.items()):
-                    if (FACET_OPERATOR_PARAM_NAME, 'AND') in list(request.params.items()):
-                        facet_operator = 'AND'
-                    elif (FACET_OPERATOR_PARAM_NAME, 'OR') in list(request.params.items()):
-                        facet_operator = 'OR'
-                    else:
-                        facet_operator = default_facet_operator
-            except Exception as e:
-                log.warning("[_facet_search_operator]exception:%r: " % e)
-                facet_operator = default_facet_operator
-
-            if (facet_operator == 'OR'):
-                pattern = re.compile(r'([+]?[\w.-]+:\(.*?\)|[+]?[\w.-]+:"[^"]*"|[+]?[\w.-]+:[^\s()]+)')
-                condiciones = pattern.findall(fq)
-
-                faceted_condiciones = []
-                other_condiciones = []
-
-                for cond in condiciones:
-                    current_field = cond.lstrip('+-').split(':', 1)[0]
-                    if current_field in facet_field:
-                        faceted_condiciones.append(cond)
-                    else:
-                        other_condiciones.append(cond)
-
-                if faceted_condiciones:
-                    new_fq_list = [f"{{!tag=facets}}({' OR '.join(faceted_condiciones)})"]
-
-                    new_fq = ''
-
-                    if isinstance(facet_field, list):
-                        new_facet_field = [f'{{!ex=facets}}{field}' for field in facet_field]
-                    elif isinstance(facet_field, str):
-                        new_facet_field = [f'{{!ex=facets}}{facet_field}']
-                if other_condiciones:
-                    new_fq = " ".join(other_condiciones)
-
-        except UnicodeEncodeError as e:
-            log.warning('UnicodeDecodeError %s  %s' % (e.errno, e.strerror))
-        except:
-            log.warning("Unexpected error:%r: " % sys.exc_info()[0])
-            new_fq = fq
-            new_fq_list = []
-            new_facet_field = facet_field
-
-        return new_fq, new_fq_list, new_facet_field
-
     def before_search(self, search_params):
         if not helpers.dge_is_frontend():
             return search_params
@@ -498,15 +448,6 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
         if not order_by:
             search_params['sort'] = 'score desc, metadata_created desc'
 
-        new_fq, new_fq_list, new_facet_fields = self._facet_search_operator(
-            (search_params.get('fq', '')), (search_params.get('facet.field', '')))
-        search_params.update({'fq': new_fq})
-        if 'fq_list' in search_params and search_params['fq_list']:
-            search_params['fq_list'].extend(new_fq_list)
-        else:
-            search_params['fq_list'] = new_fq_list
-        search_params.update({'facet.field': new_facet_fields})
-   
         fq = search_params.get('fq', '')
 
         if "frequency" in fq:
@@ -600,11 +541,16 @@ class DgePlugin(plugins.SingletonPlugin, DefaultTranslation):
         return search_results
     
     def before_view(self, pkg_dict):
-        if 'type' in pkg_dict and pkg_dict['type'] == 'dataservice':
-            pkg_dict['dataservice_pkgs'] = helpers.dge_get_datasets_served_by_dataservice(pkg_dict['id'])
         if 'type' in pkg_dict and pkg_dict['type'] == 'harvest':
             self._check_custom_authorization_for_harvester(pkg_dict)
         return pkg_dict
+
+    def after_show(self, context, pkg_dict):
+        if pkg_dict.get('type') == 'dataservice':
+            pkg_dict['dataservice_pkgs'] = helpers.dge_get_datasets_served_by_dataservice(
+                pkg_dict.get('id'),
+                pkg_dict.get('name')
+            )
 
     def _check_custom_authorization_for_harvester(self, pkg_dict):
         context = {'model': model, 'session': model.Session,

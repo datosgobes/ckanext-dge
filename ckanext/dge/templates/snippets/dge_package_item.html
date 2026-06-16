@@ -17,7 +17,7 @@ Example:
 {% set truncate_title = truncate_title or 80 %}
 {% set title_language, title = h.dge_dataset_field_value(package.title_translated) %}
 {% set desc_language, desc = h.dge_dataset_field_value(package.description) %}
-{% set desc = h.markdown_extract(desc, extract_length=truncate) %}
+{% set desc = h.dge_markdown_extract(desc, extract_length=truncate) %}
 {% set named_route = package.type ~ '.read'%}
 
 {% block package_item %}
