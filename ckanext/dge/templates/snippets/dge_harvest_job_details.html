@@ -23,7 +23,7 @@ Example:
       {% else %}
         0
       {% endif %}
-      {{ _('errors/warnings') }}
+      {{ _('errors') }}
     </span>
     {% for action in ['added', 'updated', 'deleted'] %}
       <span class="label" data-diff="{{ action }}">
@@ -71,5 +71,18 @@ Example:
   <tr>
     <th>{{ _('Status') }}</th>
     <td>{{ _(job.status) }}</td>
+  </tr>
+  <tr>
+    <th>{{ _('URL RDF') }}</th>
+    <td class="url-rdf-cell">
+      {% set rdf_url = h.get_job_extra(job.id, 'source_url_at_run') %}
+      {% if rdf_url %}
+        <a href="{{ rdf_url }}" target="_blank" title="{{ rdf_url }}" class="url-rdf-link">
+          {{ rdf_url }}
+        </a>
+      {% else %}
+        <span class="empty">{{ _('Not available') }}</span>
+      {% endif %}
+    </td>
   </tr>
 </table>

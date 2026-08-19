@@ -1,0 +1,213 @@
+/*
+* Copyright (C) 2026 Entidad Pública Empresarial Red.es
+*
+* This file is part of "dge (datos.gob.es)".
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
+
+//Variables
+
+:root{
+  --federacion-columnSize-col1:50px;
+  --federacion-columnSize-col2:16%;
+  --federacion-columnSize-col3:auto;
+  --federacion-columnSize-col4:10%;
+  --federacion-columnSize-col5:12%;
+}
+
+
+body:has(.federation-report-block){
+    // Celda de URL RDF: saltos de línea para URLs largas
+  .url-rdf-cell {
+    max-width: 500px;           // ancho máximo de la celda
+    word-break: break-all;      // romper en cualquier carácter si es necesario
+    white-space: normal;        // permitir saltos de línea
+  }
+
+  // El enlace se comporta como texto normal
+  .url-rdf-link {
+    display: inline;
+    word-break: break-all;
+  }
+
+
+  //Report Block
+  .federation-report-header-actions{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: nowrap;
+    @media(max-width:479px){
+      width:100%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .btn{
+      margin: 0 0 0 0;
+    }
+  }
+
+  table.federation-report-table tbody tr:nth-of-type(even) {
+    background-color: unset;
+  }
+  table.federation-report-table tbody tr:nth-of-type(odd) {
+    background-color: unset;
+  }
+
+  .federation-grid{
+    display: grid;
+    grid-template-columns: 
+      var(--federacion-columnSize-col1)
+      var(--federacion-columnSize-col2)
+      var(--federacion-columnSize-col3)
+      var(--federacion-columnSize-col4)
+      var(--federacion-columnSize-col5);
+    gap:0;
+  }
+
+  .table-header{
+    .table-cell{
+        background-color: var(--primary-300);
+        color: var(--primary-500);
+        font-size: 1rem;
+        font-weight: 600;
+      a{
+        color: var(--primary-500);
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .table-cell{
+    padding:12px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: var(--primary-700);
+    font-size: 1rem;
+    .cell-content{
+      margin:0 0 0 0;
+      padding:0 0 0 0;
+    }
+  }
+
+  .federation-report-row{
+    &:nth-of-type(odd){
+      background-color: var(--primary-100)!important;
+    }
+
+    .toggle{
+      width:36px;
+      text-align:center;
+      vertical-align:middle;
+      .federation-report-toggle{
+        display:inline-block;
+        width:20px;
+        padding:0;
+        margin:0;
+        background:none;
+        border:none;
+        box-shadow:none;
+        color:#1f3f73;
+        line-height:1;
+        text-decoration:none;
+        vertical-align:middle;
+        overflow:hidden;
+      }
+    }
+    .message{
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space:normal;
+      word-break:break-word;
+    }
+    .see-more{
+      color: var(--primary-500);
+    }
+
+  }
+  .federation-report-detail-row{
+      //padding:0 15px 12px 15px;
+      grid-column: span 5;
+  }
+
+  .well {
+    background-color: #F5F6F9;
+  }
+  pre:not(.CodeMirror-line) {
+    background-color: white;
+  }
+
+  .pagination {
+    li {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .chip_all{
+    background-color:#eef2f7;
+    color:#1f3f73;
+    border:1px solid #d8e0ec;
+    &.active{
+      background-color:#1f3f73;
+      color:#ffffff;
+      border:1px solid #1f3f73;
+    }
+  }
+
+  .chip_error{
+    background-color:#fbe3e6;
+    color:#b42318;
+    border:1px solid #f4c7cd;
+    &.active{
+      background-color:#b42318;
+      color:#ffffff;
+      border:1px solid #b42318;
+    }
+  }
+
+  .chip_warning{   
+    background-color:#fff4cc;
+    color:#b37b00;
+    border:1px solid #f4dfa0;
+    &.active{
+      background-color:#b37b00;
+      color:#ffffff;
+      border:1px solid #b37b00;
+    }
+  }
+
+  .chip_info{
+    background-color:#f1f3f5;
+    color:#667085;
+    border:1px solid #dde2e7;
+    &.active{
+      background-color:#667085;
+      color:#ffffff;
+      border:1px solid #667085;
+    }
+  }
+
+}
