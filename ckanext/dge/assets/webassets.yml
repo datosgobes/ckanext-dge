@@ -31,6 +31,15 @@ dge-main-css:
     - css/dge-uri-text-deprecated.css
     - css/dge-userInfo.css
     - css/dge-base-cookies.css
+    - css/dge-harvest-job-details
+
+dge-harvest-job-details-css:
+  output: ckanext-dge/%(version)s-dge-harvest-job-details.css
+  contents:
+    - css/dge-harvest-job-details.css
+  extra:
+    preload:
+      - base/main
 
 dge-header:
   output: ckanext-dge/%(version)s-dge-header.css
@@ -640,6 +649,15 @@ dge-multilanguage-tags-js:
   output: ckanext-dge/%(version)s-dge-multilanguage-tags.js
   contents:
     - js/dge-multilanguage-tags.js
+  extra:
+    preload:
+      - base/main
+
+dge-rdf-config-form-js:
+  filter: rjsmin
+  output: ckanext-dge/%(version)s-dge-rdf-config-form.js
+  contents:
+    - js/dge-rdf-config-form.js
   extra:
     preload:
       - base/main

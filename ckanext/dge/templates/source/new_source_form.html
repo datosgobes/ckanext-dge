@@ -68,7 +68,21 @@
   {{ form.select('frequency', id='field-frequency', label=_('Update frequency'), options=h.dge_harvest_frequencies(), selected=data.frequency, error=errors.frequency) }}
 
   {% block extra_config %}
-  {{ form.textarea('config', id='field-config', label=_('Configuration'), value=data.config, error=errors.config) }}
+    {# Select visible para el usuario #}
+    <div class="control-group">
+      <label for="field-rdf-format" name="rdf-format" class="control-label">{{ _('Format') }}</label>
+      <div class="controls">
+        <select id="field-rdf-format" class="form-control">
+          <option value="xml" selected>XML</option>
+          <option value="ttl">TTL (Turtle)</option>
+          <option value="json-ld">JSON-LD</option>
+        </select>
+      </div>
+    </div>
+    
+    {# Campo oculto que se envía realmente - mantiene todo el JSON #}
+    <input type="hidden" id="field-config" name="config" value="{{ data.config | default('{"rdf_format":"xml"}') | e }}">
+    <br>
   {% endblock extra_config %}
 
   {# if we have a default group then this wants remembering #}

@@ -2,7 +2,7 @@
 
     {%- block meta -%}
       {{ super() }}
-      <!-- meta charset="utf-8" /-->
+      <!-- Script de implantacion para datos.gob.es (Insuit) -->
       <script async="async" type="text/javascript" src="https://datos--gob--es.insuit.net/i4tservice/insuit-app.js"></script>
       {% block meta_generator %}{% endblock%}
       {% set meta_subtitle = '' %}
@@ -95,7 +95,8 @@
       {% asset 'dge/dge-date-period-css' %}
       {% asset 'dge/dge-dataset-form-css' %}
       {% asset 'dge/dge-uri-text-deprecated-css' %}
-      {% asset 'dge/dge-base-cookies-css' %}    
+      {% asset 'dge/dge-base-cookies-css' %}   
+      {% asset 'dge/dge-harvest-job-details-css' %} 
     {% endblock -%}
 
     {%- block scripts %}
@@ -119,6 +120,7 @@
      {% asset 'dge/dge-form-resources-js' %}
      {% asset 'dge/dge-cookies-js' %}
      {% asset 'dge/dge-multilanguage-tags-js' %}
+     {% asset 'dge/dge-rdf-config-form-js' %}
     {% endblock -%}
 
     {% block bodytag %}
